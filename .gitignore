@@ -14,5 +14,19 @@ Microwave.uvopt
 Microwave_uvproj.bak
 microwave.c
 startup_TM4C123.s
-
+ExtDll.iex
+LCD.axf
+LCD.build_log.htm
+LCD.htm
+LCD.lnp
+LCD.map
+LCD.uvgui.Hassan Khaled
+LCD.uvopt
+LCD.uvproj
+LCD_Target 1.dep
+LCD_uvproj.bak
+lcd.crf
+lcd.d
+lcd.o
+.getignore
 
