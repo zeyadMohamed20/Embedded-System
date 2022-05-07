@@ -14,5 +14,9 @@ Microwave.uvopt
 Microwave_uvproj.bak
 microwave.c
 startup_TM4C123.s
+time.crf
+time.d
+time.o
+
 
 
