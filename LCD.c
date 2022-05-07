@@ -12,6 +12,7 @@ void timer(uint32_t milliSeconds)
 	NVIC_ST_CTRL_R = 5;
 }
 
+
 void delay(uint32_t milliSeconds)
 {
 	uint32_t integerSecond = milliSeconds/1000;
@@ -30,7 +31,7 @@ void delay(uint32_t milliSeconds)
 	}
 }
 	
-	
+
 	
 void lcd_cmd(char command)
 {
@@ -41,6 +42,7 @@ void lcd_cmd(char command)
 	GPIO_PORTA_DATA_R &= ~0xE0;
 }
 
+
 void lcd_data(char data)
 {
 	GPIO_PORTA_DATA_R |= 0x20;
@@ -49,6 +51,7 @@ void lcd_data(char data)
 	delay(100);
 	GPIO_PORTA_DATA_R &= ~0x80;
 }
+
 
 void lcd_init(void)
 {
@@ -96,9 +99,10 @@ void lcd_display(char *str){
 		}
 }
 
+
 void lcd_setposition(uint16_t row,uint16_t col){
+
 uint16_t position;
-	
 switch(row){	
 		case 1:
 			     delay(100);
@@ -115,9 +119,10 @@ switch(row){
 	}
 }
 
+
 int main(){
 	
-	lcd_init();
+	  lcd_init();
 	
 		lcd_display("Hassan");
 	  lcd_setposition(1,11);
@@ -131,16 +136,7 @@ int main(){
   	lcd_setposition(1,11);
 	  lcd_display("basel");
 	  
-	  /*delay(100);
-    lcd_setlocation(1,11);
-	  lcd_string("sona");
-    delay(100);
-	  lcd_secline();
-	  lcd_string("Zeyad");
-    lcd_setlocation(2,11);	
-	  lcd_string("zezo");
-	*/
-	while(1){
-	}
+	 while(1){
+	  }
 }
 
