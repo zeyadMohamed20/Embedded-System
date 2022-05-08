@@ -17,6 +17,11 @@ startup_TM4C123.s
 time.crf
 time.d
 time.o
+Microwave.axf
+Microwave.htm
+Microwave.uvgui_zeyad.bak
+Microwave_uvopt.bak
+
 
 
 
