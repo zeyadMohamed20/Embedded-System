@@ -24,7 +24,7 @@ void delay_unit_time(uint32_t counts)
 	timer_init();
 	NVIC_ST_RELOAD_R = counts - 1;
 	NVIC_ST_CTRL_R = ENABLE_TIMER;
-	while(!(NVIC_ST_CTRL_R &(1<<16)))
+	while(!(NVIC_ST_CTRL_R &(1 << 16)))
 	{
 	}
 }
@@ -32,7 +32,8 @@ void delay_unit_time(uint32_t counts)
 
 void delay(uint8_t choice,uint32_t delayTime)
 {	
-	for(uint32_t i = INITIAL_VALUE; i < delayTime; i++)
+	uint32_t i;
+	for(i = INITIAL_VALUE; i < delayTime; i++)
 	{
 		switch(choice)
 		{
