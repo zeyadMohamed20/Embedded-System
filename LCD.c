@@ -105,6 +105,7 @@ void lcd_setposition(uint16_t row,uint16_t col){
 uint16_t position;
 switch(row){	
 		case 1:
+			     lcd_cmd(0x08);
 			     delay(100);
            position = (col-1)+0x80 ;
            lcd_cmd(position);		
@@ -118,6 +119,18 @@ switch(row){
            break;
 	}
 }
+
+void lcd_shiftR(){
+	delay(100);
+	lcd_cmd(0x06);
+}
+
+
+void lcd_shiftL(){
+	delay(100);
+	lcd_cmd(0x04);
+}
+
 
 
 int main(){
@@ -135,7 +148,10 @@ int main(){
 	  lcd_display("andrew");
   	lcd_setposition(1,11);
 	  lcd_display("basel");
-	  
+	  lcd_shiftR();
+	  lcd_display("sii");
+	
+
 	 while(1){
 	  }
 }

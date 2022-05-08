@@ -12,6 +12,8 @@ void lcd_clear(void);
 void lcd_secline(void);
 void lcd_display(char *str);
 void lcd_setposition(uint16_t row,uint16_t col);
+void lcd_shiftR(void);
+void lcd_shiftL(void);
 
 //**********************************************
 
