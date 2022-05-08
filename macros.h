@@ -1,7 +1,7 @@
 /*
  ***********************************************************************************************************
 @file     standard_types.h
-@brief    This file rename the satndard data types in c by adding the size to thir names
+@brief    This file defines registers location in the memory instead of hexa mask, and defines magic numbers that used in the program 
 @version  V1.00
 @date     7. May 2022
 @team     Integration Team

@@ -22,7 +22,7 @@ void timer_init()
 void delay_unit_time(uint32_t counts)
 {
 	timer_init();
-	NVIC_ST_RELOAD_R = counts-1;
+	NVIC_ST_RELOAD_R = counts - 1;
 	NVIC_ST_CTRL_R = ENABLE_TIMER;
 	while(!(NVIC_ST_CTRL_R &(1<<16)))
 	{
@@ -32,7 +32,7 @@ void delay_unit_time(uint32_t counts)
 
 void delay(uint8_t choice,uint32_t delayTime)
 {	
-	for(uint32_t i = INITIAL_VALUE;i< delayTime;i++)
+	for(uint32_t i = INITIAL_VALUE; i < delayTime; i++)
 	{
 		switch(choice)
 		{
@@ -41,8 +41,8 @@ void delay(uint8_t choice,uint32_t delayTime)
 				break;
 			case 1:
 				delay_unit_time(COUNTS_1MS);
-        break;
-      case 2:
+				break;
+			case 2:
 				delay_unit_time(COUNTS_1MICROSEC);
 				break;				
 		}

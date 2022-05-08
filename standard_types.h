@@ -1,7 +1,7 @@
 /*
  ***********************************************************************************************************
 @file     standard_types.h
-@brief    This file rename the satndard data types in c by adding the size to thir names
+@brief    This file renames the standard data types in c by adding the size to their names
 @version  V1.00
 @date     7. May 2022
 @team     Integration Team
@@ -13,10 +13,10 @@ Copyright (C) 2022. All rights reserved.
 #define STANDARD_TYPES_H
 
 /* exact-width signed integer types */
-typedef   signed           char int8_t;
-typedef   signed short     int int16_t;
-typedef   signed           int int32_t;
-typedef   signed       __int64 int64_t;
+typedef signed             char int8_t;
+typedef signed short       int int16_t;
+typedef signed             int int32_t;
+typedef signed         __int64 int64_t;
 
     /* exact-width unsigned integer types */
 typedef unsigned           char uint8_t;
