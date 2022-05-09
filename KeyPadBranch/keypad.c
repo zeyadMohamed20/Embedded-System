@@ -8,10 +8,9 @@
 Copyright (C) 2022. All rights reserved.
 ******************************************************************************************************************************
 */
-
-#include "standard_types.h"
 #include "keypad.h"
-#include "macros.h"
+#include "../standard_types.h"
+#include "../macros.h"
 
 void Init_Ports(void)
 {
@@ -53,17 +52,21 @@ char KeyPad_Get_Input(void)
 																			{ '*' , '0' , '#' , 'D'} };	// row_3
 
 	while(1)
-	{
-		for(short j = 0; j<4; j++) // looping and set each row high individually
+	{ // initialization the counter of row and columns
+		uint32_t row;
+		uint32_t column;
+		// looping and set each row high individually
+		for( row = KEYPAD_ROW_START_INDEX ; row < KEYPAD_ROW_LAST_INDEX ; row++) 
 		{
-			GPIO_PORTD_DATA_R &=~GPIO_PORTD_PIN0_3;
-			GPIO_PORTD_DATA_R |=  KEY_PAD_FIRST_ROW << j;
+			// determine which row to be high in this iteration
+			GPIO_PORTD_DATA_R &= ~GPIO_PORTD_PIN0_3;
+			GPIO_PORTD_DATA_R |=  KEYPAD_FIRST_ROW << row;
 			// with only one certain row high, looping on each column to see which one is pressed
-			for(short i =0; i<4; i++)
+			for( column = KEYPAD_COLUMN_START_INDEX ; column < KEYPAD_COLUMN_LAST_INDEX ; column++)
 			{
-				if((GPIO_PORTC_DATA_R & GPIO_PORTC_PIN4_7) == KEY_PAD_FIRST_COLUMN << i)
+				if((GPIO_PORTC_DATA_R & GPIO_PORTC_PIN4_7) == KEYPAD_FIRST_COLUMN << column)
 				{
-					return Values[j][i];
+					return Values[row][column];
 				}
 			}
 		}
