@@ -103,6 +103,7 @@ void lcd_display(char *str){
 void lcd_setposition(uint16_t row,uint16_t col){
 
 uint16_t position;
+	
 switch(row){	
 		case 1:
 			     lcd_cmd(0x08);
@@ -120,39 +121,40 @@ switch(row){
 	}
 }
 
-void lcd_shiftR(){
-	delay(100);
-	lcd_cmd(0x06);
+void lcd_shiftR(uint32_t shift){
+	uint32_t i = 0;
+ while(i<shift){
+	delay(100);	 
+	lcd_cmd(0x14);
+	 i++;
+  }
 }
 
-
-void lcd_shiftL(){
-	delay(100);
-	lcd_cmd(0x04);
+void lcd_shiftL(uint32_t shift){
+	uint32_t i = 0;
+ while(i<shift){
+	delay(100);	 
+	lcd_cmd(0x10);
+	 i++;
+  }
 }
+
 
 
 
 int main(){
-	
-	  lcd_init();
-	
-		lcd_display("Hassan");
-	  lcd_setposition(1,11);
-	  lcd_display("Zezo");
-	  lcd_secline();
-	  lcd_display("besho");
-	  lcd_setposition(2,11);
-	  lcd_display("jo");
-	  lcd_clear();
-	  lcd_display("andrew");
-  	lcd_setposition(1,11);
-	  lcd_display("basel");
-	  lcd_shiftR();
-	  lcd_display("sii");
-	
+	  
+lcd_init();
+ 
 
-	 while(1){
-	  }
+
+lcd_display("Zeyad");
+lcd_shiftR(3);
+	lcd_shiftL(3);	
+
+	
+ while(1){
+}
+	 
 }
 
