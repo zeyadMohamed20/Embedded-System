@@ -22,6 +22,16 @@ Microwave.htm
 Microwave.uvgui_zeyad.bak
 Microwave_uvopt.bak
 
+KeyPad.build_log.htm
+keypad.crf
+keypad.d
+KeyPad.uvproj
+KeyPad_Target 1.dep
+startup_tm4c123.d
+startup_tm4c123.lst
+startup_tm4c123.o
+startup_TM4C123.s
+
 
 
 
