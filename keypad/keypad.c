@@ -1,10 +1,14 @@
 /*
  **************************************************************************************************************************
 @file     keypad.c
+<<<<<<< HEAD:KeyPadBranch/keypad.c
 @brief    This file defines the bodies of functions which set the delay and timer functions using systick timer
+=======
+@brief    This file defines the bodies of functions of keypad driver
+>>>>>>> 205d47620e92e28279db38b1fdd05a32d627864f:keypad/keypad.c
 @version  V1.00
 @date     9. May 2022
-@team     Integration Team
+@team     keypad team
 Copyright (C) 2022. All rights reserved.
 ******************************************************************************************************************************
 */
