@@ -1,9 +1,8 @@
 #ifndef LCD_H
 #define LCD_H
 
-
-#include"macros.h"
-#include"standard_types.h"
+#include"../standard_types.h"
+#include"../macros.h"
 
 //********** Functions Prototype ***************
 void SystemInit(void);

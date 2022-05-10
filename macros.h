@@ -1,30 +1,22 @@
 /*
  ***********************************************************************************************************
-@file     standard_types.h
+@file     macros.h
 @brief    This file defines registers location in the memory instead of hexa mask, and defines constant macros
 @version  V1.00
-@date     7. May 2022
-@team     Integration Team
+@date     9. May 2022
+@team     All the team
 Copyright (C) 2022. All rights reserved.
 *************************************************************************************************************
 */
 
 #ifndef MACROS_H
 #define MACROS_H
-//*****************************************************************************
-//
-// GPIO Register Control
-//
-//*****************************************************************************
+//**************************System Control registers (SYSCTL)***************************************************
 #define SYSCTL_RCGCGPIO_R       (*((volatile uint32_t *)0x400FE608))
 #define SYSCTL_PRGPIO_R         (*((volatile uint32_t *)0x400FEA08))
+//*********************************************************************************************
 
-//*****************************************************************************
-//
-// GPIO registers (PORT C)
-//
-//*****************************************************************************
-	// Addresses
+//***************************GPIO registers (PORT C)***************
 #define GPIO_PORTC_DATA_R       (*((volatile uint32_t *)0x400063FC))
 #define GPIO_PORTC_DIR_R        (*((volatile uint32_t *)0x40006400))
 #define GPIO_PORTC_AFSEL_R      (*((volatile uint32_t *)0x40006420))
@@ -33,16 +25,11 @@ Copyright (C) 2022. All rights reserved.
 #define GPIO_PORTC_AMSEL_R      (*((volatile uint32_t *)0x40006528))
 #define GPIO_PORTC_PCTL_R       (*((volatile uint32_t *)0x4000652C))
 #define GPIO_PORTC_PDR_R        (*((volatile uint32_t *)0x40006514))
-	// Constant
 #define GPIO_PORTC_PIN4_7				0xF0   // pin 4 to 7 
 #define GPIO_PORTC_PCTL_PIN4_7	0xFFFF0000   // PCTL for pin 4 to 7 
+//***********************************************************************************************
 
-//*****************************************************************************
-//
-// GPIO registers (PORT D)
-//
-//*****************************************************************************
-	// Addresses
+//*********************************GPIO registers (PORT D)*****************************************
 #define GPIO_PORTD_DATA_R       (*((volatile uint32_t *)0x400073FC))
 #define GPIO_PORTD_DIR_R        (*((volatile uint32_t *)0x40007400))
 #define GPIO_PORTD_AFSEL_R      (*((volatile uint32_t *)0x40007420))
@@ -52,28 +39,11 @@ Copyright (C) 2022. All rights reserved.
 #define GPIO_PORTD_CR_R         (*((volatile uint32_t *)0x40007524))
 #define GPIO_PORTD_AMSEL_R      (*((volatile uint32_t *)0x40007528))
 #define GPIO_PORTD_PCTL_R       (*((volatile uint32_t *)0x4000752C))
-	// Constants
 #define GPIO_PORTD_PIN0_3				0x0F   // pin 0 to 3 
 #define GPIO_PORTD_PCTL_PIN0_3	0x0000FFFF   // PCTL for pin 0 to 3 
+//**************************************************************************************************
 
-//*****************************************************************************
-//
-// Constant Macros
-//
-//*****************************************************************************
-#define KEYPAD_FIRST_ROW					0x10	// order of First pin in PortC, that represent Rows 
-#define KEYPAD_FIRST_COLUMN				0x01	// order of First pin in PortD, that represent Columns
-
-#define KEYPAD_ROW_START_INDEX		0			// start index of Row
-#define KEYPAD_ROW_LAST_INDEX			4			// start index of Row
-#define KEYPAD_COLUMN_START_INDEX	0			// start index of Column
-#define KEYPAD_COLUMN_LAST_INDEX	4			// start index of Column
-
-//***************************************************************************
-// GPIO registers (PORTA)
-//
-//*****************************************************************************
-
+//************************************* GPIO registers (PORTA)****************************************
 #define GPIO_PORTA_DATA_BITS_R  ((volatile unsigned long *)0x40004000)
 #define GPIO_PORTA_DATA_R       (*((volatile unsigned long *)0x400043FC))
 #define GPIO_PORTA_DIR_R        (*((volatile unsigned long *)0x40004400))
@@ -99,12 +69,9 @@ Copyright (C) 2022. All rights reserved.
 #define GPIO_PORTA_PCTL_R       (*((volatile unsigned long *)0x4000452C))
 #define GPIO_PORTA_ADCCTL_R     (*((volatile unsigned long *)0x40004530))
 #define GPIO_PORTA_DMACTL_R     (*((volatile unsigned long *)0x40004534))
+//***************************************************************************************************
 
-//*****************************************************************************
-//
-// GPIO registers (PORTB)
-//
-//*****************************************************************************
+//********************************GPIO registers (PORTB)*********************************************
 #define GPIO_PORTB_DATA_BITS_R  ((volatile unsigned long *)0x40005000)
 #define GPIO_PORTB_DATA_R       (*((volatile unsigned long *)0x400053FC))
 #define GPIO_PORTB_DIR_R        (*((volatile unsigned long *)0x40005400))
@@ -132,31 +99,32 @@ Copyright (C) 2022. All rights reserved.
 #define GPIO_PORTB_DMACTL_R     (*((volatile unsigned long *)0x40005534))
 //*****************************************************************************	
 
-
-//*****************************************************************************
-//
-// System Control registers (SYSCTL)
-//
-//*****************************************************************************
-
-#define SYSCTL_RCGCGPIO_R       (*((volatile unsigned long *)0x400FE608))
-#define SYSCTL_PRGPIO_R         (*((volatile unsigned long *)0x400FEA08))
-
-//*****************************************************************************
-
-
-
-
-//*****************************************************************************
-//
-// NVIC registers (NVIC)
-//
-//*****************************************************************************
-
+//******************************NVIC registers (NVIC)***********************************************
 #define NVIC_ST_CTRL_R          (*((volatile unsigned long *)0xE000E010))
 #define NVIC_ST_RELOAD_R        (*((volatile unsigned long *)0xE000E014))
 #define NVIC_ST_CURRENT_R       (*((volatile unsigned long *)0xE000E018))
-
 //*****************************************************************************
+
+//******************************* KeyPad Constant Macros **********************************************
+#define KEYPAD_FIRST_ROW				0x10	// order of First pin in PortC, that represent Rows 
+#define KEYPAD_FIRST_COLUMN				0x01	// order of First pin in PortD, that represent Columns
+#define KEYPAD_ROW_START_INDEX		    0		// start index of Row
+#define KEYPAD_ROW_LAST_INDEX			4		// start index of Row
+#define KEYPAD_COLUMN_START_INDEX	    0		// start index of Column
+#define KEYPAD_COLUMN_LAST_INDEX	    4		// start index of Column
+//******************************************************************************************************
+
+//******************************* Timer Constant Macros **********************************************
+#define CLEAR_VALUE 0
+#define ENABLE_TIMER 5
+#define COUNTS_1SEC  16000000-1
+#define COUNTS_1MS  16000-1
+#define COUNTS_1MICROSEC  16-1
+#define INITIAL_VALUE 0
+#define SECOND_CHOICE 0
+#define MILLI_SECOND_CHOICE 1
+#define MICRO_SECOND_CHOICE 2
+#define COUNT_FLAG_BIT (1 << 16)
+//******************************************************************************************************
 
 #endif
