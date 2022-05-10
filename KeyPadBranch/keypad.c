@@ -1,6 +1,6 @@
 /*
  **************************************************************************************************************************
-@file     time.c
+@file     keypad.c
 @brief    This file defines the bodies of functions which set the delay and timer functions using systick timer
 @version  V1.00
 @date     9. May 2022

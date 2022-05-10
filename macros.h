@@ -1,9 +1,9 @@
 /*
  ***********************************************************************************************************
-@file     standard_types.h
+@file     macros.h
 @brief    This file defines registers location in the memory instead of hexa mask, and defines constant macros
 @version  V1.00
-@date     7. May 2022
+@date     9. May 2022
 @team     Integration Team
 Copyright (C) 2022. All rights reserved.
 *************************************************************************************************************
