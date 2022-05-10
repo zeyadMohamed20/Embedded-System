@@ -12,12 +12,13 @@ Copyright (C) 2022. All rights reserved.
 
 #ifndef KEYPAD_H
 #define KEYPAD_H
+
 // initializing ports and pins needed by keypad
-void Init_Ports(void); 
+void Init_Keypad_Ports(void); 
 // initiallizing port C
-void Init_PortC(void);
+void Init_PortC4_7(void);
 // initiallizing port D
-void Init_PortD(void);
+void Init_PortD0_3(void);
 // return value of corresponding pressed key
 char KeyPad_Get_Input(void);
 

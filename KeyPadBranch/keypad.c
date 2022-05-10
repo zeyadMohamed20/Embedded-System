@@ -12,52 +12,61 @@ Copyright (C) 2022. All rights reserved.
 #include "keypad.h"
 #include "../standard_types.h"
 #include "../macros.h"
+#define b 10	// order of First pin in PortC, that represent Rows 
+#define a 10	// order of First pin in PortC, that represent Rows 
+
 // initializing ports and pins needed by keypad
-void Init_Ports(void)
+void Init_Keypad_Ports(void)
 {
 	// clocking both portC and portD
 	SYSCTL_RCGCGPIO_R |= 0x0C;
 	// wait until Port C & D clocking 
 	while((SYSCTL_PRGPIO_R &0x0C) == 0);
 	// initiallizing port C & D
-	Init_PortC();
-	Init_PortD();
+	Init_PortC4_7();
+	Init_PortD0_3();
 }
 // initiallizing port C
-void Init_PortC(void)
+void Init_PortC4_7(void)
 {
+	GPIO_PORTC_LOCK_R		=  GPIO_LOCK_KEY;
 	GPIO_PORTC_CR_R  		|= 	GPIO_PORTC_PIN4_7;
 	GPIO_PORTC_PCTL_R 	&= ~GPIO_PORTC_PCTL_PIN4_7;
 	GPIO_PORTC_PDR_R 		|= 	GPIO_PORTC_PIN4_7;
 	GPIO_PORTC_AMSEL_R 	&= ~GPIO_PORTC_PIN4_7;
 	GPIO_PORTC_AFSEL_R 	&= ~GPIO_PORTC_PIN4_7;
 	GPIO_PORTC_DEN_R 		|= 	GPIO_PORTC_PIN4_7;
-	GPIO_PORTC_DIR_R 		|= 	GPIO_PORTC_PIN4_7;
+	GPIO_PORTC_DIR_R 		&= ~GPIO_PORTC_PIN4_7;
 }
 // initiallizing port D
-void Init_PortD()
+void Init_PortD0_3()
 {
+	
+	GPIO_PORTD_LOCK_R		=  GPIO_LOCK_KEY;
 	GPIO_PORTD_CR_R 		|=  GPIO_PORTD_PIN0_3;
 	GPIO_PORTD_PCTL_R 	&= ~GPIO_PORTD_PCTL_PIN0_3;
 	GPIO_PORTD_AMSEL_R 	&= ~GPIO_PORTD_PIN0_3;
 	GPIO_PORTD_AFSEL_R 	&= ~GPIO_PORTD_PIN0_3;
 	GPIO_PORTD_DEN_R 		|=  GPIO_PORTD_PIN0_3;
-	GPIO_PORTD_DIR_R 		&= ~GPIO_PORTD_PIN0_3;
+	GPIO_PORTD_DIR_R 		|=  GPIO_PORTD_PIN0_3;
 }
+
+
 // return value of corresponding pressed key
 char KeyPad_Get_Input(void)
 {
-	// Values of Buttons in KeyPad
-	static unsigned char Values[4][4] = {// col_0 col_1 col_2 col_3 
-																			{ '1' , '2' , '3' , 'A'},		// row_0
-																			{ '4' , '5' , '6' , 'B'}, 	// row_1
-																			{ '7' , '8' , '9' , 'C'}, 	// row_2
-																			{ '*' , '0' , '#' , 'D'} };	// row_3
+																	// Col1	 Col2  Col3  Col4
+	// Values of Buttons in KeyPad		  PC4   PC5   PC6		PC7 	
+	 char Values[4][4] =  		 			 {{ '1' , '2' , '3' , 'A'},		// PD0 		row_0
+																		{ '4' , '5' , '6' , 'B'}, 	// PD1		row_1
+																		{ '7' , '8' , '9' , 'C'}, 	// PD2		row_2	
+																		{ '*' , '0' , '#' , 'D'}};	// PD3		row_3	
 // waiting pressing key
 	while(1)
 	{ // initialization the counter of row and columns
 		uint8_t row;
-		uint8_t column;
+		uint8_t column ;
+
 		// looping and set each row high individually
 		for( row = KEYPAD_ROW_START_INDEX ; row < KEYPAD_ROW_LAST_INDEX ; row++) 
 		{
@@ -77,3 +86,4 @@ char KeyPad_Get_Input(void)
 		}
 	}
 }
+
