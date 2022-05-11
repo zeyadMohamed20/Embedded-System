@@ -9,6 +9,8 @@ Copyright (C) 2022. All rights reserved.
 *************************************************************************************************************
 */
 
+#include"timer/timer.h"
+
 #ifndef MACROS_H
 #define MACROS_H
 //**************************System Control registers (SYSCTL)***************************************************
@@ -117,13 +119,11 @@ Copyright (C) 2022. All rights reserved.
 //******************************* Timer Constant Macros **********************************************
 #define CLEAR_VALUE 0
 #define ENABLE_TIMER 5
+#define ONE_COUNT_TIME 62.5 *power(10,-9);
 #define COUNTS_1SEC  16000000-1
 #define COUNTS_1MS  16000-1
 #define COUNTS_1MICROSEC  16-1
 #define INITIAL_VALUE 0
-#define SECOND_CHOICE 0
-#define MILLI_SECOND_CHOICE 1
-#define MICRO_SECOND_CHOICE 2
 #define COUNT_FLAG_BIT (1 << 16)
 //******************************************************************************************************
 
