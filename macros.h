@@ -101,6 +101,21 @@ Copyright (C) 2022. All rights reserved.
 #define GPIO_PORTB_DMACTL_R     (*((volatile unsigned long *)0x40005534))
 //*****************************************************************************	
 
+//******************************GPIO registers (PORTF)*********************************************
+#define GPIO_PORTF_DATA_BITS_R  ((volatile uint32_t *)0x40025000)
+#define GPIO_PORTF_DATA_R       (*((volatile uint32_t *)0x400253FC))
+#define GPIO_PORTF_DIR_R        (*((volatile uint32_t *)0x40025400))
+#define GPIO_PORTF_MIS_R        (*((volatile uint32_t *)0x40025418))
+#define GPIO_PORTF_ICR_R        (*((volatile uint32_t *)0x4002541C))
+#define GPIO_PORTF_AFSEL_R      (*((volatile uint32_t *)0x40025420))
+#define GPIO_PORTF_PUR_R        (*((volatile uint32_t *)0x40025510))
+#define GPIO_PORTF_DEN_R        (*((volatile uint32_t *)0x4002551C))
+#define GPIO_PORTF_LOCK_R       (*((volatile uint32_t *)0x40025520))
+#define GPIO_PORTF_CR_R         (*((volatile uint32_t *)0x40025524))
+#define GPIO_PORTF_AMSEL_R      (*((volatile uint32_t *)0x40025528))
+#define GPIO_PORTF_PCTL_R       (*((volatile uint32_t *)0x4002552C))
+//*************************************************************************************************
+
 //******************************NVIC registers (NVIC)***********************************************
 #define NVIC_ST_CTRL_R          (*((volatile unsigned long *)0xE000E010))
 #define NVIC_ST_RELOAD_R        (*((volatile unsigned long *)0xE000E014))
