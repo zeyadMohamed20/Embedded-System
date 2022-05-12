@@ -102,7 +102,6 @@ Copyright (C) 2022. All rights reserved.
 //*****************************************************************************	
 
 //******************************GPIO registers (PORTF)*********************************************
-#define GPIO_PORTF_DATA_BITS_R  ((volatile uint32_t *)0x40025000)
 #define GPIO_PORTF_DATA_R       (*((volatile uint32_t *)0x400253FC))
 #define GPIO_PORTF_DIR_R        (*((volatile uint32_t *)0x40025400))
 #define GPIO_PORTF_MIS_R        (*((volatile uint32_t *)0x40025418))
