@@ -1,13 +1,13 @@
-#include "tm4c123gh6pm.h"
 #include "../macros.h"
 #include "../timer/timer.h"
+#include "tools.h"
 //buzzer a3//
 //push button a2//
 //leds f1 f2 f3//
 //SW2 F0//
 //SW1 F4//
-void SystemInit();
-void ENABLE_PORTF_AND_A()//enable port f and port a//
+//enable port f and port a//
+void ENABLE_PORTF_AND_A()
 	{
 	SYSCTL_RCGCGPIO_R |=0x21;
 	}
@@ -35,27 +35,6 @@ GPIO_PORTA_CR_R=0x1F;
 	GPIO_PORTA_DEN_R=0x1F;
 	GPIO_PORTA_PUR_R=0x11;
 	GPIOA->ICR |= (1<<2);
-}
-//cooking is finished function as buzzer turn on for three seconds and leds blink each second//
-void Finish()
-{
-	void Buzzer_On();
-	void Leds_On();
-	delay(MILLI_SECOND_CHOICE,16000);
-	void Leds_Off();
-	delay( MILLI_SECOND_CHOICE,16000);
-	void Leds_On();
-	delay(SECOND_CHOICE,16000000);
-	void Leds_Off();
-	delay( MILLI_SECOND_CHOICE,16000);
-	void Leds_On();
-	delay(SECOND_CHOICE,16000000);
-	void Leds_Off();
-	delay( MILLI_SECOND_CHOICE,16000);
-	void Leds_On();
-	delay(SECOND_CHOICE,16000000);
-	void Buzzer_Off();
-	void Leds_Off();
 }
 //usage of Push button//
 void GPIOA_Handler(void)
@@ -85,35 +64,39 @@ void GPIOF_Handler(void){
                 {
 									resume();
 									Leds_On();
-									Finish();
 									GPIOF->ICR |= (1<<4);
 								}
 			}
 		}
 	}
+//turn on leds//
 void Leds_On()
 	{
 		GPIO_PORTF_DATA_R=0X0E;
 }
+//turn off leds//
 void Leds_Off()
 {
 	GPIO_PORTF_DATA_R^=0X0E;
-}	
+}
+//turn on buzzer//
 void Buzzer_On()
 {
 	GPIO_PORTA_DATA_R=0x08;
 }
+//turn off buzzer//
 void Buzeer_off()
 {
 	GPIO_PORTA_DATA_R^=0X08;
-}	
-void Leds_Blink(uint8_t NumberOfBlink,uint8_t OnDelay,uint8_t OffDelay)
+}
+//determine time of leds blinking//
+void Leds_Blink(uint8_t NumberOfBlink,uint8_t OnDelay,uint32_t delayTimeOn,uint8_t OffDelay,uint32_t delayTimeOff)
 {
 for (uint8_t i=0;i<NumberOfBlink;i++)
 {
 Leds_On();
-void delay(Ondelay,delayTime);
+delay(Ondelay,delayTimeOn);
 Leds_Off();
-void delay(Offdelay,delayTime); 	
+delay(Offdelay,delayTimeOff); 	
 }
 }
