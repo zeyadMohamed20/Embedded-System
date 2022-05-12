@@ -27,7 +27,7 @@ main.o
 timer.crf
 timer.d
 timer.o
-
+main.c
 
 KeyPad.lnp
 KeyPad.map
