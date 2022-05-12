@@ -12,7 +12,7 @@ void enable_portf_and_a()
 	SYSCTL_RCGCGPIO_R |=0x21;
 	}
 //initiallization port f//
-	void portF(){
+	void portf(){
 		GPIO_PORTF_LOCK_R= 0x4C4F434B;
 GPIO_PORTF_CR_R=0x1F;
 	GPIO_PORTF_AMSEL_R=0;
@@ -24,7 +24,7 @@ GPIO_PORTF_CR_R=0x1F;
 	GPIO_PORTF_ICR_R |= (1<<4)|(1<<0);
 }
 //initiallization port a	
-void portA()
+void porta()
 {
 GPIO_PORTA_LOCK_R= 0x4C4F434B;
 GPIO_PORTA_CR_R=0x1F;
