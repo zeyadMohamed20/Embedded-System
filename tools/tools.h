@@ -8,8 +8,8 @@
 //SW2 F0//
 //SW1 F4//
 void enable_portf_and_a();//enable ports f and port a
-void portf(void); //initiallizing port f
-void porta(void);//initiallizing port a
+void portf(); //initiallizing port f
+void porta();//initiallizing port a
 void GPIOF_Handler(void); //interrupt SW1 , SW2//
 void GPIOA_Handler(void); //interrupt push button//
 void leds_on();
