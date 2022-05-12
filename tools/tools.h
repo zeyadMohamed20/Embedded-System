@@ -1,5 +1,6 @@
-#include "timer.h"
-#include "macros.h"
+#ifndef TOOLS_H
+#define TOOLS_H
+
 //buzzer a3//
 //push button a2//
 //leds f1 f2 f3//
@@ -12,3 +13,5 @@ void PORTA();//initiallizing port a
 void Finish();//cooking is finished
 void GPIOF_Handler(void);
 void GPIOA_Handler(void);
+
+#endif // !TOOLS_H
