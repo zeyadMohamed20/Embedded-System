@@ -14,7 +14,7 @@ Copyright (C) 2022. All rights reserved.
 #include"time.h"
 #include"struct_enum.h"
 
-time timer;
+struct time timer;
 
 double power(uint16_t base, int8_t exp)
 {

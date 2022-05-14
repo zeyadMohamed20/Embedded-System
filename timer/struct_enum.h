@@ -9,10 +9,10 @@ Copyright (C) 2022. All rights reserved.
 *************************************************************************************************************
 */
 
-#include"../macros.h"
-
 #ifndef STRUCT_ENUM_H
 #define STRUCT_ENUM_H
+
+#include"../macros.h"
 
 typedef enum unit 
 {
