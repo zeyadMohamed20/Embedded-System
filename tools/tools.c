@@ -1,6 +1,7 @@
 #include "../macros.h"
 #include "../timer/timer.h"
 #include "tools.h"
+#include"../LCD/lcd.h"
 //buzzer a3//
 //push button a2//
 //leds f1 f2 f3//
@@ -38,7 +39,7 @@ GPIO_PORTA_CR_R=0x1F;
 }
 //usage of Push button as Interrupt//
 void GPIOA_Handler(void)
-{  if ((GPIOA->MIS&0x04)!=0x04)
+{  if ((GPIO_PORTA_MIS_R&0x04)!=0x04)
 	pause();
 	GPIO_PORTA_ICR_R  |= 0x04;
 }
@@ -92,11 +93,12 @@ void buzeer_off()
 //determine time of leds blinking//
 void leds_blink(uint8_t NumberOfBlink,uint8_t OnDelay,uint32_t delayTimeOn,uint8_t OffDelay,uint32_t delayTimeOff)
 {
-for (uint8_t i=0;i<NumberOfBlink;i++)
+	uint8_t i;
+for (i=0;i<NumberOfBlink;i++)
 {
 leds_on();
-delay(Ondelay,delayTimeOn);
+delay(OnDelay,delayTimeOn);
 leds_off();
-delay(Offdelay,delayTimeOff); 	
+delay(OffDelay,delayTimeOff); 	
 }
 }
