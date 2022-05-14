@@ -4,6 +4,7 @@
 #include"../standard_types.h"
 #include"../macros.h"
 #include"../timer/timer.h"
+#include"../keypad/keypad.h"
 
 //********** Functions Prototype ***************
 void SystemInit(void);

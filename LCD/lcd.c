@@ -125,18 +125,18 @@ void lcd_blink(char *str){
 
 
 int main(){
-	  
+char x;	  
 lcd_init();
  
-
-
-lcd_display("Yousef");
-lcd_shiftR(3);
-	lcd_shiftL(3);	
-
+lcd_display("Fuck u guys");
 	
  while(1){
-}
+	 delay(1,500);
+x = KeyPad_Get_Input();
+lcd_data(x);
+delay(1,500);
 	 
+}
+	
 }
 
