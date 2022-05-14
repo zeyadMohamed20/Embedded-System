@@ -1,14 +1,10 @@
 /*
  **************************************************************************************************************************
 @file     keypad.c
-<<<<<<< HEAD:KeyPadBranch/keypad.c
 @brief    This file defines the bodies of functions which set the delay and timer functions using systick timer
-=======
-@brief    This file defines the bodies of functions of keypad driver
->>>>>>> 205d47620e92e28279db38b1fdd05a32d627864f:keypad/keypad.c
 @version  V1.00
 @date     9. May 2022
-@team     keypad team
+@team     Integration Team
 Copyright (C) 2022. All rights reserved.
 ******************************************************************************************************************************
 */
@@ -23,24 +19,26 @@ Copyright (C) 2022. All rights reserved.
 void Init_Keypad_Ports(void)
 {
 	// clocking both portC and portD
-	SYSCTL_RCGCGPIO_R |= 0x0C;
+	SYSCTL_RCGCGPIO_R |= 0x18;
 	// wait until Port C & D clocking 
-	while((SYSCTL_PRGPIO_R &0x0C) == 0);
+	while((SYSCTL_PRGPIO_R &0x18) == 0);
 	// initiallizing port C & D
-	Init_PortC4_7();
+	Init_PortE1_4();
 	Init_PortD0_3();
 }
+
+
 // initiallizing port C
-void Init_PortC4_7(void)
+void Init_PortE1_4(void)
 {
-	GPIO_PORTC_LOCK_R		=  GPIO_LOCK_KEY;
-	GPIO_PORTC_CR_R  		|= 	GPIO_PORTC_PIN4_7;
-	GPIO_PORTC_PCTL_R 	&= ~GPIO_PORTC_PCTL_PIN4_7;
-	GPIO_PORTC_PDR_R 		|= 	GPIO_PORTC_PIN4_7;
-	GPIO_PORTC_AMSEL_R 	&= ~GPIO_PORTC_PIN4_7;
-	GPIO_PORTC_AFSEL_R 	&= ~GPIO_PORTC_PIN4_7;
-	GPIO_PORTC_DEN_R 		|= 	GPIO_PORTC_PIN4_7;
-	GPIO_PORTC_DIR_R 		&= ~GPIO_PORTC_PIN4_7;
+	GPIO_PORTE_LOCK_R		=  GPIO_LOCK_KEY;
+	GPIO_PORTE_CR_R  		|= 	GPIO_PORTE_PIN1_4;
+	GPIO_PORTE_PCTL_R 	&= ~GPIO_PORTE_PCTL_PIN1_4;
+	GPIO_PORTE_PDR_R 		|= 	GPIO_PORTE_PIN1_4;
+	GPIO_PORTE_AMSEL_R 	&= ~GPIO_PORTE_PIN1_4;
+	GPIO_PORTE_AFSEL_R 	&= ~GPIO_PORTE_PIN1_4;
+	GPIO_PORTE_DEN_R 		|= 	GPIO_PORTE_PIN1_4;
+	GPIO_PORTE_DIR_R 		&= ~GPIO_PORTE_PIN1_4;
 }
 // initiallizing port D
 void Init_PortD0_3()
@@ -81,8 +79,10 @@ char KeyPad_Get_Input(void)
 			for( column = KEYPAD_COLUMN_START_INDEX ; column < KEYPAD_COLUMN_LAST_INDEX ; column++)
 			{
 				// check if a key is pressed and search the column of the pressed key 
-				if((GPIO_PORTC_DATA_R & GPIO_PORTC_PIN4_7) == KEYPAD_FIRST_COLUMN << column)
+				if((GPIO_PORTE_DATA_R & GPIO_PORTE_PIN1_4) == KEYPAD_FIRST_COLUMN << column)
 				{
+					GPIO_PORTD_DATA_R &=~ GPIO_PORTD_PIN0_3;
+					GPIO_PORTE_DATA_R &=~ GPIO_PORTE_PIN1_4;
 					// return the corresponding value of pressed key
 					return Values[row][column];
 				}
@@ -90,4 +90,5 @@ char KeyPad_Get_Input(void)
 		}
 	}
 }
+
 

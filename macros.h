@@ -27,18 +27,18 @@ Copyright (C) 2022. All rights reserved.
 //
 //*****************************************************************************
 	// Addresses
-#define GPIO_PORTC_LOCK_R       (*((volatile uint32_t *)0x40006520))
-#define GPIO_PORTC_DATA_R       (*((volatile uint32_t *)0x400063FC))
-#define GPIO_PORTC_DIR_R        (*((volatile uint32_t *)0x40006400))
-#define GPIO_PORTC_AFSEL_R      (*((volatile uint32_t *)0x40006420))
-#define GPIO_PORTC_DEN_R        (*((volatile uint32_t *)0x4000651C))
-#define GPIO_PORTC_CR_R         (*((volatile uint32_t *)0x40006524))
-#define GPIO_PORTC_AMSEL_R      (*((volatile uint32_t *)0x40006528))
-#define GPIO_PORTC_PCTL_R       (*((volatile uint32_t *)0x4000652C))
-#define GPIO_PORTC_PDR_R        (*((volatile uint32_t *)0x40006514))
-	// Constant
-#define GPIO_PORTC_PIN4_7				0xF0   // pin 4 to 7 
-#define GPIO_PORTC_PCTL_PIN4_7	0xFFFF0000   // PCTL for pin 4 to 7 
+//#define GPIO_PORTC_LOCK_R       (*((volatile uint32_t *)0x40006520))
+//#define GPIO_PORTC_DATA_R       (*((volatile uint32_t *)0x400063FC))
+//#define GPIO_PORTC_DIR_R        (*((volatile uint32_t *)0x40006400))
+//#define GPIO_PORTC_AFSEL_R      (*((volatile uint32_t *)0x40006420))
+//#define GPIO_PORTC_DEN_R        (*((volatile uint32_t *)0x4000651C))
+//#define GPIO_PORTC_CR_R         (*((volatile uint32_t *)0x40006524))
+//#define GPIO_PORTC_AMSEL_R      (*((volatile uint32_t *)0x40006528))
+//#define GPIO_PORTC_PCTL_R       (*((volatile uint32_t *)0x4000652C))
+//#define GPIO_PORTC_PDR_R        (*((volatile uint32_t *)0x40006514))
+//	// Constant
+//#define GPIO_PORTC_PIN4_7				0xF0   // pin 4 to 7 
+//#define GPIO_PORTC_PCTL_PIN4_7	0xFFFF0000   // PCTL for pin 4 to 7 
 
 //*****************************************************************************
 //
@@ -61,12 +61,31 @@ Copyright (C) 2022. All rights reserved.
 #define GPIO_PORTD_PCTL_PIN0_3	0x0000FFFF   // PCTL for pin 0 to 3 
 //*****************************************************************************
 //
+// GPIO registers (PORT E)
+//
+//*****************************************************************************
+	// Registers
+#define GPIO_PORTE_DATA_R       (*((volatile uint32_t *)0x400243FC))
+#define GPIO_PORTE_DIR_R        (*((volatile uint32_t *)0x40024400))
+#define GPIO_PORTE_AFSEL_R      (*((volatile uint32_t *)0x40024420))
+#define GPIO_PORTE_PDR_R        (*((volatile uint32_t *)0x40024514))
+#define GPIO_PORTE_DEN_R        (*((volatile uint32_t *)0x4002451C))
+#define GPIO_PORTE_LOCK_R       (*((volatile uint32_t *)0x40024520))
+#define GPIO_PORTE_CR_R         (*((volatile uint32_t *)0x40024524))
+#define GPIO_PORTE_AMSEL_R      (*((volatile uint32_t *)0x40024528))
+#define GPIO_PORTE_PCTL_R       (*((volatile uint32_t *)0x4002452C))
+	// Constants
+#define GPIO_PORTE_PIN1_4				0x1E   // pin 4 to 7 
+#define GPIO_PORTE_PCTL_PIN1_4	0x000FFFF0   // PCTL for pin 4 to 7
+
+//*****************************************************************************
+//
 // Constant Macros
 //
 //*****************************************************************************
 
-#define KEYPAD_FIRST_ROW					0x01	// order of First pin in PortC, that represent Rows 
-#define KEYPAD_FIRST_COLUMN				0x10	// order of First pin in PortD, that represent Columns
+#define KEYPAD_FIRST_ROW					0x01	// order of First pin in PortD, that represent Rows 
+#define KEYPAD_FIRST_COLUMN				0x02	// order of First pin in PortE, that represent Columns
 #define KEYPAD_ROW_START_INDEX		0x00	// start index of Row
 #define KEYPAD_ROW_LAST_INDEX			0x04	// start index of Row
 #define KEYPAD_COLUMN_START_INDEX	0x00	// start index of Column

@@ -16,7 +16,7 @@ Copyright (C) 2022. All rights reserved.
 // initializing ports and pins needed by keypad
 void Init_Keypad_Ports(void); 
 // initiallizing port C
-void Init_PortC4_7(void);
+void Init_PortE1_4(void);
 // initiallizing port D
 void Init_PortD0_3(void);
 // return value of corresponding pressed key
