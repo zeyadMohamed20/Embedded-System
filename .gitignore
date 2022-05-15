@@ -20,7 +20,6 @@ time.o
 Microwave.axf
 Microwave.htm
 Microwave.uvgui_zeyad.bak
-<<<<<<< HEAD
 Microwave_uvopt.bak
 main.crf
 main.d
@@ -29,7 +28,6 @@ timer.crf
 timer.d
 timer.o
 main.c
-=======
 Microwave_uvopt.bak 
 ExtDll.iex
 keypad.crf
@@ -56,8 +54,6 @@ timer.o
 tools.crf
 tools.d
 tools.o
->>>>>>> testing
-
 KeyPad.lnp
 KeyPad.map
 KeyPad.uvgui.andre
@@ -71,9 +67,6 @@ KeyPad.uvproj
 KeyPad_Target 1.dep
 keypad.crf
 keypad.d
-
-
-
 ExtDll.iex
 LCD.axf
 LCD.build_log.htm
@@ -91,7 +84,6 @@ lcd.o
 yosef.txt
 LCD.uvgui_Hassan Khaled.bak
 LCD_uvopt.bak
-
 test 1.axf
 test 1.build_log.htm
 test 1.htm
@@ -107,4 +99,9 @@ test 1_uvproj.bak
 tools.crf
 tools.d
 tools.o
-
+main.crf
+main.d
+main.o
+timer.crf
+timer.d
+timer.o
