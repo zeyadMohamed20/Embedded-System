@@ -14,7 +14,6 @@ Microwave.uvopt
 Microwave_uvproj.bak
 microwave.c
 startup_TM4C123.s
-<<<<<<< HEAD
 time.crf
 time.d
 time.o
@@ -22,7 +21,6 @@ Microwave.axf
 Microwave.htm
 Microwave.uvgui_zeyad.bak
 Microwave_uvopt.bak
-
 KeyPad.lnp
 KeyPad.map
 KeyPad.uvgui.andre
@@ -38,7 +36,6 @@ keypad.crf
 keypad.d
 KeyPad.htm
 KeyPad.axf
-=======
 ExtDll.iex
 LCD.axf
 LCD.build_log.htm
@@ -53,8 +50,12 @@ LCD_uvproj.bak
 lcd.crf
 lcd.d
 lcd.o
-.getignore
 yosef.txt
 LCD.uvgui_Hassan Khaled.bak
 LCD_uvopt.bak
->>>>>>> e865c2e869ac35075df3eb988e02a26fd1094ee8
+main.crf
+main.d
+main.o
+timer.crf
+timer.d
+timer.o
