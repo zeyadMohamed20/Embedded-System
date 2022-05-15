@@ -3,11 +3,7 @@
 @file     time.c
 @brief    This file defines the bodies of functions which set the delay and timer functions using systick timer
 @version  V1.00
-<<<<<<< HEAD
 @date     11. May 2022
-=======
-@date     7. May 2022
->>>>>>> testing
 @team     Integration Team
 Copyright (C) 2022. All rights reserved.
 ******************************************************************************************************************************
