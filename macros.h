@@ -62,7 +62,6 @@ Copyright (C) 2022. All rights reserved.
 #define GPIO_PORTF_DATA_R       (*((volatile uint32_t *)0x400253FC))
 #define GPIO_PORTF_DIR_R        (*((volatile uint32_t *)0x40025400))
 #define GPIO_PORTF_MIS_R        (*((volatile uint32_t *)0x40025418))
-#define GPIO_PORTF_ICR_R        (*((volatile uint32_t *)0x4002541C))
 #define GPIO_PORTF_AFSEL_R      (*((volatile uint32_t *)0x40025420))
 #define GPIO_PORTF_PUR_R        (*((volatile uint32_t *)0x40025510))
 #define GPIO_PORTF_DEN_R        (*((volatile uint32_t *)0x4002551C))
