@@ -8,10 +8,10 @@
 Copyright (C) 2022. All rights reserved.
 *************************************************************************************************************
 */
-#include "../standard_types.h"
 
 #ifndef KEYPAD_H
 #define KEYPAD_H
+#include "../standard_types.h"
 
 // initializing ports and pins needed by keypad
 void Init_Keypad_Ports(void); 
