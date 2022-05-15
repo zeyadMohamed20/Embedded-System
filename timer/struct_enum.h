@@ -9,11 +9,19 @@ Copyright (C) 2022. All rights reserved.
 *************************************************************************************************************
 */
 
+<<<<<<< HEAD
 #include"../macros.h"
 
 #ifndef STRUCT_ENUM_H
 #define STRUCT_ENUM_H
 
+=======
+#ifndef STRUCT_ENUM_H
+#define STRUCT_ENUM_H
+
+#include"../macros.h"
+
+>>>>>>> testing
 typedef enum unit 
 {
 	SECOND,
