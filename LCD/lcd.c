@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 #include"LCD.h"
+=======
+#include"lcd.h"
+>>>>>>> testing
 
 
 void SystemInit(){}
 
 	
+<<<<<<< HEAD
 void timer(uint32_t milliSeconds)
 {
 	NVIC_ST_CTRL_R = 0;
@@ -34,21 +39,36 @@ void delay(uint32_t milliSeconds)
 
 	
 void lcd_cmd(char command)
+=======
+	void lcd_cmd(char command)
+>>>>>>> testing
 {
 	GPIO_PORTA_DATA_R &= ~0xE0;
 	GPIO_PORTB_DATA_R=command;
 	GPIO_PORTA_DATA_R|=0x80;
+<<<<<<< HEAD
 	//delay(100);
 	GPIO_PORTA_DATA_R &= ~0xE0;
 }
 
 
+=======
+	//	delay(1,100);
+	GPIO_PORTA_DATA_R &= ~0xE0;
+}
+
+	
+>>>>>>> testing
 void lcd_data(char data)
 {
 	GPIO_PORTA_DATA_R |= 0x20;
 	GPIO_PORTB_DATA_R = data;
 	GPIO_PORTA_DATA_R|=0x80;
+<<<<<<< HEAD
 	delay(100);
+=======
+	delay(1,5);
+>>>>>>> testing
 	GPIO_PORTA_DATA_R &= ~0x80;
 }
 
@@ -73,7 +93,11 @@ void lcd_init(void)
 	GPIO_PORTB_DIR_R |= 0xFF;
 
 	 lcd_cmd(0x01);
+<<<<<<< HEAD
    delay(2);	
+=======
+   delay(1,2);	
+>>>>>>> testing
 	 lcd_cmd(0x38);
 	 lcd_cmd(0x06);
 	 lcd_cmd(0x0E);
@@ -82,12 +106,20 @@ void lcd_init(void)
 }
 
 void lcd_clear(void){
+<<<<<<< HEAD
 	delay(100);
+=======
+	delay(1,100);
+>>>>>>> testing
 	lcd_cmd(0x01);
 }
 
 void lcd_secline(void){
+<<<<<<< HEAD
 	delay(100);
+=======
+	delay(1,100);
+>>>>>>> testing
 	lcd_cmd(0xc0);
 }
 
@@ -107,15 +139,26 @@ uint16_t position;
 switch(row){	
 		case 1:
 			     lcd_cmd(0x08);
+<<<<<<< HEAD
 			     delay(100);
+=======
+			     delay(1,100);
+>>>>>>> testing
            position = (col-1)+0x80 ;
            lcd_cmd(position);		
            break;		
 	  case 2:
+<<<<<<< HEAD
 			     delay(100);
 			     lcd_secline();
 			     position = (col-1) +0xc0;
 		       delay(100); 
+=======
+			     delay(1,100);
+			     lcd_secline();
+			     position = (col-1) +0xc0;
+		       delay(1,100); 
+>>>>>>> testing
 		       lcd_cmd(position);
            break;
 	}
@@ -124,7 +167,11 @@ switch(row){
 void lcd_shiftR(uint32_t shift){
 	uint32_t i = 0;
  while(i<shift){
+<<<<<<< HEAD
 	delay(100);	 
+=======
+	delay(1,700);	 
+>>>>>>> testing
 	lcd_cmd(0x14);
 	 i++;
   }
@@ -133,12 +180,17 @@ void lcd_shiftR(uint32_t shift){
 void lcd_shiftL(uint32_t shift){
 	uint32_t i = 0;
  while(i<shift){
+<<<<<<< HEAD
 	delay(100);	 
+=======
+	delay(1,700);	 
+>>>>>>> testing
 	lcd_cmd(0x10);
 	 i++;
   }
 }
 
+<<<<<<< HEAD
 
 
 
@@ -157,4 +209,69 @@ lcd_shiftR(3);
 }
 	 
 }
+=======
+void lcd_blink(char *str){
+	
+		uint8_t i =0;
+		lcd_clear();
+		delay(1,200);
+   	while(str[i] != '\0'){
+			lcd_data(str[i]);
+			str++;
+		}
+		delay(1,200);	
+	}
+		
+
+
+int main(){
+char x;	  
+lcd_init();
+enable_portf_and_a();
+portf();
+porta();
+ 
+	
+lcd_display("Fuck u guys");
+/*	
+leds_on();
+delay(1,500);
+leds_off();	
+delay(1,500);
+leds_on();
+	
+leds_on();
+delay(1,500);
+leds_off();	
+delay(1,500);
+leds_on();
+
+
+leds_on();
+delay(1,500);
+leds_off();	
+delay(1,500);
+leds_on();*/
+	
+
+leds_blink(5,1,800,1,800);
+buzzer_on();
+delay(1,800);
+buzzer_off();
+
+
+
+
+delay(1,500);	
+	
+ while(1){
+
+	 
+
+	 
+	 
+}
+	
+}
+>>>>>>> testing
 
