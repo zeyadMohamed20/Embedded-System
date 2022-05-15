@@ -45,7 +45,7 @@ GPIO_PORTA_CR_R |= 0x1F;
 }*/
 
 //usage of SW1 and SW2 buttons as interrupt//
-void GPIOF_Handler(void){
+/*void GPIOF_Handler(void){
 	   //SW2 is pushed for 1st time and start cooking and leds turn on//
       if ((GPIO_PORTF_DATA_R &0x11)==0x10)
 	      {
@@ -66,9 +66,10 @@ void GPIOF_Handler(void){
 									resume();
 									leds_on();
 								}
-			                    }
+			         }
 		}
-	}
+	}*/
+
 //turn on leds//
 void leds_on()
 	{
@@ -101,3 +102,4 @@ leds_off();
 delay(OffDelay,delayTimeOff); 	
 }
 }
+
