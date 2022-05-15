@@ -68,9 +68,9 @@ void GPIOF_Handler(void)
 						//SW2 is pushed for 2nd time after 1st time of SW1 is pushed which resume cooking after pause cooking//
 						else if((GPIO_PORTF_MIS_R &0x11)==0x10)
 						{
-											//resume();
-											leds_on();
-											GPIO_PORTF_ICR_R |= (1<<4);
+								//resume();
+								leds_on();
+								GPIO_PORTF_ICR_R |= (1<<4);
 						}
 					}
 	  }
@@ -98,7 +98,8 @@ void buzzer_off()
 //determine time of leds blinking//
 void leds_blink(uint8_t NumberOfBlink,uint8_t OnDelay,uint32_t delayTimeOn,uint8_t OffDelay,uint32_t delayTimeOff)
 {
-	for (uint8_t i=0;i<NumberOfBlink;i++)
+	uint8_t i;
+	for (i = 0; i< NumberOfBlink ; i++)
 	{
 		uint8_t i;
 		for (i=0;i<NumberOfBlink;i++)

@@ -1,10 +1,10 @@
 #ifndef LCD_H
 #define LCD_H
 
-#include"../standard_types.h"
-#include"../macros.h"
-#include"../timer/timer.h"
-#include"../tools/tools.h"
+#include "../standard_types.h"
+#include "../macros.h"
+#include "../timer/timer.h"
+#include "../tools/tools.h"
 
 //********** Functions Prototype ***************
 void lcd_cmd(char command);
