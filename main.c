@@ -1,9 +1,17 @@
-#include"tools/tools.h"
+#include "integration/integration.h"
+
+//Global variables
+
 void SystemInit()
 {
 }
 
 int main()
 {
-	led_on();
+	choose_mission();
+	while (1)
+	{
+		
+		
+	}
 }

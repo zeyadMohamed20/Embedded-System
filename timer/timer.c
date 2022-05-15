@@ -9,10 +9,10 @@ Copyright (C) 2022. All rights reserved.
 ******************************************************************************************************************************
 */
 
-#include"../standard_types.h"
-#include"../macros.h"
-#include"time.h"
-#include"struct_enum.h"
+#include "../standard_types.h"
+#include "../macros.h"
+#include "time.h"
+#include "struct_enum.h"
 
 time timer;
 
@@ -77,14 +77,15 @@ void delay(unit choice, uint32_t delayTime)
 	}
 }
 
-time pause()
+struct time pause()
 {
 	timer.currentTime = NVIC_ST_CURRENT_R;
 	timer_init();
 	return timer;
 }
 
+
 void resume()
 {
-	delay(timer.timeUnit,timer.currentTime);
+	delay(timer.timeUnit, timer.currentTime);
 }

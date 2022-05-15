@@ -60,9 +60,9 @@ char KeyPad_Get_Input(void)
 																	// Col1	 Col2  Col3  Col4
 	// Values of Buttons in KeyPad		  PC4   PC5   PC6		PC7 	
 	 char Values[4][4] =  		 			 {{ '1' , '2' , '3' , 'A'},		// PD0 		row_0
-																		{ '4' , '5' , '6' , 'B'}, 	// PD1		row_1
-																		{ '7' , '8' , '9' , 'C'}, 	// PD2		row_2	
-																		{ '*' , '0' , '#' , 'D'}};	// PD3		row_3	
+											  { '4' , '5' , '6' , 'B'}, 	// PD1		row_1
+											  { '7' , '8' , '9' , 'C'}, 	// PD2		row_2	
+											  { '*' , '0' , '#' , 'D'}};	// PD3		row_3	
 // waiting pressing key
 	while(1)
 	{ // initialization the counter of row and columns

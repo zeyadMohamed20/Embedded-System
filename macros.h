@@ -12,7 +12,10 @@ Copyright (C) 2022. All rights reserved.
 #ifndef MACROS_H
 #define MACROS_H
 
-#include"timer/timer.h"
+//****************************NVIC Registers*********************************************************
+#define NVIC_ST_CTRL_R          (*((volatile uint32_t *)0xE000E010))
+#define NVIC_ST_RELOAD_R        (*((volatile uint32_t *)0xE000E014))
+#define NVIC_ST_CURRENT_R       (*((volatile uint32_t *)0xE000E018))
 
 //****************************GPIO Register Control*************************************************
 #define SYSCTL_RCGCGPIO_R       (*((volatile uint32_t *)0x400FE608))

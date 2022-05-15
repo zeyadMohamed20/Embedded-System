@@ -11,9 +11,10 @@ Copyright (C) 2022. All rights reserved.
 
 #ifndef STRUCT_ENUM_H
 #define STRUCT_ENUM_H
+
 #include"../macros.h"
 
-typedef enum unit 
+typedef enum unit
 {
 	SECOND,
 	MILLI_SECOND,
@@ -21,7 +22,7 @@ typedef enum unit
 }unit;
 typedef struct time
 {
-	uint32_t currentTime = NVIC_ST_CURRENT_R;
-	unit timeUnit = MILLI_SECOND;
+	uint32_t currentTime;
+	unit timeUnit;
 }time;
 #endif

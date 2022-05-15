@@ -80,7 +80,7 @@ switch(row)
 			position = (col-1)+0x80 ;
 			lcd_cmd(position);		
 			break;		
-	  case 2:
+	    case 2:
 			delay(1,100);
 			lcd_secline();
 			position = (col-1) +0xc0;
@@ -93,9 +93,9 @@ switch(row)
 void lcd_shiftR(uint32_t shift)
 {
 	uint32_t i = 0;
-	while(i<shift)
+	while(i < shift)
 	{
-		delay(1,700);	 
+		delay(1, 700);	 
 		lcd_cmd(0x14);
 		i++;
 	}
@@ -104,9 +104,9 @@ void lcd_shiftR(uint32_t shift)
 void lcd_shiftL(uint32_t shift)
 {
 	uint32_t i = 0;
-	while(i<shift)
+	while(i < shift)
 	{
-		delay(1,700);	 
+		delay(1, 700);	 
 		lcd_cmd(0x10);
 		i++;
 	}
@@ -114,7 +114,7 @@ void lcd_shiftL(uint32_t shift)
 
 void lcd_blink(char *str)
 {
-	uint8_t i =0;
+	uint8_t i = 0;
 	lcd_clear();
 	delay(1,200);
 	while(str[i] != '\0')
@@ -122,5 +122,5 @@ void lcd_blink(char *str)
 		lcd_data(str[i]);
 		str++;
 	}
-	delay(1,200);	
+	delay(1, 200);	
 }
