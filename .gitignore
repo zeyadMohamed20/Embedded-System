@@ -107,3 +107,18 @@ main.o
 timer.crf
 timer.d
 timer.o
+integration.crf
+integration.d
+integration.o
+main.axf
+main.build_log.htm
+main.htm
+main.lnp
+main.map
+main.uvgui.zeyad
+main.uvgui_zeyad.bak
+main.uvopt
+main.uvproj
+main_Target 1.dep
+main_uvopt.bak
+main_uvproj.bak

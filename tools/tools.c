@@ -1,20 +1,25 @@
+/*
+ **************************************************************************************************************************
+@file     tools.c
+@brief    This file defines the bodies of functions which defines and configure tools like LEDS,Buzer 
+@version  V1.00
+@date     11. May 2022
+@team     tools Team
+Copyright (C) 2022. All rights reserved.
+******************************************************************************************************************************
+*/
+// include librarys
+#include "tools.h"
 #include "../macros.h"
 #include "../timer/timer.h"
-#include "tools.h"
-#include"../LCD/lcd.h"
+#include "../standard_types.h"
 
-//buzzer a3//
-//push button a2//
-//leds f1 f2 f3//
-//SW2 F0//
-//SW1 F4//
-//enable port f and port a//
-void enable_portf_and_a()
+void enable_portf_and_a(void)
 	{
 	SYSCTL_RCGCGPIO_R |=0x21;
 	}
 //initiallization port f//
-void portf()
+void portf(void)
 {
 	GPIO_PORTF_LOCK_R= 0x4C4F434B;
 	GPIO_PORTF_CR_R=0x1F;
@@ -27,7 +32,7 @@ void portf()
 	GPIO_PORTF_ICR_R |= (1<<4)|(1<<0);
 }
 //initiallization port a	
-void porta()
+void porta(void)
 {
 	GPIO_PORTA_LOCK_R |= 0x4C4F434B;
 	GPIO_PORTA_CR_R |= 0x1F;
@@ -41,16 +46,17 @@ void porta()
 }
 //usage of Push button as Interrupt//
 
-/*void GPIOA_Handler(void)
-{  if ((GPIO_PORTA_MIS_R&0x04)!=0x04)
+void GPIOA_Handler(void)
+{ /* if ((GPIO_PORTA_MIS_R&0x04)!=0x04)
 	pause();
 	GPIO_PORTA_ICR_R  |= 0x04;
-}*/
+	*/
+}
 
 //usage of SW1 and SW2 buttons as interrupt//
 void GPIOF_Handler(void)
 {
-	   //SW2 is pushed for 1st time and start cooking and leds turn on//
+/*	   //SW2 is pushed for 1st time and start cooking and leds turn on//
       if ((GPIO_PORTF_MIS_R &0x11)==0x01)
 	  {
 					leds_on();	
@@ -74,24 +80,25 @@ void GPIOF_Handler(void)
 						}
 					}
 	  }
+		*/
 }
 //turn on leds//
-void leds_on()
+void leds_on(void)
 {
 		GPIO_PORTF_DATA_R=0X0E;
 }
 //turn off leds//
-void leds_off()
+void leds_off(void)
 {
 	GPIO_PORTF_DATA_R^=0X0E;
 }
 //turn on buzzer//
-void buzzer_on()
+void buzzer_on(void)
 {
 	GPIO_PORTA_DATA_R=0x08;
 }
 //turn off buzzer//
-void buzzer_off()
+void buzzer_off(void)
 {
 	GPIO_PORTA_DATA_R^=0X08;
 }

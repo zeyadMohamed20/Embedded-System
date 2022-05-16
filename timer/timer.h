@@ -14,11 +14,12 @@ Copyright (C) 2022. All rights reserved.
 #include "../standard_types.h"
 #include "struct_enum.h"
 
-void timer_init();
+//********** Functions Prototype ***************
+void timer_init(void);
 void delay_unit_time(uint32_t counts);
 void delay(uint8_t choice, uint32_t delayTime);
-struct time pause();
-void resume();
+struct time pause(void);
+void resume(void);
 double power(uint16_t base, int8_t exp);
-
+//**********************************************
 #endif

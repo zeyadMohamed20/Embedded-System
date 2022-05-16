@@ -1,34 +1,32 @@
 /*
  **************************************************************************************************************************
 @file     keypad.c
-@brief    This file defines the bodies of functions which set the delay and timer functions using systick timer
+@brief    This file set Prototype Functions of KeyPad like initializations and Key_Search
 @version  V1.00
-@date     9. May 2022
-@team     Integration Team
+@date     10. May 2022
+@team     KeyPad Team
 Copyright (C) 2022. All rights reserved.
 ******************************************************************************************************************************
 */
 // include librarys
 #include "keypad.h"
-#include "../standard_types.h"
 #include "../macros.h"
-#define b 10	// order of First pin in PortC, that represent Rows 
-#define a 10	// order of First pin in PortC, that represent Rows 
+#include "../standard_types.h"
 
 // initializing ports and pins needed by keypad
 void Init_Keypad_Ports(void)
 {
-	// clocking both portC and portD
+	// clocking both portE and portD
 	SYSCTL_RCGCGPIO_R |= 0x18;
-	// wait until Port C & D clocking 
+	// wait until Port E & D clocking 
 	while((SYSCTL_PRGPIO_R &0x18) == 0);
-	// initiallizing port C & D
+	// initiallizing port E & D
 	Init_PortE1_4();
 	Init_PortD0_3();
 }
 
 
-// initiallizing port C
+// initiallizing port E
 void Init_PortE1_4(void)
 {
 	GPIO_PORTE_LOCK_R		=  GPIO_LOCK_KEY;

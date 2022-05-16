@@ -1,7 +1,7 @@
 /*
  ***********************************************************************************************************
 @file     struct_enum.h
-@brief    This file defunes the struct and enum for timer
+@brief    This file defines the struct and enum for timer
 @version  V1.00
 @date     11. May 2022
 @team     Integration Team
@@ -20,10 +20,9 @@ typedef enum unit
 	MILLI_SECOND,
 	MICRO_SECOND
 }unit;
-struct time
+typedef struct time
 {
 	uint32_t currentTime;
   unit timeUnit;
-};
-
+}time;
 #endif

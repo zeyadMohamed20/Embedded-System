@@ -1,8 +1,19 @@
+/*
+ **************************************************************************************************************************
+@file     integration.c
+@brief    This file defines functions which integrate tools,LCD,keypad and all possible states 
+@version  V1.00
+@date     15. May 2022
+@team     Integration Team
+Copyright (C) 2022. All rights reserved.
+******************************************************************************************************************************
+*/
+// include librarys
 #include "integration.h"
 #include "../lcd/lcd.h"
 #include "../keypad/keypad.h"
 
-void choose_mission()
+void choose_mission(void)
 {
   int mission;
 	lcd_display("Choose Mission:");
@@ -30,23 +41,23 @@ void choose_mission()
 	}
 }
 
-void invalid_mission()
+void invalid_mission(void)
 {
 }
 
-void popcorn()
+void popcorn(void)
 {
 	lcd_display("Popcorn");
 }
 
-void beaf()
+void beaf(void)
 {
 }
 
-void chicken()
+void chicken(void)
 {
 }
 
-void set_time()
+void set_time(void)
 {
 }

@@ -1,4 +1,18 @@
+/*
+ **************************************************************************************************************************
+@file     lcd.c
+@brief    This file defines the bodies of functions which defines the driver of lcd
+@version  V1.00
+@date     12. May 2022
+@team     LCD Team
+Copyright (C) 2022. All rights reserved.
+******************************************************************************************************************************
+*/
+// include librarys
 #include "lcd.h"
+#include "../macros.h"
+#include "../timer/timer.h"
+#include "../standard_types.h"
 
 void lcd_cmd(char command)
 {
