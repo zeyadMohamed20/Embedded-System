@@ -58,7 +58,7 @@ void lcd_cmd(char command)
 	GPIO_PORTA_DATA_R &= ~0xE0;
 	GPIO_PORTB_DATA_R = command;
 	GPIO_PORTA_DATA_R|=0x80;
-	delay(MILLI_SECOND,100);
+	delay(MILLI_SECOND,5);
 	GPIO_PORTA_DATA_R &= ~0xE0;
 }
 
@@ -101,15 +101,15 @@ switch(row)
 {	
 		case 1:
 			lcd_cmd(0x08);
-			delay(MILLI_SECOND,100);
+			delay(MILLI_SECOND,5);
 			position = (col-1)+0x80 ;
 			lcd_cmd(position);		
 			break;		
 	    case 2:
-			delay(MILLI_SECOND,100);
+			delay(MILLI_SECOND,5);
 			lcd_secline();
-			position = (col-1) +0xc0;
-			delay(MILLI_SECOND,100); 
+			position = (col - 1) + 0xc0;
+			delay(MILLI_SECOND,5); 
 			lcd_cmd(position);
 			break;
 	}
@@ -120,7 +120,7 @@ void lcd_shiftR(uint32_t shift)
 	uint32_t i = 0;
 	while(i < shift)
 	{
-		delay(MILLI_SECOND, 700);	 
+		//delay(MILLI_SECOND, 700);	 
 		lcd_cmd(0x14);
 		i++;
 	}

@@ -19,7 +19,10 @@ typedef enum mission
 	POPCORN 	= 	'A',
 	BEAF,
 	CHICKEN,  	
-	SET_TIME,	
+	SET_TIME,
+	INVALID_MISSION,
+	VALID_WEIGHT,
+	INVALID_WEIGHT	
 }mission;
 
 typedef enum unit

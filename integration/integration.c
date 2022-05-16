@@ -102,28 +102,23 @@ void chicken(void)
 
 void set_time(void)
 {
-	char digit7, digit8, digit10, digit11;		//Each variable is to store the digit entered in each time 
+	uint8_t i;			// Use i in for loop
+	char timeArray[4];		//Each index is used to store the digit entered in each time 
 	// Print "Cooking Time" then ask the user to to enter the time from right to left
 	lcd_clear();
 	lcd_display("Cooking Time");
 	lcd_setposition(2, 7);
 	lcd_display("00:00");
 	//Enter a value in digit 11 on LCD
-	lcd_setposition(2, 11);
-	digit7 = keypad_get_input();
-	lcd_display(&digit7);
-	//Enter a value in digit 10 on LCD
-	lcd_setposition(2, 10);
-	digit8 = keypad_get_input();
-	lcd_display(&digit8);
-	//Enter a value in digit 8 on LCD
-	lcd_setposition(2, 8);
-	digit10 = keypad_get_input();
-	lcd_display(&digit10);
-	//Enter a value in digit 7 on LCD
-	lcd_setposition(2, 7);
-	digit11 = keypad_get_input();
-	lcd_display(&digit11);
+	for(i = 0; i <= 5; i++)
+	{
+		lcd_shiftL(i);
+		lcd_setposition(2, 11);
+		timeArray[i] = keypad_get_input();
+		lcd_display(&timeArray[i]);
+// {	timeArray[0] = LCDdigit7, timeArray[1] = LCDdigit8 } --> minutes
+// {	timeArray[2] = LCDdigit10, timeArray[3] = LCDdigit11 } --> seconds 
+	}
 }
 
 void set_kilo(void)
@@ -194,10 +189,21 @@ void calc_time(void)
 
 void display_time(void)
 {
-	lcd_secline();
-  delay(MILLI_SECOND, 10);
-	lcd_setposition(2, 7);
-	delay(SECOND, 2);
+	// Display the time remaining
+	uint8_t i, j;
+	lcd_clear();
+	
+	for(i = timeMin; i >= 0; i--)
+	{
+		for(j = (timeSec % (timeMin * 60)); j >= 0; j--)
+		{
+			lcd_setposition(2, 10);
+			lcd_display(integer_to_string(j));
+			delay(SECOND, 1);
+		}
+		lcd_setposition(2, 7);
+		lcd_display(integer_to_string(i));
+	}
 }
 
 void cooking(void)
@@ -205,4 +211,36 @@ void cooking(void)
 	leds_on();
 	calc_time();
 	display_time();
+}
+
+uint8_t count_digits(uint32_t number)
+{
+	if(number == 0)
+	{
+		return 1;
+	}
+	else
+	{
+		uint8_t count = 0;
+		while(number!=0)
+		{
+			number = number/10;
+			count++;
+		}
+		return count;
+	}
+}
+
+char* integer_to_string(uint32_t number)
+{
+	const uint8_t size = count_digits(number);
+	static char string[10];
+	uint8_t i;
+	string[size] = '\0';
+	for(i = 0;i<size;i++)
+	{
+		string[size-i-1] = (number%10) + 48;
+		number/=10;
+	}
+	return string;
 }

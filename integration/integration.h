@@ -10,21 +10,7 @@ Copyright (C) 2022. All rights reserved.
 */
 #ifndef INTEGRATION_H
 #define INTEGRATION_H
-
-<<<<<<< HEAD
-typedef enum state
-{
-	POPCORN 	= 	'A',
-	BEAF,
-	CHICKEN,  	
-	SET_TIME,
-	INVALID_MISSION,
-	INVALID_WEIGHT,
-	VALID_WEIGHT
-}state;
-=======
-#include"../struct_enum.h"
->>>>>>> 16c2428b2e6bab50679b0b69bdb88c7daaa635bc
+#include "../struct_enum.h"
 
 //********** Functions Prototype ***************
 void microwave_init(void);   			// Initializes all the components in the microwave including lcd,keypad,tools 
