@@ -15,6 +15,13 @@ Copyright (C) 2022. All rights reserved.
 #include "../tools/tools.h"
 #include "../timer/timer.h"
 #include "../timer/struct_enum.h"
+#include "../macros.h"
+
+//Global variables
+char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D'
+int timeMin;					// To store the minutes
+int timeSec;					// To store the total time in seconds
+int weight;						// To store number of kilos that the user enters
 
 
 void microwave_init(void)
@@ -25,11 +32,10 @@ void microwave_init(void)
 }
 
 void choose_mission(void)
-{
-  char mission; 
+{ 
 	lcd_display("Choose Mission:");
-	mission = keypad_get_input(); //To store mission choice entered by keypad
-	
+	missionChoice = keypad_get_input(); //To store mission choice entered by keypad
+	lcd_data(missionChoice);
 	/*
 	  if the user enters -> 'A' then exexute popcorn mission
 	                        'B' then execute beaf mission
@@ -37,7 +43,7 @@ void choose_mission(void)
 	                        'D' then exexute set time mission
 	                        anything else then this is invalid input
 	*/
-	switch (mission)
+	switch (missionChoice)
 	{
 	case POPCORN:
 		popcorn();
@@ -67,12 +73,14 @@ void invalid_mission(void)
 void popcorn(void)
 {
 	//Print popcorn for 2 sec on LCD
+	lcd_clear();
 	lcd_display("Popcorn");
 	delay(SECOND,2);
 }
 
 void beaf(void)
 {
+	lcd_clear();
 	//Print Beef weight then ask the user about weight
 	lcd_display("Beef Weight: ");
 	set_kilo();
@@ -81,6 +89,7 @@ void beaf(void)
 void chicken(void)
 {
 	//Print Chicken weight then ask the user about weight
+	lcd_clear();
 	lcd_display("Chicken Weight:");
 	set_kilo();
 }
@@ -115,9 +124,40 @@ void valid_weight(char weight)
 	delay(SECOND,2);
 }
 
-void invalid_weight()
+void invalid_weight(void)
 {
 	//Print error for 2 seconds
 	lcd_display("Err");
 	delay(SECOND,2);
+}
+
+void calc_time(void)
+{
+  switch(missionChoice)
+  {
+    case POPCORN:
+    timeSec = 60;
+    break;
+    case BEAF:
+    timeSec = (weight - '0') * BEAF_SECONDS_PER_KILO;			// timeSec = weight * 0.5 * 60 
+		timeMin = timeSec % 60;						// Store Minutes in timeMin variable
+    break;
+    case CHICKEN:
+    timeSec = (weight - '0') * CHICKEN_SECONDS_PER_KILO;	// timeSec = weight * 0.2 * 60 
+		timeMin = timeSec % 60;						// Store Minutes in timeMin variable
+    break;
+  }
+}
+
+void display_time(void)
+{
+	lcd_secline();
+	lcd_setposition(1, 7);
+}
+
+void cooking(void)
+{
+	calc_time();
+	leds_on();
+	display_time();
 }

@@ -151,5 +151,9 @@ Copyright (C) 2022. All rights reserved.
 #define COUNTS_1MICROSEC  16-1
 #define INITIAL_VALUE 0
 #define COUNT_FLAG_BIT (1 << 16)
-//********************************************************************************************************************
+//*************************************************************************************************************************
+//*********************************** Integration Constant Macros *******************************************************************************
+#define BEAF_SECONDS_PER_KILO					0.5 * 60			// Use this to claculate the time total time in seconds according to beaf weight entered 
+#define CHICKEN_SECONDS_PER_KILO 			0.2 * 60			// Use this to claculate the time total time in seconds according to chicken weight entered 
+//************************************************************************************************************************************************
 #endif

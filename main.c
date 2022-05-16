@@ -5,12 +5,12 @@
 void SystemInit()
 {
 }
-
 int main()
 {
-	choose_mission();
+	microwave_init();
 	while (1)
 	{
-		
+		choose_mission();
+		cooking();
 	}
 }
