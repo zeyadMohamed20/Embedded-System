@@ -13,6 +13,7 @@ Copyright (C) 2022. All rights reserved.
 #include "../macros.h"
 #include "../timer/timer.h"
 #include "../standard_types.h"
+#include"../timer/struct_enum.h"
 
 void enable_portf_and_a(void)
 	{
@@ -103,7 +104,7 @@ void buzzer_off(void)
 	GPIO_PORTA_DATA_R^=0X08;
 }
 //determine time of leds blinking//
-void leds_blink(uint8_t NumberOfBlink,uint8_t OnDelay,uint32_t delayTimeOn,uint8_t OffDelay,uint32_t delayTimeOff)
+void leds_blink(uint8_t NumberOfBlink,unit OnDelay,uint32_t delayTimeOn,unit OffDelay,uint32_t delayTimeOff)
 {
 	uint8_t i;
 	for (i = 0; i< NumberOfBlink ; i++)

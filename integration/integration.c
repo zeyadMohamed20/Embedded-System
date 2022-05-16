@@ -9,9 +9,9 @@ Copyright (C) 2022. All rights reserved.
 ******************************************************************************************************************************
 */
 // include librarys
-#include "integration.h"
-#include "../lcd/lcd.h"
 #include "../keypad/keypad.h"
+#include "../lcd/lcd.h"
+#include "integration.h"
 
 void choose_mission(void)
 {

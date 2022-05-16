@@ -13,6 +13,7 @@ Copyright (C) 2022. All rights reserved.
 #define TOOLS_H
 
 #include"../standard_types.h"
+#include"../timer/struct_enum.h"
 
 //********** Functions Prototype ***************
 void enable_portf_and_a(void);//enable ports f and port a
@@ -24,6 +25,6 @@ void leds_on(void);
 void leds_off(void);
 void buzzer_on(void);
 void buzzer_off(void);	
-void leds_blink(uint8_t NumberOfBlink,uint8_t OnDelay,uint32_t delayTimeOn,uint8_t OffDelay,uint32_t delayTimeOff);
-//**********************************************
+void leds_blink(uint8_t NumberOfBlink,unit OnDelay,uint32_t delayTimeOn,unit OffDelay,uint32_t delayTimeOff);
+//*************************************************************************************************************************************
 #endif // !TOOLS_H
