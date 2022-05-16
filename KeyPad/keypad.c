@@ -14,20 +14,20 @@ Copyright (C) 2022. All rights reserved.
 #include "../standard_types.h"
 
 // initializing ports and pins needed by keypad
-void Init_Keypad_Ports(void)
+void keypad_init(void)
 {
 	// clocking both portE and portD
 	SYSCTL_RCGCGPIO_R |= 0x18;
 	// wait until Port E & D clocking 
 	while((SYSCTL_PRGPIO_R &0x18) == 0);
 	// initiallizing port E & D
-	Init_PortE1_4();
-	Init_PortD0_3();
+	portE_init();
+	portD_init();
 }
 
 
 // initiallizing port E
-void Init_PortE1_4(void)
+void portE_init(void)
 {
 	GPIO_PORTE_LOCK_R		=  GPIO_LOCK_KEY;
 	GPIO_PORTE_CR_R  		|= 	GPIO_PORTE_PIN1_4;
@@ -39,7 +39,7 @@ void Init_PortE1_4(void)
 	GPIO_PORTE_DIR_R 		&= ~GPIO_PORTE_PIN1_4;
 }
 // initiallizing port D
-void Init_PortD0_3()
+void portD_init()
 {
 	
 	GPIO_PORTD_LOCK_R		=  GPIO_LOCK_KEY;
@@ -53,14 +53,16 @@ void Init_PortD0_3()
 
 
 // return value of corresponding pressed key
-char KeyPad_Get_Input(void)
+char keypad_get_input(void)
 {
 																	// Col1	 Col2  Col3  Col4
 	// Values of Buttons in KeyPad		  PC4   PC5   PC6		PC7 	
-	 char Values[4][4] =  		 			 {{ '1' , '2' , '3' , 'A'},		// PD0 		row_0
-											  { '4' , '5' , '6' , 'B'}, 	// PD1		row_1
-											  { '7' , '8' , '9' , 'C'}, 	// PD2		row_2	
-											  { '*' , '0' , '#' , 'D'}};	// PD3		row_3	
+	 char values[4][4] =  {
+                         { '1' , '2' , '3' , 'A'},	// PD0 		row_0
+											   { '4' , '5' , '6' , 'B'}, 	// PD1		row_1
+											   { '7' , '8' , '9' , 'C'}, 	// PD2		row_2	
+											   { '*' , '0' , '#' , 'D'}	  // PD3		row_3	
+	                      };
 // waiting pressing key
 	while(1)
 	{ // initialization the counter of row and columns
@@ -82,11 +84,9 @@ char KeyPad_Get_Input(void)
 					GPIO_PORTD_DATA_R &=~ GPIO_PORTD_PIN0_3;
 					GPIO_PORTE_DATA_R &=~ GPIO_PORTE_PIN1_4;
 					// return the corresponding value of pressed key
-					return Values[row][column];
+					return values[row][column];
 				}
 			}
 		}
 	}
 }
-
-

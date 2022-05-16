@@ -14,12 +14,12 @@ Copyright (C) 2022. All rights reserved.
 
 //********** Functions Prototype ***************
 // initializing ports and pins needed by keypad
-void Init_Keypad_Ports(void); 
+void keypad_init(void); 
 // initiallizing port C
-void Init_PortE1_4(void);
+void portE_init(void);
 // initiallizing port D
-void Init_PortD0_3(void);
+void portD_init(void);
 // return value of corresponding pressed key
-char KeyPad_Get_Input(void);
+char keypad_get_input(void);
 //**********************************************
 #endif

@@ -13,29 +13,32 @@ Copyright (C) 2022. All rights reserved.
 #include "../macros.h"
 #include "../timer/timer.h"
 #include "../standard_types.h"
-#include"../timer/struct_enum.h"
+#include "../timer/struct_enum.h"
 
-void enable_portf_and_a(void)
-	{
-	SYSCTL_RCGCGPIO_R |=0x21;
-	}
-//initiallization port f//
-void portf(void)
+void tools_init(void)
 {
-	GPIO_PORTF_LOCK_R= 0x4C4F434B;
-	GPIO_PORTF_CR_R=0x1F;
-	GPIO_PORTF_AMSEL_R=0;
-	GPIO_PORTF_PCTL_R=0;
-	GPIO_PORTF_AFSEL_R=0;
-	GPIO_PORTF_DIR_R=0x1E;
-	GPIO_PORTF_DEN_R=0x1F;
-	GPIO_PORTF_PUR_R=0x11;
+	SYSCTL_RCGCGPIO_R |=0x21;
+	while((SYSCTL_PRGPIO_R &0x21) == 0);
+	portF_initialization();
+	portA_initialization();
+}
+//initiallization port f//
+void portF_initialization(void)
+{
+	GPIO_PORTF_LOCK_R = 0x4C4F434B;
+	GPIO_PORTF_CR_R |= 0x1F;
+	GPIO_PORTF_AMSEL_R |= 0;
+	GPIO_PORTF_PCTL_R |= 0;
+	GPIO_PORTF_AFSEL_R |= 0;
+	GPIO_PORTF_DIR_R |= 0x1E;
+	GPIO_PORTF_DEN_R |= 0x1F;
+	GPIO_PORTF_PUR_R |= 0x11;
 	GPIO_PORTF_ICR_R |= (1<<4)|(1<<0);
 }
 //initiallization port a	
-void porta(void)
+void portA_initialization(void)
 {
-	GPIO_PORTA_LOCK_R |= 0x4C4F434B;
+	GPIO_PORTA_LOCK_R = 0x4C4F434B;
 	GPIO_PORTA_CR_R |= 0x1F;
 	GPIO_PORTA_AMSEL_R |= 0;
 	GPIO_PORTA_PCTL_R |= 0;
@@ -104,18 +107,18 @@ void buzzer_off(void)
 	GPIO_PORTA_DATA_R^=0X08;
 }
 //determine time of leds blinking//
-void leds_blink(uint8_t NumberOfBlink,unit OnDelay,uint32_t delayTimeOn,unit OffDelay,uint32_t delayTimeOff)
+void leds_blink(uint8_t numberOfBlink,unit onDelay,uint32_t delayTimeOn,unit offDelay,uint32_t delayTimeOff)
 {
 	uint8_t i;
-	for (i = 0; i< NumberOfBlink ; i++)
+	for (i = 0; i< numberOfBlink ; i++)
 	{
 		uint8_t i;
-		for (i=0;i<NumberOfBlink;i++)
+		for (i=0;i<numberOfBlink;i++)
 		{
 			leds_on();
-			delay(OnDelay,delayTimeOn);
+			delay(onDelay,delayTimeOn);
 			leds_off();
-			delay(OffDelay,delayTimeOff); 	
+			delay(offDelay,delayTimeOff); 	
 		}
 	}
 }

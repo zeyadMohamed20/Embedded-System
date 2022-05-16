@@ -13,7 +13,46 @@ Copyright (C) 2022. All rights reserved.
 #include "../macros.h"
 #include "../timer/timer.h"
 #include "../standard_types.h"
-#include"../timer/struct_enum.h"
+#include "../timer/struct_enum.h"
+
+void lcd_init(void)
+{
+  SYSCTL_RCGCGPIO_R |= 0x03;
+	while( (SYSCTL_PRGPIO_R & 0x03) == 0)
+	{
+	}
+	portA_init();
+	portB_init();
+	command_init();
+}
+
+void portA_init(void)
+{
+	GPIO_PORTA_LOCK_R = 0x4C4F434B;
+	GPIO_PORTA_CR_R |= 0xE0;
+	GPIO_PORTA_AFSEL_R = 0;
+	GPIO_PORTA_PCTL_R =0;
+	GPIO_PORTA_AMSEL_R =0;
+	GPIO_PORTA_DEN_R |= 0xE0;
+	GPIO_PORTA_DIR_R |= 0xE0;
+}
+void portB_init(void)
+{
+	GPIO_PORTB_LOCK_R = 0x4C4F434B;
+	GPIO_PORTB_CR_R |= 0xFF;
+	GPIO_PORTB_DEN_R |= 0xFF;
+	GPIO_PORTB_DIR_R |= 0xFF;
+}
+void command_init(void)
+{
+	lcd_cmd(0x01);
+	delay(MILLI_SECOND,2);	
+	lcd_cmd(0x38);
+	lcd_cmd(0x06);
+	lcd_cmd(0x0E);
+	lcd_cmd(0x0F);
+	lcd_cmd(0x30);
+}
 
 void lcd_cmd(char command)
 {
@@ -31,34 +70,6 @@ void lcd_data(char data)
 	GPIO_PORTA_DATA_R|=0x80;
 	delay(MILLI_SECOND,5);
 	GPIO_PORTA_DATA_R &= ~0x80;
-}
-
-void lcd_init(void)
-{
-    SYSCTL_RCGCGPIO_R |= 0x03;
-	while( (SYSCTL_PRGPIO_R & 0x03) == 0)
-	{
-	}
-	GPIO_PORTA_LOCK_R = 0x4C4F434B;
-	GPIO_PORTA_CR_R |= 0xE0;
-	GPIO_PORTA_AFSEL_R = 0;
-	GPIO_PORTA_PCTL_R =0;
-	GPIO_PORTA_AMSEL_R =0;
-	GPIO_PORTA_DEN_R |= 0xE0;
-	GPIO_PORTA_DIR_R |= 0xE0;
-	
-	GPIO_PORTB_LOCK_R = 0x4C4F434B;
-	GPIO_PORTB_CR_R |= 0xFF;
-	GPIO_PORTB_DEN_R |= 0xFF;
-	GPIO_PORTB_DIR_R |= 0xFF;
-
-	lcd_cmd(0x01);
-	delay(MILLI_SECOND,2);	
-	lcd_cmd(0x38);
-	lcd_cmd(0x06);
-	lcd_cmd(0x0E);
-	lcd_cmd(0x0F);
-	lcd_cmd(0x30);
 }
 
 void lcd_clear(void)
