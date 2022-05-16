@@ -14,6 +14,14 @@ Copyright (C) 2022. All rights reserved.
 
 #include "standard_types.h"
 
+typedef enum mission
+{
+	POPCORN 	= 	'A',
+	BEAF,
+	CHICKEN,  	
+	SET_TIME,	
+}mission;
+
 typedef enum unit
 {
 	SECOND,

@@ -11,6 +11,7 @@ Copyright (C) 2022. All rights reserved.
 #ifndef INTEGRATION_H
 #define INTEGRATION_H
 
+<<<<<<< HEAD
 typedef enum state
 {
 	POPCORN 	= 	'A',
@@ -21,6 +22,9 @@ typedef enum state
 	INVALID_WEIGHT,
 	VALID_WEIGHT
 }state;
+=======
+#include"../struct_enum.h"
+>>>>>>> 16c2428b2e6bab50679b0b69bdb88c7daaa635bc
 
 //********** Functions Prototype ***************
 void microwave_init(void);   			// Initializes all the components in the microwave including lcd,keypad,tools 
@@ -36,5 +40,7 @@ void invalid_weight(void);    		// The action for invalidation of food weight
 void cooking(void);								// Cooking time 
 void calc_time(void);							// To calc the total time according to the weight entered
 void display_time(void);					// To display time in the form --> 00:00
+uint8_t count_digits(uint32_t number);
+char* integer_to_string(uint32_t number);
 //*******************************************************
 #endif
