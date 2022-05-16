@@ -13,7 +13,7 @@ Copyright (C) 2022. All rights reserved.
 #include "../macros.h"
 #include "../timer/timer.h"
 #include "../standard_types.h"
-#include "../timer/struct_enum.h"
+#include "../struct_enum.h"
 
 void lcd_init(void)
 {

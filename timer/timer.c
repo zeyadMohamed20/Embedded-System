@@ -12,7 +12,7 @@ Copyright (C) 2022. All rights reserved.
 #include "timer.h"
 #include "../macros.h"
 #include "../standard_types.h"
-#include "struct_enum.h"
+#include "../struct_enum.h"
 
 time timer;
 

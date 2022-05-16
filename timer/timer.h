@@ -12,7 +12,7 @@ Copyright (C) 2022. All rights reserved.
 #define TIME_H
 
 #include "../standard_types.h"
-#include "struct_enum.h"
+#include "../struct_enum.h"
 
 //********** Functions Prototype ***************
 void timer_init(void);

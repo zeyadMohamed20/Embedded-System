@@ -12,7 +12,7 @@ Copyright (C) 2022. All rights reserved.
 #ifndef STRUCT_ENUM_H
 #define STRUCT_ENUM_H
 
-#include "../standard_types.h"
+#include "standard_types.h"
 
 typedef enum unit
 {

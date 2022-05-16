@@ -14,11 +14,11 @@ Copyright (C) 2022. All rights reserved.
 #include "../lcd/lcd.h"
 #include "../tools/tools.h"
 #include "../timer/timer.h"
-#include "../timer/struct_enum.h"
+#include "../struct_enum.h"
 #include "../macros.h"
 
 //Global variables
-char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D'
+static char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D'
 int timeMin;					// To store the minutes
 int timeSec;					// To store the total time in seconds
 int weight;						// To store number of kilos that the user enters

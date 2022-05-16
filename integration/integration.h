@@ -14,9 +14,9 @@ Copyright (C) 2022. All rights reserved.
 typedef enum mission
 {
 	POPCORN 	= 	'A',
-	BEAF 			= 	'B',
-	CHICKEN 	= 	'C',
-	SET_TIME 	=	  'D'
+	BEAF,
+	CHICKEN,  	
+	SET_TIME,	
 }mission;
 
 //********** Functions Prototype ***************
@@ -32,6 +32,6 @@ void valid_weight(char weight);		// The action for validation of food weight
 void invalid_weight(void);    		// The action for invalidation of food weight
 void cooking(void);								// Cooking time 
 void calc_time(void);							// To calc the total time according to the weight entered
-void display_time(void);							// To display time in the form --> 00:00
+void display_time(void);					// To display time in the form --> 00:00
 //*******************************************************
 #endif

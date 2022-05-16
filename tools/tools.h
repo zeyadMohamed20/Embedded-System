@@ -13,7 +13,7 @@ Copyright (C) 2022. All rights reserved.
 #define TOOLS_H
 
 #include "../standard_types.h"
-#include "../timer/struct_enum.h"
+#include "../struct_enum.h"
 
 //********** Functions Prototype ***************
 void tools_init(void);//enable ports f and port a
