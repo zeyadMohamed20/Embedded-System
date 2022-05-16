@@ -145,7 +145,7 @@ Copyright (C) 2022. All rights reserved.
 //******************************* Timer Constant Macros ******************************************************************
 #define CLEAR_VALUE 0
 #define ENABLE_TIMER 5
-#define ONE_COUNT_TIME 62.5 *power(10,-9);
+#define ONE_COUNT_TIME 62.5 * power(10,-9);
 #define COUNTS_1SEC  16000000-1
 #define COUNTS_1MS  16000-1
 #define COUNTS_1MICROSEC  16-1

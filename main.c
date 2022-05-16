@@ -1,16 +1,17 @@
 #include "integration/integration.h"
-
-//Global variables
-
+#include "lcd/lcd.h"
+#include "timer/timer.h"
 void SystemInit()
 {
 }
 int main()
 {
 	microwave_init();
+	
+	choose_mission();
+	cooking();
 	while (1)
 	{
-		choose_mission();
-		cooking();
+		
 	}
 }

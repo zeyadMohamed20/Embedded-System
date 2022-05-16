@@ -51,15 +51,14 @@ void command_init(void)
 	lcd_cmd(0x06);
 	lcd_cmd(0x0E);
 	lcd_cmd(0x0F);
-	lcd_cmd(0x30);
 }
 
 void lcd_cmd(char command)
 {
 	GPIO_PORTA_DATA_R &= ~0xE0;
-	GPIO_PORTB_DATA_R=command;
+	GPIO_PORTB_DATA_R = command;
 	GPIO_PORTA_DATA_R|=0x80;
-	//delay(MILLI_SECOND,100);
+	delay(MILLI_SECOND,100);
 	GPIO_PORTA_DATA_R &= ~0xE0;
 }
 
@@ -81,7 +80,7 @@ void lcd_clear(void)
 void lcd_secline(void)
 {
 	delay(MILLI_SECOND,100);
-	lcd_cmd(0xc0);
+	lcd_cmd(0xC0);
 }
 
 void lcd_display(char *str){

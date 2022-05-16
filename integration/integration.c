@@ -152,12 +152,16 @@ void calc_time(void)
 void display_time(void)
 {
 	lcd_secline();
-	lcd_setposition(1, 7);
+  delay(MILLI_SECOND, 10);
+	lcd_setposition(2, 7);
+	lcd_display("00:00");
+	delay(SECOND, 2);
 }
 
 void cooking(void)
 {
-	calc_time();
 	leds_on();
+	calc_time();
 	display_time();
+	
 }
