@@ -18,7 +18,7 @@ Copyright (C) 2022. All rights reserved.
 #include "../macros.h"
 
 //Global variables
-static char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D'
+char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D'
 int timeMin;					// To store the minutes
 int timeSec;					// To store the total time in seconds
 int weight;						// To store number of kilos that the user enters
@@ -35,7 +35,7 @@ void choose_mission(void)
 { 
 	lcd_display("Choose Mission:");
 	missionChoice = keypad_get_input(); //To store mission choice entered by keypad
-	lcd_data(missionChoice);
+	lcd_display(&missionChoice);
 	/*
 	  if the user enters -> 'A' then exexute popcorn mission
 	                        'B' then execute beaf mission
@@ -164,4 +164,37 @@ void cooking(void)
 	calc_time();
 	display_time();
 	
+}
+
+
+uint8_t count_digits(uint32_t number)
+{
+	if(number == 0)
+	{
+		return 1;
+	}
+	else
+	{
+		uint8_t count = 0;
+		while(number!=0)
+		{
+			number = number/10;
+			count++;
+		}
+		return count;
+	}
+}
+
+char* integer_to_string(uint32_t number)
+{
+	const uint8_t size = count_digits(number);
+	static char string[10];
+	uint8_t i;
+	string[size] = '\0';
+	for(i = 0;i<size;i++)
+	{
+		string[size-i-1] = (number%10) + 48;
+		number/=10;
+	}
+	return string;
 }
