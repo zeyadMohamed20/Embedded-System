@@ -135,11 +135,11 @@ Copyright (C) 2022. All rights reserved.
 
 //*************************************Constant Macros*********************************************************************
 #define KEYPAD_FIRST_ROW					0x01	// order of First pin in PortD, that represent Rows 
-#define KEYPAD_FIRST_COLUMN				0x10	// order of First pin in PortC, that represent Columns
-#define KEYPAD_ROW_START_INDEX		0x00	// start index of Row
-#define KEYPAD_ROW_LAST_INDEX			0x04	// start index of Row
-#define KEYPAD_COLUMN_START_INDEX	0x00	// start index of Column
-#define KEYPAD_COLUMN_LAST_INDEX	0x04	// start index of Column
+#define KEYPAD_FIRST_COLUMN				0x02		// order of First pin in PortC, that represent Columns
+#define KEYPAD_ROW_START_INDEX		0x00			// start index of Row
+#define KEYPAD_ROW_LAST_INDEX			0x04		// start index of Row
+#define KEYPAD_COLUMN_START_INDEX	0x00			// start index of Column
+#define KEYPAD_COLUMN_LAST_INDEX	0x04			// start index of Column
 //************************************************************************************************************************
 
 //******************************* Timer Constant Macros ******************************************************************

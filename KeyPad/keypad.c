@@ -82,7 +82,7 @@ char keypad_get_input(void)
 				if((GPIO_PORTE_DATA_R & GPIO_PORTE_PIN1_4) == KEYPAD_FIRST_COLUMN << column)
 				{
 					GPIO_PORTD_DATA_R &=~ GPIO_PORTD_PIN0_3;
-					GPIO_PORTE_DATA_R &=~ GPIO_PORTE_PIN1_4;
+					// GPIO_PORTE_DATA_R &=~ GPIO_PORTE_PIN1_4;
 					// return the corresponding value of pressed key
 					return values[row][column];
 				}
