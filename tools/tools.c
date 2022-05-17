@@ -48,6 +48,8 @@ void portA_initialization(void)
 	GPIO_PORTA_PUR_R |= 0x11;
 	GPIO_PORTA_ICR_R |= (1 << 2);
 }
+
+
 //usage of Push button as Interrupt//
 
 void GPIOA_Handler(void)

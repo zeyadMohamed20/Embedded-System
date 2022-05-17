@@ -12,7 +12,6 @@ int main()
 	cooking();
 	finish_cooking();
 	while (1)
-	{
-		
+	{	
 	}
 }

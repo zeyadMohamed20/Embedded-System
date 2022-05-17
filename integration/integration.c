@@ -20,9 +20,9 @@ Copyright (C) 2022. All rights reserved.
 
 //Global variables
 static char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D'
-uint32_t timeMin;									// To store the minutes
-uint32_t timeSec;									// To store the total time in seconds	
-char weight;
+static uint32_t timeMin;									// To store the minutes
+static uint32_t timeSec;									// To store the total time in seconds	
+static char weight;
 
 void microwave_init(void)
 {
@@ -199,9 +199,9 @@ void display_time(void)
 
 	uint8_t timer1, timer2, timer3, timer4;
 	timer1 = timeMin / 10;		// Tens of Minutes
-	timer2 = timeMin % 10;		// Ones of Minutes
+	timer2 = timeMin % 10;		// Units of Minutes
 	timer3 = timeSec / 10;		// Tens of Seconds
-	timer4 = timeSec % 10;		// Ones of Seconds
+	timer4 = timeSec % 10;		// Units of Seconds
 	
 	lcd_clear();			//Clear LCD
 	// Display the time remaining
