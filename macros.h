@@ -155,5 +155,7 @@ Copyright (C) 2022. All rights reserved.
 //*********************************** Integration Constant Macros *******************************************************************************
 #define BEAF_SECONDS_PER_KILO					0.5 * 60			// Use this to claculate the time total time in seconds according to beaf weight entered 
 #define CHICKEN_SECONDS_PER_KILO 			0.2 * 60			// Use this to claculate the time total time in seconds according to chicken weight entered 
+#define BLINK_FINISH_COOKING					3							// LEDs, buzzer, LCD blink three times after cooking time ends
+#define DELAY_FINISH_COOKING					500						// The delay constant is 500 milli-second
 //************************************************************************************************************************************************
 #endif

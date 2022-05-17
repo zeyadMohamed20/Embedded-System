@@ -19,10 +19,9 @@ Copyright (C) 2022. All rights reserved.
 
 //Global variables
 static char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D'
-int timeMin;									// To store the minutes
-int timeSec;									// To store the total time in seconds
-int weight;										// To store number of kilos that the user enters
-
+uint32_t timeMin;									// To store the minutes
+uint32_t timeSec;									// To store the total time in seconds	
+char weight;
 
 void microwave_init(void)
 {
@@ -33,6 +32,7 @@ void microwave_init(void)
 
 void choose_mission(void)
 { 
+	lcd_clear();
 	lcd_display("Choose Mission:");
 	missionChoice = keypad_get_input(); //To store mission choice entered by keypad
 	lcd_display(&missionChoice);				// Print character that user choosed
@@ -74,6 +74,7 @@ void invalid_mission(void)
 	lcd_clear();
 	lcd_display("Invalid Input");
 	delay(SECOND,2);
+	choose_mission();
 }
 
 void popcorn(void)
@@ -102,56 +103,58 @@ void chicken(void)
 
 void set_time(void)
 {
-	uint8_t i;			// Use i in for loop
-	char timeArray[4];		//Each index is used to store the digit entered in each time 
+	uint8_t i,j;			// Use i,j in nested for loop
+	char timeArray[] = "00:00";		//Each index is used to store the digit entered in each time 
 	// Print "Cooking Time" then ask the user to to enter the time from right to left
 	lcd_clear();
 	lcd_display("Cooking Time");
 	lcd_setposition(2, 7);
-	lcd_display("00:00");
-	//Enter a value in digit 11 on LCD
-	for(i = 0; i <= 5; i++)
+	lcd_display(timeArray);
+	//Enter a value in field 11 on LCD
+	for(i = 1; i < 5; i++)
 	{
-		lcd_shiftL(i);
-		lcd_setposition(2, 11);
-		timeArray[i] = keypad_get_input();
-		lcd_display(&timeArray[i]);
-// {	timeArray[0] = LCDdigit7, timeArray[1] = LCDdigit8 } --> minutes
-// {	timeArray[2] = LCDdigit10, timeArray[3] = LCDdigit11 } --> seconds 
+		lcd_shiftL(1);
+		for(j = 1; j < 5; j++)
+		{
+			if(j == 3)
+				timeArray[j-2] = timeArray[j];
+			else if(j == 2)
+				continue;
+			else
+					timeArray[j-1] = timeArray[j];
+		}
+		timeArray[j-1]= keypad_get_input();
+		lcd_setposition(2,7);
+		lcd_display(timeArray);
 	}
 }
 
 void set_kilo(void)
 {
-	char weight, checkWeight;	// weight to store number of kilos, checkWeight to store if weight is valid or not
-	//Stay in do-while-loop until the user enters a vaild weight (1 -> 9)
-	do
+	weight = keypad_get_input(); //Store user's input from keypad in weight variable
+	lcd_data(weight); //print weight on the screen
+
+	//Case of weight validation
+	if(weight >= '1' && weight <= '9')
 	{
-		weight = keypad_get_input(); //Store user's input from keypad in weight variable
-		lcd_display(&weight); //print weight on the screen
-		if(weight < '1' || weight > '9')
+		valid_weight();
+	}
+	else //Case of weight invalidation
+	{
+		invalid_weight();
+		switch(missionChoice)
 		{
-			checkWeight = INVALID_WEIGHT;
-			invalid_weight();
-			switch(missionChoice)
-			{
-				case BEAF:
-					beaf();
-					break;
-				case CHICKEN:
-					chicken();
-					break;
-			}
+			case BEAF:
+				beaf();
+				break;
+			case CHICKEN:
+				chicken();
+			break;
 		}
-		else
-		{
-			checkWeight = VALID_WEIGHT;
-			valid_weight(weight);
-		}
-	}while(checkWeight == INVALID_WEIGHT);
+	}
 }
 
-void valid_weight(char weight)
+void valid_weight()
 {
 	//Clear the display then print the weight value entered by the user for 2 seconds
 	lcd_clear();
@@ -168,7 +171,7 @@ void invalid_weight(void)
 	delay(SECOND,2);
 }
 
-void calc_time(void)
+void calc_time()
 {
 	// The time depends on the mission
   switch(missionChoice)
@@ -178,11 +181,11 @@ void calc_time(void)
     break;
     case BEAF:
     timeSec = (weight - '0') * BEAF_SECONDS_PER_KILO;			// timeSec = weight * 0.5 * 60 
-		timeMin = timeSec % 60;						// Store Minutes in timeMin variable
+		timeMin = timeSec / 60;						// Store Minutes in timeMin variable
     break;
     case CHICKEN:
     timeSec = (weight - '0') * CHICKEN_SECONDS_PER_KILO;	// timeSec = weight * 0.2 * 60 
-		timeMin = timeSec % 60;						// Store Minutes in timeMin variable
+		timeMin = timeSec / 60;						// Store Minutes in timeMin variable
     break;
   }
 }
@@ -193,11 +196,11 @@ void display_time(void)
 	// timer1	 timer2		 timer3	timer4
 	//	 0       0    :    0       0
 
-	int8_t timer1, timer2, timer3, timer4;
+	uint8_t timer1, timer2, timer3, timer4;
 	timer1 = timeMin / 10;		// Tens of Minutes
-	timer2 = 0;								// Ones of Minutes
+	timer2 = timeMin % 10;		// Ones of Minutes
 	timer3 = timeSec / 10;		// Tens of Seconds
-	timer4 = 0;								// Ones of Seconds
+	timer4 = timeSec % 10;		// Ones of Seconds
 	
 	lcd_clear();			//Clear LCD
 	// Display the time remaining
@@ -206,11 +209,11 @@ void display_time(void)
 		lcd_setposition(2, 7);		//Set the cursor in the middle of LCD 
 		
 		timer4 -= 1;
-		if(timer4 == -1)	timer4 = 9;
+		if(timer4 == 255)	timer4 = 9;
 		if(timer4 == 9)	timer3 -= 1;
-		if(timer3 == -1)	timer3 = 6;
+		if(timer3 == 255)	timer3 = 6;
 		if(timer3 == 0 && timer1 != 0)	timer2 -= 1;
-		if(timer2 == -1) timer2 = 9;
+		if(timer2 == 255) timer2 = 9;
 		if(timer2 == 9)	timer1 -= 1;
 		
 		delay(SECOND, 1);
@@ -224,34 +227,29 @@ void display_time(void)
 	}while((timer1 != 0 || timer2 != 0 || timer3 != 0 || timer4 != 0));
 }
 
-void cooking(void)
+void cooking()
 {
 	leds_on();
-	calc_time();
+	calc_time();		// Calculate the time according to number of kilos entered
 	display_time();
 }
 
 void finish_cooking(void)
 {
-	blink(3, MILLI_SECOND, 500, MILLI_SECOND, 500);
-}
-
-//determine time of leds blinking//
-void blink(uint8_t numberOfBlink,unit onDelay,uint32_t delayTimeOn,unit offDelay,uint32_t delayTimeOff)
-{
+	// LEDs, LCD blink three times with buzzer
 	uint8_t i;
-	for (i=0 ;i < numberOfBlink; i++)
+	for (i = 0 ;i < BLINK_FINISH_COOKING; i++)
 	{
 		leds_on();
 		buzzer_on();
 		lcd_blink("00:00");
 		lcd_clear();
-		delay(onDelay,delayTimeOn);
+		delay(MILLI_SECOND,DELAY_FINISH_COOKING);
 		leds_off();
 		buzzer_off();
 		lcd_blink("00:00");
 		lcd_clear();
-		delay(offDelay,delayTimeOff); 	
+		delay(MILLI_SECOND,DELAY_FINISH_COOKING);
 	}
 }
 

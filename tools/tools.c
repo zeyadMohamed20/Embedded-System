@@ -106,3 +106,5 @@ void buzzer_off(void)
 {
 	GPIO_PORTA_DATA_R^=0X08;
 }
+
+
