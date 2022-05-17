@@ -15,6 +15,12 @@ Copyright (C) 2022. All rights reserved.
 #include "../macros.h"
 #include "../struct_enum.h"
 
+void interrupt_init(void)
+{
+	sw1_interrupt_init();
+	sw2_interrupt_init();
+}	
+
 void sw1_interrupt_init(void)
 {
 	GPIO_PORTF_IS_R  &= ~(1<<4);
@@ -34,9 +40,8 @@ void sw2_interrupt_init(void)
 
 void GPIOF_Handler(void)
 {
-	if(missionChoice == SET_TIME)
+	if(currentState == SET_TIME)
 	{
 		lcd_setposition(2,7);
-		lcd_
 	}
 }

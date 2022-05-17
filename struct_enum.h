@@ -14,16 +14,24 @@ Copyright (C) 2022. All rights reserved.
 
 #include "standard_types.h"
 
-typedef enum mission
+typedef enum state
 {
 	POPCORN 	= 	'A',
 	BEAF,
 	CHICKEN,  	
 	SET_TIME,
 	INVALID_MISSION,
+	SET_KILO,
 	VALID_WEIGHT,
-	INVALID_WEIGHT	
-}mission;
+	INVALID_WEIGHT,
+  CLEAR_DIGIT,
+  INVALID_TIME,
+  COOKING,
+  PAUSE,
+  DOOR_OPENED,
+  FINISH_COOKING,
+  CANCEL_COOKING
+}state;
 
 typedef enum unit
 {

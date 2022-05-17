@@ -10,6 +10,7 @@ Copyright (C) 2022. All rights reserved.
 */
 // include librarys
 #include "integration.h"
+#include "../interrupt/interrupt.h"
 #include "../keypad/keypad.h"
 #include "../lcd/lcd.h"
 #include "../tools/tools.h"
@@ -19,10 +20,10 @@ Copyright (C) 2022. All rights reserved.
 #include "../utility/util.h"
 
 //Global variables
-char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D'
+char currentState;		// To store the mission 'A' or 'B' or 'C' or 'D'
+char timeArray[] = "00:00";				// Each index is used to store the digit entered in each time
 static uint32_t timeMin;									// To store the minutes
 static uint32_t timeSec;									// To store the total time in seconds	
-char timeArray[] = "00:00";				// Each index is used to store the digit entered in each time
 static char weight;
 
 void microwave_init(void)
@@ -30,14 +31,15 @@ void microwave_init(void)
 	lcd_init(); 		//lcd initialization ports
 	keypad_init();  //keypad initialization ports
 	tools_init(); 	// tools initialization ports
+	interrupt_init(); //Interrupt initialization registers
 }
 
 void choose_mission(void)
 { 
 	lcd_clear();
 	lcd_display("Choose Mission:");
-	missionChoice = keypad_get_input(); //To store mission choice entered by keypad
-	lcd_display(&missionChoice);				// Print character that user choosed
+	currentState = keypad_get_input(); //To store mission choice entered by keypad
+	lcd_display(&currentState);				// Print character that user choosed
 	delay(MILLI_SECOND, 200);						//For safty not to enter the same character chosen as a kilo value (Invalid input)
 	/*
 	  if the user enters -> 'A' then exexute popcorn mission
@@ -49,7 +51,7 @@ void choose_mission(void)
 	// Stay in do-while-loop until the user enters a valid choice
 	do
 	{
-		switch (missionChoice)
+		switch (currentState)
 		{
 			case POPCORN:
 				popcorn();
@@ -64,16 +66,17 @@ void choose_mission(void)
 				set_time();
 				break;
 			default:
-				missionChoice = INVALID_MISSION;
+				currentState = INVALID_MISSION;
 				invalid_mission();
 				break;
 		}
-	}while(missionChoice == INVALID_MISSION);
+	}while(currentState == INVALID_MISSION);
 }
 
 void invalid_mission(void)
 {
 	//Print invalid input for 2 sec on LCD
+	currentState = INVALID_MISSION;
 	lcd_clear();
 	lcd_display("Invalid Input");
 	delay(SECOND,2);
@@ -82,6 +85,7 @@ void invalid_mission(void)
 
 void popcorn(void)
 {
+	currentState = POPCORN;
 	//Print "popcorn" for 2 sec on LCD
 	lcd_clear();
 	lcd_display("Popcorn");
@@ -90,6 +94,7 @@ void popcorn(void)
 
 void beaf(void)
 {
+	currentState = BEAF;
 	//Print "Beef Weight" then ask the user about weight
 	lcd_clear();
 	lcd_display("Beef Weight:");
@@ -98,15 +103,61 @@ void beaf(void)
 
 void chicken(void)
 {
+	currentState = CHICKEN;
 	//Print "Chicken Weight:" then ask the user about weight
 	lcd_clear();
 	lcd_display("Chicken Weight:");
 	set_kilo();
 }
 
+void set_kilo(void)
+{
+	currentState = SET_KILO;
+	weight = keypad_get_input(); //Store user's input from keypad in weight variable
+	lcd_data(weight); //print weight on the screen
+	//Case of weight validation
+	if(weight >= '1' && weight <= '9')
+	{
+		valid_weight();
+	}
+	else //Case of weight invalidation
+	{
+		invalid_weight();
+		switch(currentState)
+		{
+			case BEAF:
+				beaf();
+				break;
+			case CHICKEN:
+				chicken();
+			break;
+		}
+	}
+}
+
+void valid_weight()
+{
+	currentState = VALID_WEIGHT;
+	//Clear the display then print the weight value entered by the user for 2 seconds
+	lcd_clear();
+	lcd_display("Weight Value:");
+	lcd_display(&weight);
+	delay(SECOND,2);
+}
+
+void invalid_weight(void)
+{
+	currentState = INVALID_WEIGHT;
+	//Print error for 2 seconds
+	lcd_clear();
+	lcd_display("Err");
+	delay(SECOND,2);
+}
+
 void set_time(void)
 {
 	uint8_t i,j;			// Use i,j in nested for loop		
+	currentState = SET_TIME;
 	// Print "Cooking Time" then ask the user to to enter the time from right to left
 	lcd_clear();
 	lcd_display("Cooking Time");
@@ -131,51 +182,10 @@ void set_time(void)
 	}
 }
 
-void set_kilo(void)
-{
-	weight = keypad_get_input(); //Store user's input from keypad in weight variable
-	lcd_data(weight); //print weight on the screen
-	//Case of weight validation
-	if(weight >= '1' && weight <= '9')
-	{
-		valid_weight();
-	}
-	else //Case of weight invalidation
-	{
-		invalid_weight();
-		switch(missionChoice)
-		{
-			case BEAF:
-				beaf();
-				break;
-			case CHICKEN:
-				chicken();
-			break;
-		}
-	}
-}
-
-void valid_weight()
-{
-	//Clear the display then print the weight value entered by the user for 2 seconds
-	lcd_clear();
-	lcd_display("Weight Value:");
-	lcd_display(&weight);
-	delay(SECOND,2);
-}
-
-void invalid_weight(void)
-{
-	//Print error for 2 seconds
-	lcd_clear();
-	lcd_display("Err");
-	delay(SECOND,2);
-}
-
 void calc_time()
 {
 	// The time depends on the mission
-  switch(missionChoice)
+  switch(currentState)
   {
     case POPCORN:
     timeSec = 60;						// Total time in seconds = 60
@@ -199,14 +209,14 @@ void display_time(void)
 	// timer1	 timer2		 timer3	timer4
 	//	 0       0    :    0       0
 
-	if(missionChoice == POPCORN || missionChoice == BEAF || missionChoice == CHICKEN)
+	if(currentState == POPCORN || currentState == BEAF || currentState == CHICKEN)
 	{
 		timer1 = timeMin / 10;							// Tens of Minutes
 		timer2 = timeMin % 10;							// Ones of Minutes
 		timer3 = (timeSec % 60) / 10;				// Tens of Seconds
 		timer4 = (timeSec % 60) %10;				// Ones of Seconds
 	}
-	else if(missionChoice == SET_TIME)
+	else if(currentState == SET_TIME)
 	{
 		timer1 = timeArray[0] - '0';				// Tens of Minutes
 		timer2 = timeArray[1] - '0';				// Ones of Minutes
@@ -244,6 +254,7 @@ void display_time(void)
 
 void cooking()
 {
+	currentState = COOKING;
 	leds_on();
 	calc_time();		// Calculate the time according to number of kilos entered
 	display_time();
@@ -251,8 +262,9 @@ void cooking()
 
 void finish_cooking(void)
 {
-	// LEDs, LCD blink three times with buzzer
 	uint8_t i;
+	currentState = FINISH_COOKING;
+	// LEDs, LCD blink three times with buzzer
 	for (i = 0 ;i < BLINK_FINISH_COOKING; i++)
 	{
 		leds_on();
@@ -267,4 +279,3 @@ void finish_cooking(void)
 		delay(MILLI_SECOND,DELAY_FINISH_COOKING);
 	}
 }
-

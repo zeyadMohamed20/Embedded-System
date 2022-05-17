@@ -12,6 +12,7 @@ Copyright (C) 2022. All rights reserved.
 #ifndef EXTERNAL_H
 #define EXTERNAL_H
 //************************** External Variables *****************************************************************************
-extern char missionChoice;
+extern char currentState;		// To store the mission 'A' or 'B' or 'C' or 'D'
+extern char timeArray[];				// Each index is used to store the digit entered in each time
 
 #endif

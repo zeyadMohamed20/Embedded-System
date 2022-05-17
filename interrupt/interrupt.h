@@ -12,6 +12,7 @@ Copyright (C) 2022. All rights reserved.
 #ifndef INTERRUPT_H
 #define INTERRUPT_H
 //************************** Functions Prototype *****************************************************************************
+void interrupt_init(void);     //Initialization All interrupt registers
 void sw1_interrupt_init(void); //initialization interrupt registers of sw1
 void sw2_interrupt_init(void); //initialization interrupt registers of sw2
 //****************************************************************************************************************************
