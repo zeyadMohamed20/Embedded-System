@@ -84,7 +84,7 @@ void lcd_secline(void)
 }
 
 void lcd_display(char *str){
-	uint8_t i =0;
+	uint8_t i = 0;
 	while(str[i] != '\0')
 	{
 		lcd_data(str[i]);
@@ -139,13 +139,8 @@ void lcd_shiftL(uint32_t shift)
 
 void lcd_blink(char *str)
 {
-	uint8_t i = 0;
+	lcd_setposition(2, 7);
+	lcd_display(str);
+	delay(MILLI_SECOND, 150);
 	lcd_clear();
-	delay(MILLI_SECOND,200);
-	while(str[i] != '\0')
-	{
-		lcd_data(str[i]);
-		str++;
-	}
-	delay(MILLI_SECOND, 200);	
 }

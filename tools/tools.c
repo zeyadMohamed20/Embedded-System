@@ -106,17 +106,3 @@ void buzzer_off(void)
 {
 	GPIO_PORTA_DATA_R^=0X08;
 }
-//determine time of leds blinking//
-void leds_buzzer_blink(uint8_t numberOfBlink,unit onDelay,uint32_t delayTimeOn,unit offDelay,uint32_t delayTimeOff)
-{
-	uint8_t i;
-	for (i=0 ;i < numberOfBlink; i++)
-	{
-		leds_on();
-		buzzer_on();
-		delay(onDelay,delayTimeOn);
-		leds_off();
-		buzzer_off();
-		delay(offDelay,delayTimeOff); 	
-	}
-}

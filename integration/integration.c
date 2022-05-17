@@ -231,6 +231,30 @@ void cooking(void)
 	display_time();
 }
 
+void finish_cooking(void)
+{
+	blink(3, MILLI_SECOND, 500, MILLI_SECOND, 500);
+}
+
+//determine time of leds blinking//
+void blink(uint8_t numberOfBlink,unit onDelay,uint32_t delayTimeOn,unit offDelay,uint32_t delayTimeOff)
+{
+	uint8_t i;
+	for (i=0 ;i < numberOfBlink; i++)
+	{
+		leds_on();
+		buzzer_on();
+		lcd_blink("00:00");
+		lcd_clear();
+		delay(onDelay,delayTimeOn);
+		leds_off();
+		buzzer_off();
+		lcd_blink("00:00");
+		lcd_clear();
+		delay(offDelay,delayTimeOff); 	
+	}
+}
+
 uint8_t count_digits(uint32_t number)
 {
 	if(number == 0)

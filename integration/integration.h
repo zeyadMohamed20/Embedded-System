@@ -24,8 +24,10 @@ void set_kilo(void);       				// Enables the user to set the weight of the food
 void valid_weight(char weight);		// The action for validation of food weight
 void invalid_weight(void);    		// The action for invalidation of food weight
 void cooking(void);								// Cooking time 
-void calc_time(void);							// To calc the total time according to the weight entered
-void display_time(void);					// To display time in the form --> 00:00
+void calc_time(void);							// Calculates the total time according to the weight entered
+void display_time(void);					// Displays the time in the form --> 00:00
+void finish_cooking(void);				// Notifys the user to take the food from microwave
+void blink(uint8_t numberOfBlink,unit onDelay,uint32_t delayTimeOn,unit offDelay,uint32_t delayTimeOff);
 uint8_t count_digits(uint32_t number);
 char* integer_to_string(uint32_t number);
 //*******************************************************
