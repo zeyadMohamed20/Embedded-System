@@ -122,3 +122,6 @@ main.uvproj
 main_Target 1.dep
 main_uvopt.bak
 main_uvproj.bak
+util.crf
+util.d
+util.o
