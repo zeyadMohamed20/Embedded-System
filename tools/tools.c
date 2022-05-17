@@ -25,6 +25,7 @@ void tools_init(void)
 //initiallization port f//
 void portF_initialization(void)
 {
+	//GPIO
 	GPIO_PORTF_LOCK_R = 0x4C4F434B;
 	GPIO_PORTF_CR_R |= 0x1F;
 	GPIO_PORTF_AMSEL_R |= 0;
@@ -33,7 +34,13 @@ void portF_initialization(void)
 	GPIO_PORTF_DIR_R |= 0x1E;
 	GPIO_PORTF_DEN_R |= 0x1F;
 	GPIO_PORTF_PUR_R |= 0x11;
-	GPIO_PORTF_ICR_R |= (1<<4)|(1<<0);
+	//Interrupt 
+	GPIO_PORTF_IS_R &= ~0x11;     						//make bit 4, 0 edge sensitive
+	GPIO_PORTF_IBE_R &=~0x11;     						//trigger is controlled by IEV
+	GPIO_PORTF_IEV_R &=~ 0x11;     						//falling edge trigger
+	GPIO_PORTF_ICR_R |=  0x11;						    //clear any prior interrupt
+	GPIO_PORTF_IM_R |= 0x11;				          //unmask interrupt
+	NVIC_EN0_R |= (1<<30);  								  //Enable IRQ30 (D30 of ISER[0])
 }
 //initiallization port a	
 void portA_initialization(void)
@@ -46,48 +53,31 @@ void portA_initialization(void)
 	GPIO_PORTA_DIR_R |= 0x1E;
 	GPIO_PORTA_DEN_R |= 0x1F;
 	GPIO_PORTA_PUR_R |= 0x11;
-	GPIO_PORTA_ICR_R |= (1 << 2);
 }
 
-
 //usage of Push button as Interrupt//
-
-void GPIOA_Handler(void)
-{ /* if ((GPIO_PORTA_MIS_R&0x04)!=0x04)
+/*void GPIOA_Handler(void)
+{ 
+	if((GPIO_PORTA_MIS_R & 0x04) != 0x04)
 	pause();
-	GPIO_PORTA_ICR_R  |= 0x04;
-	*/
+	GPIO_PORTA_ICR_R |= 0x04;
 }
 
 //usage of SW1 and SW2 buttons as interrupt//
 void GPIOF_Handler(void)
 {
-/*	   //SW2 is pushed for 1st time and start cooking and leds turn on//
-      if ((GPIO_PORTF_MIS_R &0x11)==0x01)
-	  {
-					leds_on();	
-					//SW1 is pushed for 1st time and pause cooking//
-					if ((GPIO_PORTF_MIS_R &0X11)==0X11)
-					{
-						//pause();
-						//SW1 is pushed for 2nd time and stop cooking and leds turn off//
-						if((GPIO_PORTF_MIS_R & 0x11)==0x01)
-						{
-						lcd_clear();
-						leds_off();	
-						GPIO_PORTF_ICR_R  |= (1<<0);
-						}
-						//SW2 is pushed for 2nd time after 1st time of SW1 is pushed which resume cooking after pause cooking//
-						else if((GPIO_PORTF_MIS_R &0x11)==0x10)
-						{
-								//resume();
-								leds_on();
-								GPIO_PORTF_ICR_R |= (1<<4);
-						}
-					}
-	  }
-		*/
-}
+	if(GPIO_PORTF_MIS_R & 0x01)  //check if interrupt causes by PF4/SW2
+	{
+		leds_on();
+		GPIO_PORTA_ICR_R |= 0x01;
+	}
+	if(GPIO_PORTF_MIS_R & 0x10) 	//check if interrupt causes by PF4/SW1
+  {   
+		leds_off();
+		GPIO_PORTA_ICR_R |= 0x10;
+  }
+}*/
+
 //turn on leds//
 void leds_on(void)
 {

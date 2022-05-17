@@ -119,6 +119,13 @@ Copyright (C) 2022. All rights reserved.
 #define GPIO_PORTF_CR_R         (*((volatile uint32_t *)0x40025524))
 #define GPIO_PORTF_AMSEL_R      (*((volatile uint32_t *)0x40025528))
 #define GPIO_PORTF_PCTL_R       (*((volatile uint32_t *)0x4002552C))
+#define GPIO_PORTF_IS_R         (*((volatile uint32_t *)0x40025404))
+#define GPIO_PORTF_IBE_R        (*((volatile uint32_t *)0x40025408))
+#define GPIO_PORTF_IEV_R        (*((volatile uint32_t *)0x4002540C))
+#define GPIO_PORTF_ICR_R        (*((volatile uint32_t *)0x4002541C))
+#define GPIO_PORTF_IM_R         (*((volatile uint32_t *)0x40025410))
+#define GPIO_PORTF_MIS_R        (*((volatile uint32_t *)0x40025418))
+#define NVIC_EN0_R              (*((volatile uint32_t *)0xE000E100))
 //*****************************************************************************************************************
 
 //********************************Interrupt registers*********************************************************

@@ -22,6 +22,7 @@ Copyright (C) 2022. All rights reserved.
 char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D'
 static uint32_t timeMin;									// To store the minutes
 static uint32_t timeSec;									// To store the total time in seconds	
+char timeArray[] = "00:00";				// Each index is used to store the digit entered in each time
 static char weight;
 
 void microwave_init(void)
@@ -37,6 +38,7 @@ void choose_mission(void)
 	lcd_display("Choose Mission:");
 	missionChoice = keypad_get_input(); //To store mission choice entered by keypad
 	lcd_display(&missionChoice);				// Print character that user choosed
+	delay(MILLI_SECOND, 200);						//For safty not to enter the same character chosen as a kilo value (Invalid input)
 	/*
 	  if the user enters -> 'A' then exexute popcorn mission
 	                        'B' then execute beaf mission
@@ -104,8 +106,7 @@ void chicken(void)
 
 void set_time(void)
 {
-	uint8_t i,j;			// Use i,j in nested for loop
-	char timeArray[] = "00:00";		//Each index is used to store the digit entered in each time 
+	uint8_t i,j;			// Use i,j in nested for loop		
 	// Print "Cooking Time" then ask the user to to enter the time from right to left
 	lcd_clear();
 	lcd_display("Cooking Time");
@@ -134,7 +135,6 @@ void set_kilo(void)
 {
 	weight = keypad_get_input(); //Store user's input from keypad in weight variable
 	lcd_data(weight); //print weight on the screen
-
 	//Case of weight validation
 	if(weight >= '1' && weight <= '9')
 	{
@@ -178,15 +178,16 @@ void calc_time()
   switch(missionChoice)
   {
     case POPCORN:
-    timeSec = 60;
+    timeSec = 60;						// Total time in seconds = 60
+		timeMin = 1;						//Total time in minutes = 1
     break;
     case BEAF:
     timeSec = (weight - '0') * BEAF_SECONDS_PER_KILO;			// timeSec = weight * 0.5 * 60 
-		timeMin = timeSec / 60;						// Store Minutes in timeMin variable
+		timeMin = (timeSec / 60);						// Store Minutes in timeMin variable 
     break;
     case CHICKEN:
     timeSec = (weight - '0') * CHICKEN_SECONDS_PER_KILO;	// timeSec = weight * 0.2 * 60 
-		timeMin = timeSec / 60;						// Store Minutes in timeMin variable
+		timeMin = (timeSec / 60);						// Store Minutes in timeMin variable
     break;
   }
 }
@@ -194,38 +195,51 @@ void calc_time()
 void display_time(void)
 {
 	// Divide the timer into four timers as follows	
+	uint8_t timer1, timer2, timer3, timer4;
 	// timer1	 timer2		 timer3	timer4
 	//	 0       0    :    0       0
 
-	uint8_t timer1, timer2, timer3, timer4;
-	timer1 = timeMin / 10;		// Tens of Minutes
-	timer2 = timeMin % 10;		// Units of Minutes
-	timer3 = timeSec / 10;		// Tens of Seconds
-	timer4 = timeSec % 10;		// Units of Seconds
-	
+	if(missionChoice == POPCORN || missionChoice == BEAF || missionChoice == CHICKEN)
+	{
+		timer1 = timeMin / 10;							// Tens of Minutes
+		timer2 = timeMin % 10;							// Ones of Minutes
+		timer3 = (timeSec % 60) / 10;				// Tens of Seconds
+		timer4 = (timeSec % 60) %10;				// Ones of Seconds
+	}
+	else if(missionChoice == SET_TIME)
+	{
+		timer1 = timeArray[0] - '0';				// Tens of Minutes
+		timer2 = timeArray[1] - '0';				// Ones of Minutes
+		timer3 = timeArray[3] - '0';				// Tens of Seconds
+		timer4 = timeArray[4] - '0';				// Ones of Seconds
+	}
 	lcd_clear();			//Clear LCD
+	timer4 += 1;			//Increment timer4 by one only one time before the do-while loop
+	
 	// Display the time remaining
 	do
 	{
 		lcd_setposition(2, 7);		//Set the cursor in the middle of LCD 
 		
-		timer4 -= 1;
-		if(timer4 == 255)	timer4 = 9;
-		if(timer4 == 9)	timer3 -= 1;
-		if(timer3 == 255)	timer3 = 6;
-		if(timer3 == 0 && timer1 != 0)	timer2 -= 1;
-		if(timer2 == 255) timer2 = 9;
-		if(timer2 == 9)	timer1 -= 1;
+		timer4 -= 1;							//Decrement timer4 in the first
+		//Note if timer1,2,3,4 = 0 - 1 --> they will be 255 as they are unsigned integers
+		if(timer4 == 255)	timer4 = 9;	//If timer4 = 0 - 1 = 255 --> reset timer4 to 9
+		if(timer4 == 9)	timer3 -= 1;	//If timer4 = 9 --> decrement timer3 by one
+		if(timer3 == 255)	timer3 = 5;	//If timer3 = 0 - 1 = 255 --> reset timer3 to 5
+		if(timer3 == 5 && timer4 == 9 && timer2 != 0)	timer2 -= 1;	//if seconds on LCD = 59 and timer2 != 0 --> decrement timer2 by one
+		if(timer2 == 255) timer2 = 9;	//If timer2 = 0 - 1 = 255 --> reset timer2 to 9
+		if(timer2 == 9)	timer1 -= 1;	//If timer2 = 9 --> decrement timer1 by one
 		
-		delay(SECOND, 1);
+		delay(SECOND, 1);				//To wait one second on LCD
 		
+		//Display Timer on LCD in the form 00:00
 		lcd_display(integer_to_string(timer1));
 		lcd_display(integer_to_string(timer2));
 		lcd_display(":");
 		lcd_display(integer_to_string(timer3));
 		lcd_display(integer_to_string(timer4));
 		
-	}while((timer1 != 0 || timer2 != 0 || timer3 != 0 || timer4 != 0));
+	}while((timer1 != 0 || timer2 != 0 || timer3 != 0 || timer4 != 0)); //Exit if all timers = 0
 }
 
 void cooking()
