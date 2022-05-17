@@ -25,6 +25,6 @@ void leds_on(void);
 void leds_off(void);
 void buzzer_on(void);
 void buzzer_off(void);	
-void leds_blink(uint8_t numberOfBlink,unit onDelay,uint32_t delayTimeOn,unit offDelay,uint32_t delayTimeOff);
+void leds_buzzer_blink(uint8_t numberOfBlink,unit onDelay,uint32_t delayTimeOn,unit offDelay,uint32_t delayTimeOff);
 //*************************************************************************************************************************************
 #endif // !TOOLS_H
