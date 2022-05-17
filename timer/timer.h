@@ -20,6 +20,5 @@ void delay_unit_time(uint32_t counts);
 void delay(unit choice, uint32_t delayTime);
 time pause(void);
 void resume(void);
-double power(uint16_t base, int8_t exp);
 //**********************************************
 #endif

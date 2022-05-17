@@ -16,6 +16,7 @@ Copyright (C) 2022. All rights reserved.
 #include "../timer/timer.h"
 #include "../struct_enum.h"
 #include "../macros.h"
+#include "../utility/util.h"
 
 //Global variables
 static char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D'
@@ -253,34 +254,3 @@ void finish_cooking(void)
 	}
 }
 
-uint8_t count_digits(uint32_t number)
-{
-	if(number == 0)
-	{
-		return 1;
-	}
-	else
-	{
-		uint8_t count = 0;
-		while(number!=0)
-		{
-			number = number/10;
-			count++;
-		}
-		return count;
-	}
-}
-
-char* integer_to_string(uint32_t number)
-{
-	const uint8_t size = count_digits(number);
-	static char string[10];
-	uint8_t i;
-	string[size] = '\0';
-	for(i = 0;i<size;i++)
-	{
-		string[size-i-1] = (number%10) + 48;
-		number/=10;
-	}
-	return string;
-}

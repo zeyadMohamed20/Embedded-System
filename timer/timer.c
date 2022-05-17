@@ -16,24 +16,6 @@ Copyright (C) 2022. All rights reserved.
 
 time timer;
 
-double power(uint16_t base, int8_t exp)
-{
-	double result = 1;
-	uint8_t isPositive = exp >= 0 ? 1 : (exp *= -1, 0);
-
-	while (exp)
-	{
-		if (exp & 1)
-			result = result * base;
-		exp = exp >> 1;
-		base = base * base;
-	}
-	if (isPositive)
-		return result;
-	else
-		return 1 / result;
-}
-
 void timer_init(void)
 {
 	NVIC_ST_CTRL_R = CLEAR_VALUE;

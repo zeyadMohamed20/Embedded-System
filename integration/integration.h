@@ -27,7 +27,5 @@ void cooking(void);								// Cooking time
 void calc_time(void);							// Calculates the total time according to the weight entered
 void display_time(void);					// Displays the time in the form --> 00:00
 void finish_cooking(void);				// Notifys the user to take the food from microwave
-uint8_t count_digits(uint32_t number);
-char* integer_to_string(uint32_t number);
 //*******************************************************
 #endif

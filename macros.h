@@ -12,7 +12,7 @@ Copyright (C) 2022. All rights reserved.
 #ifndef MACROS_H
 #define MACROS_H
 
-#include"timer/timer.h"
+#include "utility/util.h"
 
 //****************************NVIC Registers*********************************************************
 #define NVIC_ST_CTRL_R          (*((volatile uint32_t *)0xE000E010))
