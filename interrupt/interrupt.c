@@ -9,8 +9,11 @@ Copyright (C) 2022. All rights reserved.
 ******************************************************************************************************************************
 */
 // include librarys
+#include "../external.h"
 #include "interrupt.h"
+#include "../LCD/lcd.h"
 #include "../macros.h"
+#include "../struct_enum.h"
 
 void sw1_interrupt_init(void)
 {
@@ -26,4 +29,14 @@ void sw1_interrupt_init(void)
 
 void sw2_interrupt_init(void)
 {
+	
+}
+
+void GPIOF_Handler(void)
+{
+	if(missionChoice == SET_TIME)
+	{
+		lcd_setposition(2,7);
+		lcd_
+	}
 }

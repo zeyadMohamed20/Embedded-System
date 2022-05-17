@@ -19,7 +19,7 @@ Copyright (C) 2022. All rights reserved.
 #include "../utility/util.h"
 
 //Global variables
-static char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D'
+char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D'
 static uint32_t timeMin;									// To store the minutes
 static uint32_t timeSec;									// To store the total time in seconds	
 static char weight;
