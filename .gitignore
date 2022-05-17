@@ -125,3 +125,6 @@ main_uvproj.bak
 util.crf
 util.d
 util.o
+interrupt.crf
+interrupt.d
+interrupt.o
