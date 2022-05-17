@@ -189,21 +189,39 @@ void calc_time(void)
 
 void display_time(void)
 {
-	// Display the time remaining
-	uint8_t i, j;
-	lcd_clear();
+	// Divide the timer into four timers as follows	
+	// timer1	 timer2		 timer3	timer4
+	//	 0       0    :    0       0
+
+	int8_t timer1, timer2, timer3, timer4;
+	timer1 = timeMin / 10;		// Tens of Minutes
+	timer2 = 0;								// Ones of Minutes
+	timer3 = timeSec / 10;		// Tens of Seconds
+	timer4 = 0;								// Ones of Seconds
 	
-	for(i = timeMin; i >= 0; i--)
+	lcd_clear();			//Clear LCD
+	// Display the time remaining
+	do
 	{
-		for(j = (timeSec % (timeMin * 60)); j >= 0; j--)
-		{
-			lcd_setposition(2, 10);
-			lcd_display(integer_to_string(j));
-			delay(SECOND, 1);
-		}
-		lcd_setposition(2, 7);
-		lcd_display(integer_to_string(i));
-	}
+		lcd_setposition(2, 7);		//Set the cursor in the middle of LCD 
+		
+		timer4 -= 1;
+		if(timer4 == -1)	timer4 = 9;
+		if(timer4 == 9)	timer3 -= 1;
+		if(timer3 == -1)	timer3 = 6;
+		if(timer3 == 0 && timer1 != 0)	timer2 -= 1;
+		if(timer2 == -1) timer2 = 9;
+		if(timer2 == 9)	timer1 -= 1;
+		
+		delay(SECOND, 1);
+		
+		lcd_display(integer_to_string(timer1));
+		lcd_display(integer_to_string(timer2));
+		lcd_display(":");
+		lcd_display(integer_to_string(timer3));
+		lcd_display(integer_to_string(timer4));
+		
+	}while((timer1 != 0 || timer2 != 0 || timer3 != 0 || timer4 != 0));
 }
 
 void cooking(void)
