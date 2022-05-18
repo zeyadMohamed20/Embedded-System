@@ -117,40 +117,6 @@ void chicken(void)
 	set_kilo();
 }
 
-
-void set_time(void)
-{
-	uint8_t i,j;			// Use i,j in nested for loop		
-	currentState = SET_TIME;
-	// Print "Cooking Time" then ask the user to to enter the time from right to left
-	lcd_clear();
-	lcd_display("Cooking Time");
-	lcd_setposition(2, 7);
-	lcd_display(timeArray);
-	//Enter a value in field 11 on LCD
-	for(i = 1; i < 5; i++)
-	{
-		lcd_shiftL(1);
-		for(j = 1; j < 5; j++)
-		{
-			if(j == 3)
-				timeArray[j-2] = timeArray[j];
-			else if(j == 2)
-				continue;
-			else
-					timeArray[j-1] = timeArray[j];
-		}
-		timeArray[j-1]= keypad_get_input();
-		if(interruptFlag)
-		{
-			i = 1;
-			interruptFlag = 0;
-		}
-		lcd_setposition(2,7);
-		lcd_display(timeArray);
-	}
-}
-
 void set_kilo(void)
 {
 	currentState = SET_KILO;
@@ -195,6 +161,39 @@ void invalid_weight(void)
 	delay(SECOND,2);
 }
 
+
+void set_time(void)
+{
+	uint8_t i,j;			// Use i,j in nested for loop		
+	currentState = SET_TIME;
+	// Print "Cooking Time" then ask the user to to enter the time from right to left
+	lcd_clear();
+	lcd_display("Cooking Time");
+	lcd_setposition(2, 7);
+	lcd_display(timeArray);
+	//Enter a value in field 11 on LCD
+	for(i = 1; i < 5; i++)
+	{
+		lcd_shiftL(1);
+		for(j = 1; j < 5; j++)
+		{
+			if(j == 3)
+				timeArray[j-2] = timeArray[j];
+			else if(j == 2)
+				continue;
+			else
+					timeArray[j-1] = timeArray[j];
+		}
+		timeArray[4]= keypad_get_input();
+		if(interruptFlag)
+		{
+			i = 1;
+			interruptFlag = 0;
+		}
+		lcd_setposition(2,7);
+		lcd_display(timeArray);
+	}
+}
 
 
 void calc_time()
@@ -278,11 +277,19 @@ void cancel_cooking(void)
 {
 	leds_off();
 	lcd_clear();
+	if(interruptFlag == 1)
+	{
+		interruptFlag = 0;
+	}
 }
 
 void resume(void)
 {				
 	currentState = COOKING;
+	if(interruptFlag == 1)
+	{
+		interruptFlag = 0;
+	}
 }
 
 void pause(void)
@@ -315,4 +322,28 @@ void finish_cooking(void)
 		lcd_clear();
 		delay(MILLI_SECOND,DELAY_FINISH_COOKING);
 	}
+}
+
+void cancel_cooking(void)
+{
+	leds_off();
+	lcd_clear();
+	if(interruptFlag == 1)
+	{
+		interruptFlag = 0;
+	}
+}
+
+
+void door_opened(void)
+{
+	currentState = DOOR_OPENED;
+	do
+	{
+		lcd_display("Close The Door");
+		leds_off();
+		delay(MILLI_SECOND, 300);
+		leds_on();
+		delay(MILLI_SECOND, 300);
+	}while((GPIO_PORTA_MIS_R & (1 << 2)) == 1);
 }

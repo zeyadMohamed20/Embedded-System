@@ -67,7 +67,7 @@ void lcd_data(char data)
 	GPIO_PORTA_DATA_R |= 0x20;
 	GPIO_PORTB_DATA_R = data;
 	GPIO_PORTA_DATA_R|=0x80;
-	delay(MILLI_SECOND,5);
+	delay(MILLI_SECOND,10);
 	GPIO_PORTA_DATA_R &= ~0x80;
 }
 
@@ -103,10 +103,10 @@ switch(row)
 		case 1:
 			lcd_cmd(0x08);
 			delay(MILLI_SECOND,5);
-			position = (col-1)+0x80 ;
+			position = (col - 1) + 0x80 ;
 			lcd_cmd(position);		
 			break;		
-	    case 2:
+	  case 2:
 			delay(MILLI_SECOND,5);
 			lcd_secline();
 			position = (col - 1) + 0xc0;

@@ -7,8 +7,8 @@ void SystemInit()
 }
 int main()
 {
-
 	microwave_init();
+	delay(SECOND, 1);
 	while (1)
 	{	
 	choose_mission();

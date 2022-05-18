@@ -39,13 +39,12 @@ void portF_initialization(void)
 void portA_initialization(void)
 {
 	GPIO_PORTA_LOCK_R = 0x4C4F434B;
-	GPIO_PORTA_CR_R |= 0x1F;
-	GPIO_PORTA_AMSEL_R |= 0;
-	GPIO_PORTA_PCTL_R |= 0;
-	GPIO_PORTA_AFSEL_R |= 0;
-	GPIO_PORTA_DIR_R |= 0x1E;
-	GPIO_PORTA_DEN_R |= 0x1F;
-	GPIO_PORTA_PUR_R |= 0x11;
+	GPIO_PORTA_CR_R |= 0x1E;
+	GPIO_PORTA_AMSEL_R &= ~0x1E;
+	GPIO_PORTA_PCTL_R &= ~0x1E;
+	GPIO_PORTA_AFSEL_R &= ~0x1E;
+	GPIO_PORTA_DIR_R &= ~(1 << 2);
+	GPIO_PORTA_DEN_R |= 0x1E;
 }
 
 //usage of Push button as Interrupt//
