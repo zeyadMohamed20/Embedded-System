@@ -97,7 +97,7 @@ void GPIOF_Handler(void)
 		}
 		else if(currentState == SET_TIME)
 		{
-			if((timeArray[0]< '3' || MINUTE_30) && (timeArray[1] <= '9') && (timeArray[3]< '6') &&(timeArray[4]<= '9'))
+			if((timeArray[0]< '3' || MINUTE_30) && (timeArray[1] <= '9') && (timeArray[3]< '6') && (timeArray[4]<= '9') && (!MINUTE_0))
 				cooking();
 			else
 			{
