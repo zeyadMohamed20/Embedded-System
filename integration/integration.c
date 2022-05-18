@@ -95,6 +95,7 @@ void popcorn(void)
 	lcd_clear();
 	lcd_display("Popcorn");
 	delay(SECOND,2);
+	cooking();
 }
 
 void beaf(void)
@@ -105,6 +106,7 @@ void beaf(void)
 	lcd_clear();
 	lcd_display("Beef Weight:");
 	set_kilo();
+	cooking();
 }
 
 void chicken(void)
@@ -115,6 +117,7 @@ void chicken(void)
 	lcd_clear();
 	lcd_display("Chicken Weight:");
 	set_kilo();
+	cooking();
 }
 
 void set_kilo(void)
@@ -164,12 +167,13 @@ void invalid_weight(void)
 
 void set_time(void)
 {
-	uint8_t i,j;			// Use i,j in nested for loop		
+	uint8_t i,j; // Use i,j in nested for loop
 	currentState = SET_TIME;
 	// Print "Cooking Time" then ask the user to to enter the time from right to left
 	lcd_clear();
 	lcd_display("Cooking Time");
 	lcd_setposition(2, 7);
+	clear_time_array();
 	lcd_display(timeArray);
 	//Enter a value in field 11 on LCD
 	for(i = 1; i < 5; i++)
@@ -182,7 +186,7 @@ void set_time(void)
 			else if(j == 2)
 				continue;
 			else
-					timeArray[j-1] = timeArray[j];
+				timeArray[j-1] = timeArray[j];
 		}
 		timeArray[4]= keypad_get_input();
 		if(interruptFlag)
@@ -193,11 +197,22 @@ void set_time(void)
 		lcd_setposition(2,7);
 		lcd_display(timeArray);
 	}
+	while((GPIO_PORTF_DATA_R & (1<<0)) == 1)
+	{
+	}
 }
 
+	void invalid_time(void)
+{
+	lcd_clear();
+	lcd_display("Invalid Time");
+	delay(SECOND, 2);
+	set_time();
+}
 
 void calc_time()
 {
+	currentState = COOKING;
 	// The time depends on the mission
   switch(missionChoice)
   {
@@ -221,7 +236,7 @@ void display_time(void)
 	uint8_t timer1, timer2, timer3, timer4;		//Divide timer into four digits, each variable store one digit
 	// timer1	 timer2		 timer3	timer4
 	//	 0       0    :    0       0
-
+	currentState = COOKING;
 	if(missionChoice == POPCORN || missionChoice == BEAF || missionChoice == CHICKEN)
 	{
 		timer1 = timeMin / 10;							// Tens of Minutes
@@ -242,8 +257,7 @@ void display_time(void)
 	// Display the time remaining
 	do
 	{
-		lcd_setposition(2, 7);		//Set the cursor in the middle of LCD 
-		
+		currentState = COOKING;
 		timer4 -= 1;							//Decrement timer4 in the first
 		//Note if timer1,2,3,4 = 0 - 1 --> they will be 255 as they are unsigned integers
 		if(timer4 == 255)	timer4 = 9;	//If timer4 = 0 - 1 = 255 --> reset timer4 to 9
@@ -256,6 +270,9 @@ void display_time(void)
 		delay(SECOND, 1);				//To wait one second on LCD
 		
 		//Display Timer on LCD in the form 00:00
+		
+		
+		lcd_setposition(2, 7);				//Set the cursor in the middle of LCD 
 		lcd_display(integer_to_string(timer1));
 		lcd_display(integer_to_string(timer2));
 		lcd_display(":");
@@ -284,10 +301,10 @@ void pause(void)
 	do
 	{
 		leds_off();
-		delay(MILLI_SECOND, 300);
+		delay(MILLI_SECOND, 200);
 		leds_on();
-		delay(MILLI_SECOND, 300);
-	}while((GPIO_PORTF_MIS_R & (1 << 4)) == 0 || (GPIO_PORTF_MIS_R & (1 << 0)) == 0);
+		delay(MILLI_SECOND, 400);
+	}while((GPIO_PORTF_MIS_R & (1 << 4)) == 0 || (GPIO_PORTF_MIS_R & (1 << 0)) == 0 || (GPIO_PORTA_MIS_R & (1 << 2)) == 0);
 }
 
 void finish_cooking(void)
@@ -326,10 +343,16 @@ void door_opened(void)
 	currentState = DOOR_OPENED;
 	do
 	{
-		lcd_display("Close The Door");
+		lcd_clear();
 		leds_off();
-		delay(MILLI_SECOND, 300);
+		delay(MILLI_SECOND, 200);
 		leds_on();
-		delay(MILLI_SECOND, 300);
-	}while((GPIO_PORTA_MIS_R & (1 << 2)) == 1);
+		lcd_setposition(2, 2);
+		lcd_display("Close The Door");
+		delay(MILLI_SECOND, 400);
+		if((GPIO_PORTA_MIS_R & (1 << 2)) == 0)
+		{
+			interruptFlag = 0;
+		}
+	}while(interruptFlag == 1);
 }
