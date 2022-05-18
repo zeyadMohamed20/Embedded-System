@@ -202,7 +202,8 @@ void set_time(void)
 	}
 }
 
-	void invalid_time(void)
+
+void invalid_time(void)
 {
 	lcd_clear();
 	lcd_display("Invalid Time");
@@ -210,7 +211,7 @@ void set_time(void)
 	set_time();
 }
 
-void calc_time()
+void calc_time(void)
 {
 	currentState = COOKING;
 	// The time depends on the mission
@@ -282,7 +283,7 @@ void display_time(void)
 	}while((timer1 != 0 || timer2 != 0 || timer3 != 0 || timer4 != 0)); //Exit if all timers = 0
 }
 
-void cooking()
+void cooking(void)
 {
 	currentState = COOKING;
 	leds_on();

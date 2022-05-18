@@ -23,6 +23,7 @@ void set_time(void);       				// Mission 'D'
 void set_kilo(void);       				// Enables the user to set the weight of the food
 void valid_weight(void);					// The action for validation of food weight
 void invalid_weight(void);    		// The action for invalidation of food weight
+void invalid_time(void);          // The action for invalidation of setting time 
 void cooking(void);								// Cooking time 
 void calc_time(void);							// Calculates the total time according to the weight entered
 void display_time(void);					// Displays the time in the form --> 00:00
