@@ -96,7 +96,7 @@ void GPIOF_Handler(void)
 			resume();
 		else if(currentState == SET_TIME)
 		{
-			if(timeArray[0]<'3' || MINUTE_30)
+			if((timeArray[0]<'3' || MINUTE_30)&&(timeArray[3]<6))
 				cooking();
 			else
 			{
