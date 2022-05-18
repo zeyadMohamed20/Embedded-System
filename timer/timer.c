@@ -58,15 +58,4 @@ void delay(unit choice, uint32_t delayTime)
 		}
 	}
 }
-time pause(void)
-{
-	timer.currentTime = NVIC_ST_CURRENT_R;
-	timer_init();
-	return timer;
-}
 
-
-void resume(void)
-{
-	delay(timer.timeUnit, timer.currentTime);
-}

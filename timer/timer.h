@@ -18,7 +18,5 @@ Copyright (C) 2022. All rights reserved.
 void timer_init(void);
 void delay_unit_time(uint32_t counts);
 void delay(unit choice, uint32_t delayTime);
-time pause(void);
-void resume(void);
 //**********************************************
 #endif

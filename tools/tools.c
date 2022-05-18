@@ -74,22 +74,22 @@ void GPIOF_Handler(void)
 //turn on leds//
 void leds_on(void)
 {
-		GPIO_PORTF_DATA_R=0X0E;
+		GPIO_PORTF_DATA_R = 0X0E;
 }
 //turn off leds//
 void leds_off(void)
 {
-	GPIO_PORTF_DATA_R^=0X0E;
+	GPIO_PORTF_DATA_R &= ~0X0E;
 }
 //turn on buzzer//
 void buzzer_on(void)
 {
-	GPIO_PORTA_DATA_R=0x08;
+	GPIO_PORTA_DATA_R = 0x08;
 }
 //turn off buzzer//
 void buzzer_off(void)
 {
-	GPIO_PORTA_DATA_R^=0X08;
+	GPIO_PORTA_DATA_R &= ~0X08;
 }
 
 

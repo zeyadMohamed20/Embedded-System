@@ -27,5 +27,8 @@ void cooking(void);								// Cooking time
 void calc_time(void);							// Calculates the total time according to the weight entered
 void display_time(void);					// Displays the time in the form --> 00:00
 void finish_cooking(void);				// Notifys the user to take the food from microwave
+void cancel_cooking(void);				// Cancel cooking operation
+void pause(void);									// Pause the cooking operation
+void resume(void);								// Resume the cooking operation
 //*******************************************************
 #endif

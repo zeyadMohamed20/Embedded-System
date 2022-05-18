@@ -11,8 +11,13 @@ Copyright (C) 2022. All rights reserved.
 
 #ifndef EXTERNAL_H
 #define EXTERNAL_H
+
+#include "standard_types.h"
+
 //************************** External Variables *****************************************************************************
 extern char currentState;		// To store the mission 'A' or 'B' or 'C' or 'D'
 extern char timeArray[];				// Each index is used to store the digit entered in each time
+extern uint8_t interruptFlag;
+
 
 #endif

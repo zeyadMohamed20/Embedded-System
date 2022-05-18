@@ -40,9 +40,11 @@ typedef enum unit
 	MILLI_SECOND,
 	MICRO_SECOND
 }unit;
+
 typedef struct time
 {
 	uint32_t currentTime;
   unit timeUnit;
 }time;
+
 #endif

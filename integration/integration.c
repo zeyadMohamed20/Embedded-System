@@ -23,6 +23,7 @@ Copyright (C) 2022. All rights reserved.
 //Global variables
 volatile char currentState;		// To store the current state like (Cookig, invalid weight, beaf, etc..)
 volatile char timeArray[] = "00:00";				// Each index is used to store the digit entered in each time
+volatile uint8_t interruptFlag = 0;			
 static char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D' 
 static uint32_t timeMin;									// To store the minutes
 static uint32_t timeSec;									// To store the total time in seconds	
@@ -139,13 +140,16 @@ void set_time(void)
 			else
 					timeArray[j-1] = timeArray[j];
 		}
-		timeArray[j-1] = keypad_get_input();
+		timeArray[j-1]= keypad_get_input();
+		if(interruptFlag)
+		{
+			i = 1;
+			interruptFlag = 0;
+		}
 		lcd_setposition(2,7);
 		lcd_display(timeArray);
 	}
 }
-
-
 
 void set_kilo(void)
 {
@@ -215,8 +219,7 @@ void calc_time()
 
 void display_time(void)
 {
-	// Divide the timer into four timers as follows	
-	uint8_t timer1, timer2, timer3, timer4;
+	uint8_t timer1, timer2, timer3, timer4;		//Divide timer into four digits, each variable store one digit
 	// timer1	 timer2		 timer3	timer4
 	//	 0       0    :    0       0
 
@@ -269,6 +272,29 @@ void cooking()
 	leds_on();
 	calc_time();		// Calculate the time according to number of kilos entered
 	display_time();
+}
+
+void cancel_cooking(void)
+{
+	leds_off();
+	lcd_clear();
+}
+
+void resume(void)
+{				
+	currentState = COOKING;
+}
+
+void pause(void)
+{
+	currentState = PAUSE;
+	do
+	{
+		leds_off();
+		delay(MILLI_SECOND, 300);
+		leds_on();
+		delay(MILLI_SECOND, 300);
+	}while((GPIO_PORTF_MIS_R & (1 << 4)) == 0 || (GPIO_PORTF_MIS_R & (1 << 0)) == 0);
 }
 
 void finish_cooking(void)
