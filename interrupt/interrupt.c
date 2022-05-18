@@ -10,14 +10,14 @@ Copyright (C) 2022. All rights reserved.
 */
 // include librarys
 #include "../external.h"
-#include "../integration/integration.h"
 #include "interrupt.h"
 #include "../LCD/lcd.h"
 #include "../macros.h"
 #include "../struct_enum.h"
 #include "../timer/timer.h"
 #include "../tools/tools.h"
-#include "../utility/util.h"
+#include "../integration/integration.h"
+
 
 void sw1_interrupt_init(void)
 {
@@ -46,7 +46,7 @@ void sw2_interrupt_init(void)
 void sw3_interrupt_init(void)
 {
 	GPIO_PORTA_IS_R  |=  (1<<2);
-  GPIO_PORTA_IBE_R &= ~(1<<2);
+  GPIO_PORTA_IBE_R |=  (1<<2);
 	GPIO_PORTA_IEV_R &= ~(1<<2);
 	GPIO_PORTA_ICR_R |=  (1<<2);
 	GPIO_PORTA_IM_R  |=  (1<<2);
@@ -76,50 +76,55 @@ void GPIOF_Handler(void)
 			lcd_setposition(2, 7);
 			lcd_display(timeArray);
 		}
-		// If sw1 pressed during pause state --> cancel cooking
-		else if(currentState == COOKING)
-		{ 
+		// If sw1 pressed during cooking state --> pause cooking
+		else if(currentState == COOKING)	
+		{
 			pause();
-			GPIO_PORTF_ICR_R |= (1 << 4);		
 		}	
+		// If sw1 pressed during pause state --> cancel cooking
 		else if(currentState == PAUSE)
 		{
 			cancel_cooking();
 		}
 		interruptFlag = 1;
-		GPIO_PORTF_ICR_R |=  (1 << 4);
-  }
+	}
 	// If sw2 pressed --> resume
 	else if(GPIO_PORTF_MIS_R & (1 << 0))		
 	{
-		if(currentState == COOKING)
+		if(currentState == PAUSE)
+		{
 			resume();
+		}
 		else if(currentState == SET_TIME)
 		{
+<<<<<<< HEAD
 			if((timeArray[0]<'3' || MINUTE_30)&&(timeArray[3]<6))
 				cooking();
+=======
+			if(timeArray[0]<'3' || MINUTE_30)
+			cooking();
+>>>>>>> f514fc187c5c9191f2b169f1b68a9dc032c217f5
 			else
 			{
 				clear_time_array();
 				invalid_time();
 			}
 		}
-		GPIO_PORTF_ICR_R |= (1 << 0);		
 	}
+	GPIO_PORTF_ICR_R |=  0x11;
 }
 
 void GPIOA_Handler(void)
 {
-	if(GPIO_PORTF_MIS_R & (1 << 2))
+	if(GPIO_PORTA_MIS_R & (1 << 2))
 	{
 		if(currentState == COOKING || currentState == PAUSE)
 		{
 			currentState = DOOR_OPENED;
-			leds_off();
-			delay(MILLI_SECOND, 300);
-			leds_on();
-			delay(MILLI_SECOND, 300);
+			interruptFlag = 1;
+			door_opened();
+			lcd_clear();
 		}
 	}
-	GPIO_PORTA_ICR_R |= (1 << 2);
+	GPIO_PORTF_ICR_R |=  (1 << 2);
 }

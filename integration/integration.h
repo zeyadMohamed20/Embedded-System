@@ -32,5 +32,6 @@ void cancel_cooking(void);				// Cancel cooking operation
 void pause(void);									// Pause the cooking operation
 void resume(void);								// Resume the cooking operation
 void door_opened(void);						// If the door is opened execute this function
+void invalid_time(void);					// If the time entered is invalid
 //*******************************************************
 #endif

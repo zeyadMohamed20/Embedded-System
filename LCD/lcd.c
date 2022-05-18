@@ -67,13 +67,13 @@ void lcd_data(char data)
 	GPIO_PORTA_DATA_R |= 0x20;
 	GPIO_PORTB_DATA_R = data;
 	GPIO_PORTA_DATA_R|=0x80;
-	delay(MILLI_SECOND,10);
+	delay(MILLI_SECOND,5);
 	GPIO_PORTA_DATA_R &= ~0x80;
 }
 
 void lcd_clear(void)
 {
-	delay(MILLI_SECOND,100);
+	delay(MILLI_SECOND,5);
 	lcd_cmd(0x01);
 }
 
