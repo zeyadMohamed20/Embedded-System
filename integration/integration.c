@@ -304,7 +304,7 @@ void pause(void)
 		delay(MILLI_SECOND, 200);
 		leds_on();
 		delay(MILLI_SECOND, 400);
-	}while((GPIO_PORTF_MIS_R & (1 << 4)) == 0 || (GPIO_PORTF_MIS_R & (1 << 0)) == 0 || (GPIO_PORTA_MIS_R & (1 << 2)) == 0);
+	}while((GPIO_PORTF_MIS_R & (1 << 4)) == 0 || (GPIO_PORTF_MIS_R & (1 << 0)) == 0 || (GPIO_PORTA_DATA_R & (1 << 2)) == 0);
 }
 
 void finish_cooking(void)
