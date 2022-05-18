@@ -8,11 +8,10 @@ void SystemInit()
 int main()
 {
 	microwave_init();
-	choose_mission();
-	cooking();
-	finish_cooking();
 	while (1)
 	{	
-		
+	choose_mission();
+	cooking();
+	finish_cooking();	
 	}
 }

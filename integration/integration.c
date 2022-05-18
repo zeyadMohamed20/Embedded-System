@@ -22,8 +22,8 @@ Copyright (C) 2022. All rights reserved.
 
 //Global variables
 volatile char currentState;		// To store the current state like (Cookig, invalid weight, beaf, etc..)
+volatile char timeArray[] = "00:00";				// Each index is used to store the digit entered in each time
 static char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D' 
-char timeArray[] = "00:00";				// Each index is used to store the digit entered in each time
 static uint32_t timeMin;									// To store the minutes
 static uint32_t timeSec;									// To store the total time in seconds	
 static char weight;
@@ -116,6 +116,37 @@ void chicken(void)
 	set_kilo();
 }
 
+
+void set_time(void)
+{
+	uint8_t i,j;			// Use i,j in nested for loop		
+	currentState = SET_TIME;
+	// Print "Cooking Time" then ask the user to to enter the time from right to left
+	lcd_clear();
+	lcd_display("Cooking Time");
+	lcd_setposition(2, 7);
+	lcd_display(timeArray);
+	//Enter a value in field 11 on LCD
+	for(i = 1; i < 5; i++)
+	{
+		lcd_shiftL(1);
+		for(j = 1; j < 5; j++)
+		{
+			if(j == 3)
+				timeArray[j-2] = timeArray[j];
+			else if(j == 2)
+				continue;
+			else
+					timeArray[j-1] = timeArray[j];
+		}
+		timeArray[j-1] = keypad_get_input();
+		lcd_setposition(2,7);
+		lcd_display(timeArray);
+	}
+}
+
+
+
 void set_kilo(void)
 {
 	currentState = SET_KILO;
@@ -160,33 +191,7 @@ void invalid_weight(void)
 	delay(SECOND,2);
 }
 
-void set_time(void)
-{
-	uint8_t i,j;			// Use i,j in nested for loop		
-	currentState = SET_TIME;
-	// Print "Cooking Time" then ask the user to to enter the time from right to left
-	lcd_clear();
-	lcd_display("Cooking Time");
-	lcd_setposition(2, 7);
-	lcd_display(timeArray);
-	//Enter a value in field 11 on LCD
-	for(i = 1; i < 5; i++)
-	{
-		lcd_shiftL(1);
-		for(j = 1; j < 5; j++)
-		{
-			if(j == 3)
-				timeArray[j-2] = timeArray[j];
-			else if(j == 2)
-				continue;
-			else
-					timeArray[j-1] = timeArray[j];
-		}
-		timeArray[j-1]= keypad_get_input();
-		lcd_setposition(2,7);
-		lcd_display(timeArray);
-	}
-}
+
 
 void calc_time()
 {

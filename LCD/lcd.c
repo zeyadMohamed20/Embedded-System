@@ -83,7 +83,8 @@ void lcd_secline(void)
 	lcd_cmd(0xC0);
 }
 
-void lcd_display(char *str){
+void lcd_display(volatile char *str)
+{
 	uint8_t i = 0;
 	while(str[i] != '\0')
 	{

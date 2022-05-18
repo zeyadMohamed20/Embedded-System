@@ -14,6 +14,8 @@ Copyright (C) 2022. All rights reserved.
 #include "../LCD/lcd.h"
 #include "../macros.h"
 #include "../struct_enum.h"
+#include "../timer/timer.h"
+#include "../tools/tools.h"
 
 void interrupt_init(void)
 {
@@ -47,22 +49,5 @@ void sw2_interrupt_init(void)
 
 void GPIOF_Handler(void)
 {
-	if(GPIO_PORTF_MIS_R & (1 << 4))
-	{
-		if(currentState == SET_TIME)
-		{
-			uint8_t i;
-			for(i = 0; i < 5; i++)
-			{
-				if(i == 2)
-					timeArray[i] = ':';
-				else
-					timeArray[i]='0';
-			}
-			lcd_display("Cooking Time");
-			lcd_setposition(2, 7);
-			lcd_display(timeArray);
-		}
-		GPIO_PORTF_ICR_R &=  ~(1<<4);
-	}
+	
 }
