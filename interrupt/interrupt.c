@@ -83,21 +83,22 @@ if(GPIO_PORTF_MIS_R & (1<<4))
 		}
 		// If sw1 pressed during cooking state --> pause cooking
 		else if(currentState == COOKING)	
-		{
 			pause();
-		}	
 		// If sw1 pressed during pause state --> cancel cooking
 		else if(currentState == PAUSE)
-		{
 			cancel_cooking();
-		}
 	}
 	// If sw2 pressed --> resume
 	else if(GPIO_PORTF_MIS_R & (1 << 0))		
 	{
 		if(currentState == COOKING)
-		{
 			resume();
+		else if(currentState == SET_TIME)
+		{
+			if(timeArray[0]<'3' || MINUTE_30)
+				cooking();
+			else
+				invalid_time();
 		}
 	}
 	interruptFlag = 1;
