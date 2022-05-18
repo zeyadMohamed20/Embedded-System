@@ -10,14 +10,14 @@ Copyright (C) 2022. All rights reserved.
 */
 // include librarys
 #include "../external.h"
+#include "../integration/integration.h"
 #include "interrupt.h"
 #include "../LCD/lcd.h"
 #include "../macros.h"
 #include "../struct_enum.h"
 #include "../timer/timer.h"
 #include "../tools/tools.h"
-#include "../integration/integration.h"
-
+#include "../utility/util.h"
 
 void sw1_interrupt_init(void)
 {
@@ -70,14 +70,7 @@ void GPIOF_Handler(void)
 	{
 		if(currentState == SET_TIME)
 		{
-			uint8_t i;
-			for(i = 0; i < 5; i++)
-			{
-				if(i == 2)
-					timeArray[i] = ':';
-				else
-					timeArray[i]='0';
-			}
+			clear_time_array();
 			lcd_clear();
 			lcd_display("Cooking Time");
 			lcd_setposition(2, 7);
@@ -106,7 +99,10 @@ void GPIOF_Handler(void)
 			if(timeArray[0]<'3' || MINUTE_30)
 				cooking();
 			else
+			{
+				clear_time_array();
 				invalid_time();
+			}
 		}
 		GPIO_PORTF_ICR_R |= (1 << 0);		
 	}

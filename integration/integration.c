@@ -170,6 +170,7 @@ void set_time(void)
 	lcd_clear();
 	lcd_display("Cooking Time");
 	lcd_setposition(2, 7);
+	clear_time_array();
 	lcd_display(timeArray);
 	//Enter a value in field 11 on LCD
 	for(i = 1; i < 5; i++)
@@ -193,11 +194,16 @@ void set_time(void)
 		lcd_setposition(2,7);
 		lcd_display(timeArray);
 	}
+	while((GPIO_PORTF_DATA_R & (1<<0)) == 1)
+	{
+	}
 }
 
 void invalid_time(void)
 {
-	
+	lcd_clear();
+	lcd_display("Invalid Time");
+	delay(SECOND,2);
 }
 
 void calc_time(void)
