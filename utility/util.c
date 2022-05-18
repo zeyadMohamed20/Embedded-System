@@ -9,8 +9,9 @@ Copyright (C) 2022. All rights reserved.
 ******************************************************************************************************************************
 */
 // include librarys
-#include"util.h"
-#include"../standard_types.h"
+#include "util.h"
+#include "../standard_types.h"
+#include "../external.h"
 
 uint8_t count_digits(uint32_t number)
 {
@@ -60,4 +61,16 @@ double power(uint16_t base, int8_t exp)
 		return result;
 	else
 		return 1 / result;
+}
+
+void clear_time_array(void)
+{
+	uint8_t i;
+	for(i = 0; i < 5; i++)
+	{
+		if(i == 2)
+			timeArray[i] = ':';
+		else
+			timeArray[i]='0';
+	}
 }

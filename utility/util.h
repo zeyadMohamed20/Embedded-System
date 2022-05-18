@@ -16,5 +16,6 @@ Copyright (C) 2022. All rights reserved.
 double power(uint16_t base, int8_t exp);
 uint8_t count_digits(uint32_t number);
 char* integer_to_string(uint32_t number);
+void clear_time_array(void);
 //***************************************************************************************************************************
 #endif
