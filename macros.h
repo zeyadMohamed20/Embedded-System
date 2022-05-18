@@ -18,7 +18,7 @@ Copyright (C) 2022. All rights reserved.
 #define NVIC_ST_CTRL_R          (*((volatile uint32_t *)0xE000E010))
 #define NVIC_ST_RELOAD_R        (*((volatile uint32_t *)0xE000E014))
 #define NVIC_ST_CURRENT_R       (*((volatile uint32_t *)0xE000E018))
-
+#define NVIC_EN0_R              (*((volatile uint32_t *)0xE000E100))
 //****************************GPIO Register Control*************************************************
 #define SYSCTL_RCGCGPIO_R       (*((volatile uint32_t *)0x400FE608))
 #define SYSCTL_PRGPIO_R         (*((volatile uint32_t *)0x400FEA08))
@@ -125,18 +125,7 @@ Copyright (C) 2022. All rights reserved.
 #define GPIO_PORTF_ICR_R        (*((volatile uint32_t *)0x4002541C))
 #define GPIO_PORTF_IM_R         (*((volatile uint32_t *)0x40025410))
 #define GPIO_PORTF_MIS_R        (*((volatile uint32_t *)0x40025418))
-#define NVIC_EN0_R              (*((volatile uint32_t *)0xE000E100))
-//*****************************************************************************************************************
-
-//********************************Interrupt registers*********************************************************
-#define GPIO_PORTF_IS_R         (*((volatile uint32_t *)0x40025404))
-#define GPIO_PORTF_IBE_R        (*((volatile uint32_t *)0x40025408))
-#define GPIO_PORTF_IEV_R        (*((volatile uint32_t *)0x4002540C))
-#define GPIO_PORTF_ICR_R        (*((volatile uint32_t *)0x4002541C))
-#define GPIO_PORTF_IM_R         (*((volatile uint32_t *)0x40025410))
-#define GPIO_PORTF_MIS_R        (*((volatile uint32_t *)0x40025418))
-#define NVIC_PRI17_R            (*((volatile uint32_t *)0xE000E444))
-#define NVIC_EN0_R              (*((volatile uint32_t *)0xE000E100))
+#define NVIC_PRI7_R             (*((volatile uint32_t *)0xE000E41C))
 //*****************************************************************************************************************
 
 //***********************************GPIO Constant Macros******************************************************

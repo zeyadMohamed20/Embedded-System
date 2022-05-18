@@ -34,13 +34,6 @@ void portF_initialization(void)
 	GPIO_PORTF_DIR_R |= 0x1E;
 	GPIO_PORTF_DEN_R |= 0x1F;
 	GPIO_PORTF_PUR_R |= 0x11;
-	//Interrupt 
-	GPIO_PORTF_IS_R &= ~0x11;     						//make bit 4, 0 edge sensitive
-	GPIO_PORTF_IBE_R &=~0x11;     						//trigger is controlled by IEV
-	GPIO_PORTF_IEV_R &=~ 0x11;     						//falling edge trigger
-	GPIO_PORTF_ICR_R |=  0x11;						    //clear any prior interrupt
-	GPIO_PORTF_IM_R |= 0x11;				          //unmask interrupt
-	NVIC_EN0_R |= (1<<30);  								  //Enable IRQ30 (D30 of ISER[0])
 }
 //initiallization port a	
 void portA_initialization(void)

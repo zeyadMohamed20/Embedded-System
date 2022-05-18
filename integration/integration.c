@@ -18,9 +18,11 @@ Copyright (C) 2022. All rights reserved.
 #include "../struct_enum.h"
 #include "../macros.h"
 #include "../utility/util.h"
+#include "../struct_enum.h"
 
 //Global variables
-char currentState;		// To store the mission 'A' or 'B' or 'C' or 'D'
+volatile char currentState;		// To store the current state like (Cookig, invalid weight, beaf, etc..)
+static char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D' 
 char timeArray[] = "00:00";				// Each index is used to store the digit entered in each time
 static uint32_t timeMin;									// To store the minutes
 static uint32_t timeSec;									// To store the total time in seconds	
@@ -36,10 +38,11 @@ void microwave_init(void)
 
 void choose_mission(void)
 { 
+	currentState = CHOOSE_MISSION;
 	lcd_clear();
 	lcd_display("Choose Mission:");
-	currentState = keypad_get_input(); //To store mission choice entered by keypad
-	lcd_display(&currentState);				// Print character that user choosed
+	missionChoice = keypad_get_input(); //To store mission choice entered by keypad
+	lcd_display(&missionChoice);				// Print character that user choosed
 	delay(MILLI_SECOND, 200);						//For safty not to enter the same character chosen as a kilo value (Invalid input)
 	/*
 	  if the user enters -> 'A' then exexute popcorn mission
@@ -51,7 +54,7 @@ void choose_mission(void)
 	// Stay in do-while-loop until the user enters a valid choice
 	do
 	{
-		switch (currentState)
+		switch (missionChoice)
 		{
 			case POPCORN:
 				popcorn();
@@ -75,8 +78,8 @@ void choose_mission(void)
 
 void invalid_mission(void)
 {
-	//Print invalid input for 2 sec on LCD
 	currentState = INVALID_MISSION;
+	//Print invalid input for 2 sec on LCD
 	lcd_clear();
 	lcd_display("Invalid Input");
 	delay(SECOND,2);
@@ -85,6 +88,7 @@ void invalid_mission(void)
 
 void popcorn(void)
 {
+	missionChoice = POPCORN;
 	currentState = POPCORN;
 	//Print "popcorn" for 2 sec on LCD
 	lcd_clear();
@@ -94,6 +98,7 @@ void popcorn(void)
 
 void beaf(void)
 {
+	missionChoice = BEAF;
 	currentState = BEAF;
 	//Print "Beef Weight" then ask the user about weight
 	lcd_clear();
@@ -103,6 +108,7 @@ void beaf(void)
 
 void chicken(void)
 {
+	missionChoice = CHICKEN;
 	currentState = CHICKEN;
 	//Print "Chicken Weight:" then ask the user about weight
 	lcd_clear();
@@ -123,7 +129,7 @@ void set_kilo(void)
 	else //Case of weight invalidation
 	{
 		invalid_weight();
-		switch(currentState)
+		switch(missionChoice)
 		{
 			case BEAF:
 				beaf();
@@ -185,7 +191,7 @@ void set_time(void)
 void calc_time()
 {
 	// The time depends on the mission
-  switch(currentState)
+  switch(missionChoice)
   {
     case POPCORN:
     timeSec = 60;						// Total time in seconds = 60
@@ -209,14 +215,14 @@ void display_time(void)
 	// timer1	 timer2		 timer3	timer4
 	//	 0       0    :    0       0
 
-	if(currentState == POPCORN || currentState == BEAF || currentState == CHICKEN)
+	if(missionChoice == POPCORN || missionChoice == BEAF || missionChoice == CHICKEN)
 	{
 		timer1 = timeMin / 10;							// Tens of Minutes
 		timer2 = timeMin % 10;							// Ones of Minutes
 		timer3 = (timeSec % 60) / 10;				// Tens of Seconds
 		timer4 = (timeSec % 60) %10;				// Ones of Seconds
 	}
-	else if(currentState == SET_TIME)
+	else if(missionChoice == SET_TIME)
 	{
 		timer1 = timeArray[0] - '0';				// Tens of Minutes
 		timer2 = timeArray[1] - '0';				// Ones of Minutes

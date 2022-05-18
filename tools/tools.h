@@ -19,10 +19,10 @@ Copyright (C) 2022. All rights reserved.
 void tools_init(void);//enable ports f and port a
 void portF_initialization(void); //initiallizing port f
 void portA_initialization(void);//initiallizing port a
-void sw1_interrupt_initialization(void); //initialization interrupt registers of sw1
-void sw2_interrupt_initialization(void); //initialization interrupt registers of sw2
-void GPIOF_Handler(void); //interrupt SW1 , SW2//
-void GPIOA_Handler(void); //interrupt push button//
+//void sw1_interrupt_initialization(void); //initialization interrupt registers of sw1
+//void sw2_interrupt_initialization(void); //initialization interrupt registers of sw2
+//void GPIOF_Handler(void); //interrupt SW1 , SW2//
+//void GPIOA_Handler(void); //interrupt push button//
 void leds_on(void);
 void leds_off(void);
 void buzzer_on(void);

@@ -13,5 +13,6 @@ int main()
 	finish_cooking();
 	while (1)
 	{	
+		
 	}
 }
