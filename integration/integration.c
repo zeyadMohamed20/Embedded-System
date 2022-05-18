@@ -273,23 +273,9 @@ void cooking()
 	display_time();
 }
 
-void cancel_cooking(void)
-{
-	leds_off();
-	lcd_clear();
-	if(interruptFlag == 1)
-	{
-		interruptFlag = 0;
-	}
-}
-
 void resume(void)
 {				
 	currentState = COOKING;
-	if(interruptFlag == 1)
-	{
-		interruptFlag = 0;
-	}
 }
 
 void pause(void)
