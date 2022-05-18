@@ -195,8 +195,12 @@ void set_time(void)
 	}
 }
 
+void invalid_time(void)
+{
+	
+}
 
-void calc_time()
+void calc_time(void)
 {
 	// The time depends on the mission
   switch(missionChoice)
@@ -265,22 +269,12 @@ void display_time(void)
 	}while((timer1 != 0 || timer2 != 0 || timer3 != 0 || timer4 != 0)); //Exit if all timers = 0
 }
 
-void cooking()
+void cooking(void)
 {
 	currentState = COOKING;
 	leds_on();
 	calc_time();		// Calculate the time according to number of kilos entered
 	display_time();
-}
-
-void cancel_cooking(void)
-{
-	leds_off();
-	lcd_clear();
-	if(interruptFlag == 1)
-	{
-		interruptFlag = 0;
-	}
 }
 
 void resume(void)
