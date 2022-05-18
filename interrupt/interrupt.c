@@ -62,9 +62,11 @@ void interrupt_init(void)
 	sw3_interrupt_init();
 }	
 
+
 void GPIOF_Handler(void)
 {
-if(GPIO_PORTF_MIS_R & (1<<4))
+
+	if(GPIO_PORTF_MIS_R & (1 << 4))
 	{
 		if(currentState == SET_TIME)
 		{
@@ -81,13 +83,19 @@ if(GPIO_PORTF_MIS_R & (1<<4))
 			lcd_setposition(2, 7);
 			lcd_display(timeArray);
 		}
-		// If sw1 pressed during cooking state --> pause cooking
-		else if(currentState == COOKING)	
-			pause();
 		// If sw1 pressed during pause state --> cancel cooking
+		else if(currentState == COOKING)
+		{ 
+			pause();
+			GPIO_PORTF_ICR_R |= (1 << 4);		
+		}	
 		else if(currentState == PAUSE)
+		{
 			cancel_cooking();
-	}
+		}
+		interruptFlag = 1;
+		GPIO_PORTF_ICR_R |=  (1 << 4);
+  }
 	// If sw2 pressed --> resume
 	else if(GPIO_PORTF_MIS_R & (1 << 0))		
 	{
@@ -100,9 +108,8 @@ if(GPIO_PORTF_MIS_R & (1<<4))
 			else
 				invalid_time();
 		}
+		GPIO_PORTF_ICR_R |= (1 << 0);		
 	}
-	interruptFlag = 1;
-	GPIO_PORTF_ICR_R |=  0x11;
 }
 
 void GPIOA_Handler(void)

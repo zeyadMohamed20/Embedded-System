@@ -280,10 +280,6 @@ void cooking(void)
 void resume(void)
 {				
 	currentState = COOKING;
-	if(interruptFlag == 1)
-	{
-		interruptFlag = 0;
-	}
 }
 
 void pause(void)
