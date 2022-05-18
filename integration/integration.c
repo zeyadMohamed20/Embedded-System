@@ -234,6 +234,7 @@ void calc_time(void)
 
 void display_time(void)
 {
+	uint8_t entryFlag = 1;
 	uint8_t timer1, timer2, timer3, timer4;		//Divide timer into four digits, each variable store one digit
 	// timer1	 timer2		 timer3	timer4
 	//	 0       0    :    0       0
@@ -253,20 +254,20 @@ void display_time(void)
 		timer4 = timeArray[4] - '0';				// Ones of Seconds
 	}
 	lcd_clear();			//Clear LCD
-	timer4 += 1;			//Increment timer4 by one only one time before the do-while loop
 	
 	// Display the time remaining
 	do
 	{
 		currentState = COOKING;
-		timer4 -= 1;							//Decrement timer4 in the first
+		if(entryFlag == 0) timer4 -= 1;							//Decrement timer4 if the isnt in the first time 
 		//Note if timer1,2,3,4 = 0 - 1 --> they will be 255 as they are unsigned integers
 		if(timer4 == 255)	timer4 = 9;	//If timer4 = 0 - 1 = 255 --> reset timer4 to 9
-		if(timer4 == 9)	timer3 -= 1;	//If timer4 = 9 --> decrement timer3 by one
+		if(timer4 == 9 && entryFlag == 0)	timer3 -= 1;	//If timer4 = 9 --> decrement timer3 by one
 		if(timer3 == 255)	timer3 = 5;	//If timer3 = 0 - 1 = 255 --> reset timer3 to 5
-		if(timer3 == 5 && timer4 == 9 && timer2 != 0)	timer2 -= 1;	//if seconds on LCD = 59 and timer2 != 0 --> decrement timer2 by one
+		if(timer3 == 5 && timer4 == 9 && entryFlag == 0)	timer2 -= 1;	//if seconds on LCD = 59 and timer2 != 0 --> decrement timer2 by one
 		if(timer2 == 255) timer2 = 9;	//If timer2 = 0 - 1 = 255 --> reset timer2 to 9
-		if(timer2 == 9)	timer1 -= 1;	//If timer2 = 9 --> decrement timer1 by one
+		if(timer2 == 9 && timer1 != 0)	timer1 -= 1;	//If timer2 = 9 --> decrement timer1 by one
+		if(entryFlag == 1) entryFlag = 0;
 		
 		delay(SECOND, 1);				//To wait one second on LCD
 		
