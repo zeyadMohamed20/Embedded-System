@@ -12,6 +12,10 @@ Copyright (C) 2022. All rights reserved.
 #include "keypad.h"
 #include "../macros.h"
 #include "../standard_types.h"
+#include "../timer/timer.h"
+#include "../tools/tools.h"
+#include "../lcd/lcd.h"
+#include "../external.h"
 
 // initializing ports and pins needed by keypad
 void keypad_init(void)
@@ -65,10 +69,16 @@ char keypad_get_input(void)
 	                      };
 // waiting pressing key
 	while(1)
-	{ // initialization the counter of row and columns
+	{ 
+		// initialization the counter of row and columns
 		uint8_t row;
-		uint8_t column ;
-
+		uint8_t column;
+		if(currentState == SET_TIME && interruptFlag == 1)
+		{
+			interruptFlag = 0;
+			lcd_setposition(2, 7);
+			lcd_display("00:00");
+		}
 		// looping and set each row high individually
 		for( row = KEYPAD_ROW_START_INDEX ; row < KEYPAD_ROW_LAST_INDEX ; row++) 
 		{

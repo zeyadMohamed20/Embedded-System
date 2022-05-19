@@ -18,6 +18,6 @@ Copyright (C) 2022. All rights reserved.
 volatile extern char currentState;		// To store the mission 'A' or 'B' or 'C' or 'D'
 volatile extern char timeArray[];				// Each index is used to store the digit entered in each time
 volatile extern uint8_t interruptFlag;
-
+volatile extern uint8_t switch1Press;
 
 #endif

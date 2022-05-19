@@ -67,7 +67,7 @@ void lcd_data(char data)
 	GPIO_PORTA_DATA_R |= 0x20;
 	GPIO_PORTB_DATA_R = data;
 	GPIO_PORTA_DATA_R|=0x80;
-	delay(MILLI_SECOND,5);
+	delay(MILLI_SECOND, 5);
 	GPIO_PORTA_DATA_R &= ~0x80;
 }
 
@@ -89,7 +89,7 @@ void lcd_display(volatile char *str)
 	while(str[i] != '\0')
 	{
 		lcd_data(str[i]);
-		str++;
+		i++;
 	}
 }
 

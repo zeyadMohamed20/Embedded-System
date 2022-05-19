@@ -18,16 +18,17 @@ Copyright (C) 2022. All rights reserved.
 #include "../struct_enum.h"
 #include "../macros.h"
 #include "../utility/util.h"
-#include "../struct_enum.h"
 
 //Global variables
 volatile char currentState;		// To store the current state like (Cookig, invalid weight, beaf, etc..)
 volatile char timeArray[] = "00:00";				// Each index is used to store the digit entered in each time
 volatile uint8_t interruptFlag = 0;			
+volatile uint8_t switch1Press = 0;
 static char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D' 
 static uint32_t timeMin;									// To store the minutes
 static uint32_t timeSec;									// To store the total time in seconds	
 static char weight;
+static uint8_t endProgram = 0;
 
 void microwave_init(void)
 {
@@ -42,6 +43,7 @@ void choose_mission(void)
 	currentState = CHOOSE_MISSION;
 	lcd_clear();
 	lcd_display("Choose Mission:");
+	//missionChoice = 'D';
 	missionChoice = keypad_get_input(); //To store mission choice entered by keypad
 	lcd_display(&missionChoice);				// Print character that user choosed
 	delay(MILLI_SECOND, 200);						//For safty not to enter the same character chosen as a kilo value (Invalid input)
@@ -172,11 +174,11 @@ void set_time(void)
 	// Print "Cooking Time" then ask the user to to enter the time from right to left
 	lcd_clear();
 	lcd_display("Cooking Time");
-	lcd_setposition(2, 7);
 	clear_time_array();
+	lcd_setposition(2,7);
 	lcd_display(timeArray);
 	//Enter a value in field 11 on LCD
-	for(i = 1; i < 5; i++)
+	do
 	{
 		lcd_shiftL(1);
 		for(j = 1; j < 5; j++)
@@ -191,16 +193,16 @@ void set_time(void)
 		timeArray[4]= keypad_get_input();
 		if(interruptFlag)
 		{
+			//interruptFlag = 0;
 			i = 1;
-			interruptFlag = 0;
 		}
 		lcd_setposition(2,7);
 		lcd_display(timeArray);
-	}
-	while((GPIO_PORTF_DATA_R & (1<<0)) == 1)
+	}while((GPIO_PORTF_DATA_R & (1 << 0)) == 1);
 	{
 	}
 }
+
 
 
 void invalid_time(void)
@@ -281,6 +283,9 @@ void display_time(void)
 		lcd_display(integer_to_string(timer3));
 		lcd_display(integer_to_string(timer4));
 		
+		if(endProgram == 1)
+			break;
+		
 	}while((timer1 != 0 || timer2 != 0 || timer3 != 0 || timer4 != 0)); //Exit if all timers = 0
 }
 
@@ -295,20 +300,34 @@ void cooking(void)
 void resume(void)
 {				
 	currentState = COOKING;
+	leds_on();
 }
 
 void pause(void)
 {
 	currentState = PAUSE;
-	do
+	switch1Press = 1;
+	leds_off();
+	//delay(MILLI_SECOND, 500);
+	leds_on();
+	//delay(MILLI_SECOND, 500);
+	if((GPIO_PORTF_DATA_R & 0x10) == 0)
 	{
-		leds_off();
-		delay(MILLI_SECOND, 200);
-		leds_on();
-		delay(MILLI_SECOND, 400);
-	}while((GPIO_PORTF_MIS_R & (1 << 4)) == 0 || (GPIO_PORTF_MIS_R & (1 << 0)) == 0 || (GPIO_PORTA_DATA_R & (1 << 2)) == 0);
+		switch1Press = 2;
+	}
 }
-
+/*while((GPIO_PORTF_MIS_R & 0x01) == 0 && (GPIO_PORTA_MIS_R & 0x04) == 0);    
+	
+	if((GPIO_PORTF_DATA_R & 0x10) == 0)
+	{
+		cancel_cooking();
+	}
+	else if(GPIO_PORTF_MIS_R == 0x01)
+	{
+		resume();
+	}
+}
+*/
 void finish_cooking(void)
 {
 	uint8_t i;
@@ -331,30 +350,26 @@ void finish_cooking(void)
 
 void cancel_cooking(void)
 {
+	currentState = CANCEL_COOKING;
+	switch1Press = 0;
 	leds_off();
 	lcd_clear();
-	if(interruptFlag == 1)
-	{
-		interruptFlag = 0;
-	}
+	buzzer_on();
+	delay(SECOND, 1);
+	buzzer_off();
+	endProgram = 1;
 }
 
 
 void door_opened(void)
 {
 	currentState = DOOR_OPENED;
-	do
-	{
-		lcd_clear();
-		leds_off();
-		delay(MILLI_SECOND, 200);
-		leds_on();
-		lcd_setposition(2, 2);
-		lcd_display("Close The Door");
-		delay(MILLI_SECOND, 400);
-		if((GPIO_PORTA_MIS_R & (1 << 2)) == 0)
-		{
-			interruptFlag = 0;
-		}
-	}while(interruptFlag == 1);
+	
+	lcd_clear();
+	leds_off();
+	delay(MILLI_SECOND, 200);
+	leds_on();
+	lcd_setposition(2, 2);
+	lcd_display("Close The Door");
+	delay(MILLI_SECOND, 400);		
 }

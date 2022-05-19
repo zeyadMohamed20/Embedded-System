@@ -8,9 +8,8 @@ void SystemInit()
 int main()
 {
 	microwave_init();
-	choose_mission();
 	while (1)
 	{	
-		
+		choose_mission();
 	}
 }

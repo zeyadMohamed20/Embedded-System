@@ -32,6 +32,7 @@ void portF_initialization(void)
 	GPIO_PORTF_PCTL_R &= ~0x1F;
 	GPIO_PORTF_AFSEL_R &= ~0x1F;
 	GPIO_PORTF_DIR_R |= 0x0E;
+	GPIO_PORTF_DIR_R &= ~0x11;
 	GPIO_PORTF_DEN_R |= 0x1F;
 	GPIO_PORTF_PUR_R |= 0x11;
 }
@@ -39,51 +40,35 @@ void portF_initialization(void)
 void portA_initialization(void)
 {
 	GPIO_PORTA_LOCK_R = 0x4C4F434B;
-	GPIO_PORTA_CR_R |= 0x1E;
-	GPIO_PORTA_AMSEL_R &= ~0x1E;
-	GPIO_PORTA_PCTL_R &= ~0x1E;
-	GPIO_PORTA_AFSEL_R &= ~0x1E;
-	GPIO_PORTA_DIR_R &= ~(1 << 2);
-	GPIO_PORTA_DEN_R |= 0x1E;
+	GPIO_PORTA_CR_R |= 0x0C;
+	GPIO_PORTA_AMSEL_R &= ~0x0C;
+	GPIO_PORTA_PCTL_R &= ~0x0C;
+	GPIO_PORTA_AFSEL_R &= ~0x0C;
+	GPIO_PORTA_DIR_R |= 0x08;
+	GPIO_PORTA_DEN_R |= 0x0C;
+	GPIO_PORTF_PUR_R |= 0x04;
 }
-
-//usage of Push button as Interrupt//
-/*void GPIOA_Handler(void)
-{ 
-	if((GPIO_PORTA_MIS_R & 0x04) != 0x04)
-	pause();
-	GPIO_PORTA_ICR_R |= 0x04;
-}
-
-//usage of SW1 and SW2 buttons as interrupt//
-void GPIOF_Handler(void)
-{
-	if(GPIO_PORTF_MIS_R & 0x01)  //check if interrupt causes by PF4/SW2
-	{
-		leds_on();
-		GPIO_PORTA_ICR_R |= 0x01;
-	}
-	if(GPIO_PORTF_MIS_R & 0x10) 	//check if interrupt causes by PF4/SW1
-  {   
-		leds_off();
-		GPIO_PORTA_ICR_R |= 0x10;
-  }
-}*/
 
 //turn on leds//
 void leds_on(void)
 {
-		GPIO_PORTF_DATA_R = 0X0E;
+		GPIO_PORTF_DATA_R |= 0X0E;
 }
 //turn off leds//
 void leds_off(void)
 {
 	GPIO_PORTF_DATA_R &= ~0X0E;
 }
+
+void leds_toggle(void)
+{
+	GPIO_PORTF_DATA_R ^= 0X0E;
+}
+
 //turn on buzzer//
 void buzzer_on(void)
 {
-	GPIO_PORTA_DATA_R = 0x08;
+	GPIO_PORTA_DATA_R |= 0x08;
 }
 //turn off buzzer//
 void buzzer_off(void)

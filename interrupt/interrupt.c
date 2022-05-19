@@ -18,7 +18,6 @@ Copyright (C) 2022. All rights reserved.
 #include "../tools/tools.h"
 #include "../integration/integration.h"
 
-
 void sw1_interrupt_init(void)
 {
 	GPIO_PORTF_IS_R  &= ~(1<<4);
@@ -38,7 +37,7 @@ void sw2_interrupt_init(void)
 	GPIO_PORTF_IEV_R &= ~(1<<0);
 	GPIO_PORTF_ICR_R |=  (1<<0);
 	GPIO_PORTF_IM_R  |=  (1<<0);
-	NVIC_PRI7_R      = (NVIC_PRI7_R & 0xFF00FFFF)|0x00A00000;
+	NVIC_PRI7_R      = (NVIC_PRI7_R & 0xFF00FFFF)|0x00800000;
   NVIC_EN0_R       |=  (1 << 30);
   __enable_irq();	
 }
@@ -50,7 +49,7 @@ void sw3_interrupt_init(void)
 	GPIO_PORTA_IEV_R &= ~(1<<2);
 	GPIO_PORTA_ICR_R |=  (1<<2);
 	GPIO_PORTA_IM_R  |=  (1<<2);
-	NVIC_PRI0_R       = (NVIC_PRI0_R & 0xFFFFFF00)|0x000000A0;
+	NVIC_PRI0_R       = (NVIC_PRI0_R & 0xFFFFFF00)|0x00000020;
   NVIC_EN0_R       |=  (1 << 0);
   __enable_irq();	
 }
@@ -65,34 +64,33 @@ void interrupt_init(void)
 
 void GPIOF_Handler(void)
 {
-
 	if(GPIO_PORTF_MIS_R & (1 << 4))
 	{
 		if(currentState == SET_TIME)
 		{
+			uint8_t i;
 			clear_time_array();
-			lcd_clear();
-			lcd_display("Cooking Time");
-			lcd_setposition(2, 7);
-			lcd_display(timeArray);
+			interruptFlag = 1;
+			GPIO_PORTF_ICR_R |=  0x11;
 		}
 		// If sw1 pressed during cooking state --> pause cooking
-		else if(currentState == COOKING)	
+		else if((currentState == COOKING || currentState == DOOR_OPENED || currentState == PAUSE) && (switch1Press == 0 || switch1Press == 1))	
 		{
 			pause();
 		}	
 		// If sw1 pressed during pause state --> cancel cooking
-		else if(currentState == PAUSE)
+		else if(currentState == PAUSE && switch1Press == 2)
 		{
 			cancel_cooking();
+			GPIO_PORTF_ICR_R |=  0x11;
 		}
-		interruptFlag = 1;
 	}
 	// If sw2 pressed --> resume
 	else if(GPIO_PORTF_MIS_R & (1 << 0))		
 	{
 		if(currentState == PAUSE)
 		{
+			GPIO_PORTF_ICR_R |=  0x10;
 			resume();
 		}
 		else if(currentState == SET_TIME)
@@ -106,16 +104,14 @@ void GPIOF_Handler(void)
 			}
 		}
 	}
-	GPIO_PORTF_ICR_R |=  0x11;
 }
 
 void GPIOA_Handler(void)
 {
 	if(GPIO_PORTA_MIS_R & (1 << 2))
 	{
-		if(currentState == COOKING || currentState == PAUSE)
+		if(currentState == COOKING || currentState == DOOR_OPENED || currentState == PAUSE)
 		{
-			currentState = DOOR_OPENED;
 			interruptFlag = 1;
 			door_opened();
 			lcd_clear();
