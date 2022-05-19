@@ -94,26 +94,11 @@ void lcd_display(volatile char *str)
 }
 
 
-void lcd_setposition(uint16_t row, uint16_t col)
+void lcd_setposition(uint16_t y,uint16_t x)
 {
-uint16_t position;
-	
-switch(row)
-{	
-		case 1:
-			lcd_cmd(0x08);
-			delay(MILLI_SECOND,5);
-			position = (col - 1) + 0x80 ;
-			lcd_cmd(position);		
-			break;		
-	  case 2:
-			delay(MILLI_SECOND,5);
-			lcd_secline();
-			position = (col - 1) + 0xc0;
-			delay(MILLI_SECOND,5); 
-			lcd_cmd(position);
-			break;
-	}
+	uint16_t firstcharadr[]={first_line1, first_line2}; // FirstCharAddress[0]=0x80 ,,,, FirstCharAddress[1]=0xC0
+	lcd_cmd(firstcharadr[y-1] + x - 1);
+	delay(MILLI_SECOND,50);
 }
 
 void lcd_shiftR(uint32_t shift)

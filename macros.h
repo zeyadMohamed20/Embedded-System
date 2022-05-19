@@ -149,6 +149,11 @@ Copyright (C) 2022. All rights reserved.
 #define KEYPAD_COLUMN_LAST_INDEX	0x04			// start index of Column
 //************************************************************************************************************************
 
+//************************************ LCD Constant Macros **********************************************************
+#define first_line1 0x80 // set cursor position in first row
+#define first_line2 0xC0 // set cursor position in second row
+//*******************************************************************************************************************
+
 //******************************* Timer Constant Macros ******************************************************************
 #define CLEAR_VALUE 0
 #define ENABLE_TIMER 5

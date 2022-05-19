@@ -68,10 +68,10 @@ void GPIOF_Handler(void)
 	{
 		if(currentState == SET_TIME)
 		{
-			uint8_t i;
-			clear_time_array();
+			lcd_setposition(2, 7);
+			lcd_display("00:00");
 			interruptFlag = 1;
-			GPIO_PORTF_ICR_R |=  0x11;
+			GPIO_PORTF_ICR_R |= 0x11;
 		}
 		// If sw1 pressed during cooking state --> pause cooking
 		else if((currentState == COOKING || currentState == DOOR_OPENED || currentState == PAUSE) && (switch1Press == 0 || switch1Press == 1))	
