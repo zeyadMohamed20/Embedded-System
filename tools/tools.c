@@ -1,104 +1,77 @@
+/*
+ **************************************************************************************************************************
+@file     tools.c
+@brief    This file defines the bodies of functions which defines and configure tools like LEDS,Buzer 
+@version  V1.00
+@date     11. May 2022
+@team     tools Team
+Copyright (C) 2022. All rights reserved.
+******************************************************************************************************************************
+*/
+// include librarys
+#include "tools.h"
 #include "../macros.h"
 #include "../timer/timer.h"
-#include "tools.h"
-#include"../LCD/lcd.h"
+#include "../standard_types.h"
+#include "../struct_enum.h"
 
-//buzzer a3//
-//push button a2//
-//leds f1 f2 f3//
-//SW2 F0//
-//SW1 F4//
-//enable port f and port a//
-
-void enable_portf_and_a()
-	{
+void tools_init(void)
+{
 	SYSCTL_RCGCGPIO_R |=0x21;
-	}
+	while((SYSCTL_PRGPIO_R &0x21) == 0);
+	portF_initialization();
+	portA_initialization();
+}
 //initiallization port f//
-	void portf(){
-		GPIO_PORTF_LOCK_R= 0x4C4F434B;
-GPIO_PORTF_CR_R=0x1F;
-	GPIO_PORTF_AMSEL_R=0;
-	GPIO_PORTF_PCTL_R=0;
-	GPIO_PORTF_AFSEL_R=0;
-	GPIO_PORTF_DIR_R=0x1E;
-	GPIO_PORTF_DEN_R=0x1F;
-	GPIO_PORTF_PUR_R=0x11;
+void portF_initialization(void)
+{
+	//GPIO
+	GPIO_PORTF_LOCK_R = 0x4C4F434B;
+	GPIO_PORTF_CR_R |= 0x1F;
+	GPIO_PORTF_AMSEL_R &= ~0x1F;
+	GPIO_PORTF_PCTL_R &= ~0x1F;
+	GPIO_PORTF_AFSEL_R &= ~0x1F;
+	GPIO_PORTF_DIR_R |= 0x0E;
+	GPIO_PORTF_DIR_R &= ~0x11;
+	GPIO_PORTF_DEN_R |= 0x1F;
+	GPIO_PORTF_PUR_R |= 0x11;
 }
 //initiallization port a	
-void porta()
+void portA_initialization(void)
 {
-GPIO_PORTA_LOCK_R |= 0x4C4F434B;
-GPIO_PORTA_CR_R |= 0x1F;
-	GPIO_PORTA_AMSEL_R |=0;
-	GPIO_PORTA_PCTL_R|=0;
-	GPIO_PORTA_AFSEL_R|=0;
-	GPIO_PORTA_DIR_R|=0x1E;
-	GPIO_PORTA_DEN_R|=0x1F;
-	GPIO_PORTA_PUR_R|=0x11;
+	GPIO_PORTA_LOCK_R = 0x4C4F434B;
+	GPIO_PORTA_CR_R |= 0x0C;
+	GPIO_PORTA_AMSEL_R &= ~0x0C;
+	GPIO_PORTA_PCTL_R &= ~0x0C;
+	GPIO_PORTA_AFSEL_R &= ~0x0C;
+	GPIO_PORTA_DIR_R |= 0x08;
+	GPIO_PORTA_DEN_R |= 0x0C;
+	GPIO_PORTF_PUR_R |= 0x04;
 }
-//usage of Push button as Interrupt//
-
-/*void GPIOA_Handler(void)
-{  if ((GPIO_PORTA_DATA_R&0x04)!=0x04)
-	pause();
-}*/
-
-//usage of SW1 and SW2 buttons as interrupt//
-/*void GPIOF_Handler(void){
-	   //SW2 is pushed for 1st time and start cooking and leds turn on//
-      if ((GPIO_PORTF_DATA_R &0x11)==0x10)
-	      {
-					leds_on();	
-					//SW1 is pushed for 1st time and pause cooking//
-			if ((GPIO_PORTF_DATA_R &0X11)==0X00)
-				{
-						pause();
-					//SW1 is pushed for 2nd time and stop cooking and leds turn off//
-					if((GPIO_PORTF_DATA_R & 0x11)==0x10)
-                                             {
-					lcd_clear();
-					leds_off();	
-                                              }
-				        //SW2 is pushed for 2nd time after 1st time of SW1 is pushed which resume cooking after pause cooking//
-				        else if((GPIO_PORTF_DATA_R &0x11)==0x01)
-                                                                {
-									resume();
-									leds_on();
-								}
-			         }
-		}
-	}*/
 
 //turn on leds//
-void leds_on()
-	{
-		GPIO_PORTF_DATA_R=0X0E;
+void leds_on(void)
+{
+		GPIO_PORTF_DATA_R |= 0X0E;
 }
 //turn off leds//
-void leds_off()
+void leds_off(void)
 {
-	GPIO_PORTF_DATA_R^=0X0E;
+	GPIO_PORTF_DATA_R &= ~0X0E;
 }
-//turn on buzzer//
-void buzzer_on()
+
+void leds_toggle(void)
 {
-	GPIO_PORTA_DATA_R=0x0C;
+	GPIO_PORTF_DATA_R ^= 0X0E;
+}
+
+//turn on buzzer//
+void buzzer_on(void)
+{
+	GPIO_PORTA_DATA_R |= 0x08;
 }
 //turn off buzzer//
-void buzzer_off()
+void buzzer_off(void)
 {
-	GPIO_PORTA_DATA_R^=0X08;
-}
-//determine time of leds blinking//
-void leds_blink(uint8_t NumberOfBlink,uint8_t OnDelay,uint32_t delayTimeOn,uint8_t OffDelay,uint32_t delayTimeOff)
-{
-	uint8_t i;
-for (i=0;i<NumberOfBlink;i++)
-{
-leds_on();
-delay(OnDelay,delayTimeOn);
-leds_off();
-delay(OffDelay,delayTimeOff); 	
-}
+	GPIO_PORTA_DATA_R &= ~0X08;
 }

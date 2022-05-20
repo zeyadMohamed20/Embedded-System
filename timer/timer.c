@@ -8,33 +8,15 @@
 Copyright (C) 2022. All rights reserved.
 ******************************************************************************************************************************
 */
+// include librarys
+#include "timer.h"
+#include "../macros.h"
+#include "../standard_types.h"
+#include "../struct_enum.h"
 
-#include"../standard_types.h"
-#include"../macros.h"
-#include"time.h"
-#include"struct_enum.h"
+time timer;
 
-struct time timer;
-
-double power(uint16_t base, int8_t exp)
-{
-	double result = 1;
-	uint8_t isPositive = exp >= 0 ? 1 : (exp *= -1, 0);
-
-	while (exp)
-	{
-		if (exp & 1)
-			result = result * base;
-		exp = exp >> 1;
-		base = base * base;
-	}
-	if (isPositive)
-		return result;
-	else
-		return 1 / result;
-}
-
-void timer_init()
+void timer_init(void)
 {
 	NVIC_ST_CTRL_R = CLEAR_VALUE;
 	NVIC_ST_CURRENT_R = CLEAR_VALUE;
@@ -77,14 +59,3 @@ void delay(unit choice, uint32_t delayTime)
 	}
 }
 
-time pause()
-{
-	timer.currentTime = NVIC_ST_CURRENT_R;
-	timer_init();
-	return timer;
-}
-
-void resume()
-{
-	delay(timer.timeUnit,timer.currentTime);
-}

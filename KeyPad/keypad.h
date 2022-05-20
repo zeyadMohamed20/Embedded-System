@@ -8,17 +8,18 @@
 Copyright (C) 2022. All rights reserved.
 *************************************************************************************************************
 */
-#include "../standard_types.h"
 
 #ifndef KEYPAD_H
 #define KEYPAD_H
-// initializing ports and pins needed by keypad
-void Init_Ports(void); 
-// initiallizing port C
-void Init_PortC(void);
-// initiallizing port D
-void Init_PortD(void);
-// return value of corresponding pressed key
-char KeyPad_Get_Input(void);
 
+//********** Functions Prototype ***************
+// initializing ports and pins needed by keypad
+void keypad_init(void); 
+// initiallizing port C
+void portE_init(void);
+// initiallizing port D
+void portD_init(void);
+// return value of corresponding pressed key
+char keypad_get_input(void);
+//**********************************************
 #endif

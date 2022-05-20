@@ -1,9 +1,16 @@
-#include"tools/tools.h"
+#include "integration/integration.h"
+#include "lcd/lcd.h"
+#include "timer/timer.h"
+#include "tools/tools.h"
+
 void SystemInit()
 {
 }
-
 int main()
 {
-	led_on();
+	microwave_init();
+	while (1)
+	{	
+		choose_mission();
+	}
 }
