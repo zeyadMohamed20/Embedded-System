@@ -2,6 +2,7 @@
 #include "lcd/lcd.h"
 #include "timer/timer.h"
 #include "tools/tools.h"
+
 void SystemInit()
 {
 }

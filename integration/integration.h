@@ -13,6 +13,7 @@ Copyright (C) 2022. All rights reserved.
 #include "../struct_enum.h"
 
 //********** Functions Prototype ***************
+void variables_init(void);					// Initiate all variables 
 void microwave_init(void);   			// Initializes all the components in the microwave including lcd,keypad,tools 
 void choose_mission(void);   			// Enables the user to choose the mission(A,B,C,D)
 void invalid_mission(void); 			// The action for validation of the user's input in mission choosing 
@@ -33,5 +34,6 @@ void pause(void);									// Pause the cooking operation
 void resume(void);								// Resume the cooking operation
 void door_opened(void);						// If the door is opened execute this function
 void invalid_time(void);					// If the time entered is invalid
+void set_time_init(void);					// Initialization of set_time()
 //*******************************************************
 #endif

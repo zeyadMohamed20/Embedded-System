@@ -68,35 +68,36 @@ void GPIOF_Handler(void)
 	{
 		if(currentState == SET_TIME)
 		{
-			uint8_t i;
-			clear_time_array();
+			//clear_time_array();
+			//lcd_setposition(2, 7);
+			//lcd_display(timeArray);
 			interruptFlag = 1;
-			GPIO_PORTF_ICR_R |=  0x11;
+			//GPIO_PORTF_ICR_R |=  0x11;		
 		}
 		// If sw1 pressed during cooking state --> pause cooking
-		else if((currentState == COOKING || currentState == DOOR_OPENED || currentState == PAUSE) && (switch1Press == 0 || switch1Press == 1))	
+		if((currentState == COOKING || currentState == DOOR_OPENED || currentState == PAUSE) && (switch1Press == 0 || switch1Press == 1))	
 		{
 			pause();
 		}	
 		// If sw1 pressed during pause state --> cancel cooking
-		else if(currentState == PAUSE && switch1Press == 2)
+		if(currentState == PAUSE && switch1Press == 2)
 		{
 			cancel_cooking();
 			GPIO_PORTF_ICR_R |=  0x11;
 		}
 	}
 	// If sw2 pressed --> resume
-	else if(GPIO_PORTF_MIS_R & (1 << 0))		
+	if(GPIO_PORTF_MIS_R & (1 << 0))		
 	{
 		if(currentState == PAUSE)
 		{
-			GPIO_PORTF_ICR_R |=  0x10;
 			resume();
+			GPIO_PORTF_ICR_R |=  0x11;
 		}
-		else if(currentState == SET_TIME)
+		if(currentState == SET_TIME)
 		{
-			if((timeArray[0]< '3' || MINUTE_30) && (timeArray[1] <= '9') && (timeArray[3]< '6') && (timeArray[4]<= '9') && (!MINUTE_0))
-				cooking();
+			if((timeArray[0] < '3' || MINUTE_30) && (timeArray[1] <= '9') && (timeArray[3]< '6') && (timeArray[4]<= '9') && (!MINUTE_0))
+				cooking();	
 			else
 			{
 				clear_time_array();
@@ -104,6 +105,8 @@ void GPIOF_Handler(void)
 			}
 		}
 	}
+	if(currentState != PAUSE)
+			GPIO_PORTF_ICR_R |=  0x11;	
 }
 
 void GPIOA_Handler(void)
@@ -112,10 +115,9 @@ void GPIOA_Handler(void)
 	{
 		if(currentState == COOKING || currentState == DOOR_OPENED || currentState == PAUSE)
 		{
-			interruptFlag = 1;
 			door_opened();
-			lcd_clear();
 		}
-	}
-	GPIO_PORTF_ICR_R |=  (1 << 2);
+	}	
+	if(currentState != PAUSE && currentState != COOKING)
+			GPIO_PORTF_ICR_R |=  0x11;	
 }
