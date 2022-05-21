@@ -22,7 +22,7 @@ Copyright (C) 2022. All rights reserved.
 //Global variables
 volatile char currentState;		// To store the current state like (Cookig, invalid weight, beaf, etc..)
 volatile char timeArray[] = "00:00";				// Each index is used to store the digit entered in each time
-volatile uint8_t interruptFlag;					
+volatile uint8_t interruptFlag;			
 volatile uint8_t switch1Press;
 
 static char missionChoice;		// To store the mission 'A' or 'B' or 'C' or 'D' 
@@ -59,7 +59,6 @@ void choose_mission(void)
 	currentState = CHOOSE_MISSION;
 	lcd_clear();
 	lcd_display("Choose Mission:");
-	//missionChoice = 'A';
 	missionChoice = keypad_get_input(); //To store mission choice entered by keypad
 	lcd_display(&missionChoice);				// Print character that user choosed
 	delay(MILLI_SECOND, 200);						//For safty not to enter the same character chosen as a kilo value (Invalid input)
@@ -182,54 +181,6 @@ void invalid_weight(void)
 	delay(SECOND,2);
 }
 
-
-
-/*
-void set_time(void)
-{
-uint8_t i = 1; // Use i,j in nested for loop
-char input;
-currentState = SET_TIME;
-set_time_init();
-//Enter a value in field 11 on LCD
-do
-{
-lcd_shiftL(1);
-input = keypad_get_input();
-delay(MILLI_SECOND, 300);
-if(i == 2)
-{
-timeArray[3]=timeArray[4];
-}
-else if(i == 3)
-{
-timeArray[1]=timeArray[3];
-timeArray[3]=timeArray[4];
-}
-else if(i == 4)
-{
-timeArray[0]=timeArray[1];
-timeArray[1]=timeArray[3];
-timeArray[3]=timeArray[4];
-}
-else if(i > 4)
-{
-i = 1;
-set_time_init();
-}
-if(interruptFlag)
-{
-interruptFlag = 0;
-i = 1;
-}
-timeArray[4] = input;
-lcd_setposition(2,7);
-lcd_display(timeArray);
-i++;
-}while((GPIO_PORTF_DATA_R & (1<<0)) == 1);
-}
-*/
-
 void set_time_init()
 {
 // Print "Cooking Time" then ask the user to to enter the time from right to left
@@ -257,6 +208,10 @@ void set_time(void)
 	{
 		lcd_shiftL(1);
 		input = keypad_get_input();
+		
+		if((GPIO_PORTF_DATA_R & 0x01) == 0) // If Sw2 pressed
+			break;			// Exit from the loop
+
 		if(i == 2)
 		{
 			timeArray[3]=timeArray[4];
@@ -272,7 +227,6 @@ void set_time(void)
 			timeArray[1]=timeArray[3];
 			timeArray[3]=timeArray[4];
 		}
-
 		else if(i > 4)				
 		{
 			i = 1;
@@ -287,9 +241,9 @@ void set_time(void)
 		lcd_setposition(2,7);
 		lcd_display(timeArray);
 		i++;
-	}while((GPIO_PORTF_DATA_R & (1<<0)) == 1);
+	}while((GPIO_PORTF_DATA_R & (1 << 0)) == 1);	// stay in the loop until sw2 pressed
+	cooking();		
 }
-
 
 
 void invalid_time(void)
@@ -334,8 +288,8 @@ void display_time(void)
 	currentState = COOKING;
 	if(missionChoice == POPCORN || missionChoice == BEAF || missionChoice == CHICKEN)
 	{
-		timer1 = timeMin / 10;							// Tens of Minutes
-		timer2 = timeMin % 10;							// Ones of Minutes
+		timer1 = timeMin / 10;						// Tens of Minutes
+		timer2 = timeMin % 10;						// Ones of Minutes
 		timer3 = (timeSec % 60) / 10;				// Tens of Seconds
 		timer4 = (timeSec % 60) %10;				// Ones of Seconds
 	}
@@ -377,7 +331,8 @@ void display_time(void)
 			break;
 		
 	}while((timer1 != 0 || timer2 != 0 || timer3 != 0 || timer4 != 0)); //Exit if all timers = 0
-	finish_cooking();
+	if(currentState != CANCEL_COOKING)
+		finish_cooking();
 }
 
 void cooking(void)
@@ -406,10 +361,8 @@ void pause(void)
 	lcd_setposition(1, 1);
 	lcd_display("                ");
 	delay(MILLI_SECOND, 200);
-	if((GPIO_PORTF_DATA_R & 0x10) == 0)
-	{
+	if((GPIO_PORTF_DATA_R & 0x10) == 0)		// If sw1 is pressed for the second time
 		switch1Press = 2;
-	}
 }
 void finish_cooking(void)
 {
@@ -447,7 +400,6 @@ void cancel_cooking(void)
 void door_opened(void)
 {
 	currentState = DOOR_OPENED;
-	
 	leds_off();
 	lcd_setposition(1, 2);
 	lcd_display("Close The Door");

@@ -83,6 +83,12 @@ char keypad_get_input(void)
 			clear_time_array();
 		}
 		
+		// If sw2 pressed --> exit from keyPad
+		if((GPIO_PORTF_DATA_R & 0x01) == 0 && currentState != CHOOSE_MISSION && currentState != SET_KILO)	
+		{
+			break;
+		}
+		
 		// looping and set each row high individually
 		for( row = KEYPAD_ROW_START_INDEX ; row < KEYPAD_ROW_LAST_INDEX ; row++) 
 		{

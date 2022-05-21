@@ -18,42 +18,44 @@ Copyright (C) 2022. All rights reserved.
 #include "../tools/tools.h"
 #include "../integration/integration.h"
 
+// Initialize switch 1
 void sw1_interrupt_init(void)
 {
-	GPIO_PORTF_IS_R  &= ~(1<<4);
-  GPIO_PORTF_IBE_R &= ~(1<<4);
-	GPIO_PORTF_IEV_R &= ~(1<<4);
-	GPIO_PORTF_ICR_R |=  (1<<4);
-	GPIO_PORTF_IM_R  |=  (1<<4);
-	NVIC_PRI7_R      = (NVIC_PRI7_R & 0xFF00FFFF)|0x00A00000;
-  NVIC_EN0_R       |=  (1 << 30);
-  __enable_irq();	
+	GPIO_PORTF_IS_R  &= ~(1<<4);	// make sw1 edge sensitive
+	GPIO_PORTF_IBE_R &= ~(1<<4);	// Trigger is controlled bt IEV
+	GPIO_PORTF_IEV_R &= ~(1<<4);	// Falling edge trigger
+	GPIO_PORTF_ICR_R |=  (1<<4);	// Clear any prior interrupt
+	GPIO_PORTF_IM_R  |=  (1<<4);	// unmask interrupt
+	NVIC_PRI7_R      = (NVIC_PRI7_R & 0xFF00FFFF)|0x00A00000;	// priority = 3
+	NVIC_EN0_R       |=  (1 << 30);	// Enable interrupt in port_F
+	__enable_irq();					// Enable global interrupt
 }
-
+// Initialize switch 2
 void sw2_interrupt_init(void)
 {
-	GPIO_PORTF_IS_R  &= ~(1<<0);
-  GPIO_PORTF_IBE_R &= ~(1<<0);
-	GPIO_PORTF_IEV_R &= ~(1<<0);
-	GPIO_PORTF_ICR_R |=  (1<<0);
-	GPIO_PORTF_IM_R  |=  (1<<0);
-	NVIC_PRI7_R      = (NVIC_PRI7_R & 0xFF00FFFF)|0x00800000;
-  NVIC_EN0_R       |=  (1 << 30);
-  __enable_irq();	
+	GPIO_PORTF_IS_R  &= ~(1<<0);	// make sw2 edge sensitive
+	GPIO_PORTF_IBE_R &= ~(1<<0);	// Trigger is controlled bt IEV
+	GPIO_PORTF_IEV_R &= ~(1<<0);	// Falling edge trigger
+	GPIO_PORTF_ICR_R |=  (1<<0);	// Clear any prior interrupt
+	GPIO_PORTF_IM_R  |=  (1<<0);	// unmask interrupt
+	NVIC_PRI7_R      = (NVIC_PRI7_R & 0xFF00FFFF)|0x00400000;	// priority = 2
+	NVIC_EN0_R		 |=  (1 << 30);	// Enable interrupt in port_F
+	__enable_irq();					// Enable global interrupt
 }
 
 void sw3_interrupt_init(void)
 {
-	GPIO_PORTA_IS_R  |=  (1<<2);
-  GPIO_PORTA_IBE_R |=  (1<<2);
-	GPIO_PORTA_IEV_R &= ~(1<<2);
-	GPIO_PORTA_ICR_R |=  (1<<2);
-	GPIO_PORTA_IM_R  |=  (1<<2);
-	NVIC_PRI0_R       = (NVIC_PRI0_R & 0xFFFFFF00)|0x00000020;
-  NVIC_EN0_R       |=  (1 << 0);
-  __enable_irq();	
+	GPIO_PORTA_IS_R  |=  (1<<2);	// make sw3 edge sensitive
+	GPIO_PORTA_IBE_R |=  (1<<2);	// Trigger is controlled bt IEV
+	GPIO_PORTA_IEV_R &= ~(1<<2);	// Falling edge trigger
+	GPIO_PORTA_ICR_R |=  (1<<2);	// Clear any prior interrupt
+	GPIO_PORTA_IM_R  |=  (1<<2);	// unmask interrupt
+	NVIC_PRI0_R       = (NVIC_PRI0_R & 0xFFFFFF00)|0x00000020;	// priority = 2
+	NVIC_EN0_R       |=  (1 << 0);	// Enable interrupt in port_A
+	__enable_irq();					// Enable global interrupt
 }
 
+// Initialize all switches
 void interrupt_init(void)
 {
 	sw1_interrupt_init();
@@ -68,11 +70,7 @@ void GPIOF_Handler(void)
 	{
 		if(currentState == SET_TIME)
 		{
-			//clear_time_array();
-			//lcd_setposition(2, 7);
-			//lcd_display(timeArray);
 			interruptFlag = 1;
-			//GPIO_PORTF_ICR_R |=  0x11;		
 		}
 		// If sw1 pressed during cooking state --> pause cooking
 		if((currentState == COOKING || currentState == DOOR_OPENED || currentState == PAUSE) && (switch1Press == 0 || switch1Press == 1))	
@@ -83,7 +81,7 @@ void GPIOF_Handler(void)
 		if(currentState == PAUSE && switch1Press == 2)
 		{
 			cancel_cooking();
-			GPIO_PORTF_ICR_R |=  0x11;
+			GPIO_PORTF_ICR_R |=  0x11;	//Clear interrupt
 		}
 	}
 	// If sw2 pressed --> resume
@@ -92,12 +90,15 @@ void GPIOF_Handler(void)
 		if(currentState == PAUSE)
 		{
 			resume();
-			GPIO_PORTF_ICR_R |=  0x11;
+			GPIO_PORTF_ICR_R |=  0x11;	//Clear interrupt
 		}
 		if(currentState == SET_TIME)
 		{
-			if((timeArray[0] < '3' || MINUTE_30) && (timeArray[1] <= '9') && (timeArray[3]< '6') && (timeArray[4]<= '9') && (!MINUTE_0))
-				cooking();	
+			if(VALID_TIME)
+			{
+				GPIO_PORTF_ICR_R |=  0x11;	//Clear interrupt
+				//cooking();	
+			}
 			else
 			{
 				clear_time_array();
@@ -106,7 +107,7 @@ void GPIOF_Handler(void)
 		}
 	}
 	if(currentState != PAUSE)
-			GPIO_PORTF_ICR_R |=  0x11;	
+			GPIO_PORTF_ICR_R |=  0x11;	//Clear interrupt
 }
 
 void GPIOA_Handler(void)
@@ -114,10 +115,8 @@ void GPIOA_Handler(void)
 	if(GPIO_PORTA_MIS_R & (1 << 2))
 	{
 		if(currentState == COOKING || currentState == DOOR_OPENED || currentState == PAUSE)
-		{
 			door_opened();
-		}
 	}	
 	if(currentState != PAUSE && currentState != COOKING)
-			GPIO_PORTF_ICR_R |=  0x11;	
+			GPIO_PORTA_ICR_R |=  0x11;	//Clear interrupt
 }
