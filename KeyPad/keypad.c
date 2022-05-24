@@ -68,6 +68,7 @@ char keypad_get_input(void)
 											   { '7' , '8' , '9' , 'C'}, 	// PD2		row_2	
 											   { '*' , '0' , '#' , 'D'}	  // PD3		row_3	
 	                      };
+	 lcd_cursor_on();
 // waiting pressing key
 	while(1)
 	{ 
@@ -104,6 +105,10 @@ char keypad_get_input(void)
 					GPIO_PORTD_DATA_R &=~ GPIO_PORTD_PIN0_3;
 					// GPIO_PORTE_DATA_R &=~ GPIO_PORTE_PIN1_4;
 					// return the corresponding value of pressed key
+					buzzer_on();
+					delay(MILLI_SECOND, 60);
+					buzzer_off();
+					lcd_cursor_off();
 					return values[row][column];
 				}
 			}

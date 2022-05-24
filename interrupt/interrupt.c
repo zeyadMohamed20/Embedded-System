@@ -94,7 +94,7 @@ void GPIOF_Handler(void)
 		}
 		if(currentState == SET_TIME)
 		{
-			if(VALID_TIME)
+			if (VALID_TIME)
 			{
 				GPIO_PORTF_ICR_R |=  0x11;	//Clear interrupt
 				//cooking();	

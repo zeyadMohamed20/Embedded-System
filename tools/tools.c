@@ -60,10 +60,6 @@ void leds_off(void)
 	GPIO_PORTF_DATA_R &= ~0X0E;
 }
 
-void leds_toggle(void)
-{
-	GPIO_PORTF_DATA_R ^= 0X0E;
-}
 
 //turn on buzzer//
 void buzzer_on(void)

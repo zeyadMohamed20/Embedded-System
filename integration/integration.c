@@ -227,6 +227,7 @@ void set_time(void)
 			timeArray[1]=timeArray[3];
 			timeArray[3]=timeArray[4];
 		}
+
 		else if(i > 4)				
 		{
 			i = 1;
@@ -244,6 +245,7 @@ void set_time(void)
 	}while((GPIO_PORTF_DATA_R & (1 << 0)) == 1);	// stay in the loop until sw2 pressed
 	cooking();		
 }
+
 
 
 void invalid_time(void)

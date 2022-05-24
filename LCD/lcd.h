@@ -28,6 +28,8 @@ void lcd_setposition(uint16_t row,uint16_t col);
 void lcd_shiftR(uint32_t shift);
 void lcd_shiftL(uint32_t shift);
 void lcd_blink(char *str);
+void lcd_cursor_on(void);
+void lcd_cursor_off(void);
 
 //**********************************************
 #endif
