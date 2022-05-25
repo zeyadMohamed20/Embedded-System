@@ -64,7 +64,7 @@ o If SW2 is pushed after the oven is paused and the door is closed, then cooking
 
 ![2](/images/2.jpeg)
 
-![3](/images/3.jpeg)
+![3](https://github.com/zeyadMohamed20/Embedded-System/blob/766bd3743133c125c03f12eeba293f8e9ac69298/Images/3.jpeg)
 
 ![4](../images/4.jpeg)
 
