@@ -58,11 +58,53 @@ o If SW2 is pushed after the oven is paused and the door is closed, then cooking
 
 ------
 
-### <u>Setup</u>
+### <u>Snapshots</u>
 
-To run this project, you need to intsall keil version 4 -embedded system platform-
+![3](C:\Users\zeyad\Desktop\Embedded-System\Images\3.jpeg)
+
+![4](C:\Users\zeyad\Desktop\Embedded-System\Images\4.jpeg)
+
+![5](C:\Users\zeyad\Desktop\Embedded-System\Images\5.jpeg)
+
+![6](C:\Users\zeyad\Desktop\Embedded-System\Images\6.jpeg)
+
+![7](C:\Users\zeyad\Desktop\Embedded-System\Images\7.jpeg)
+
+![8](C:\Users\zeyad\Desktop\Embedded-System\Images\8.jpeg)
+
+![9](C:\Users\zeyad\Desktop\Embedded-System\Images\9.jpeg)
+
+![10](C:\Users\zeyad\Desktop\Embedded-System\Images\10.jpeg)
+
+![11](C:\Users\zeyad\Desktop\Embedded-System\Images\11.jpeg)
+
+![12](C:\Users\zeyad\Desktop\Embedded-System\Images\12.jpeg)
+
+![13](C:\Users\zeyad\Desktop\Embedded-System\Images\13.jpeg)
+
+![14](C:\Users\zeyad\Desktop\Embedded-System\Images\14.jpeg)
+
+![1](C:\Users\zeyad\Desktop\Embedded-System\Images\1.jpeg)
+
+![2](C:\Users\zeyad\Desktop\Embedded-System\Images\2.jpeg)
 
 ------
+
+### <u>Setup</u>
+
+To run this project, you need to intsall keil version 4 -embedded system platform-<u></u>
+
+------
+
+### <u>Live Demo</u> 
+
+To see live demo for project, follow this link:
+
+
+
+------
+
+
 
 ## <u>Contributors</u>
 
