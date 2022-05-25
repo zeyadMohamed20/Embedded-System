@@ -62,31 +62,35 @@ o If SW2 is pushed after the oven is paused and the door is closed, then cooking
 
 ![1](https://github.com/zeyadMohamed20/Embedded-System/blob/81faaffd82df053523447e2eb5eda6c6bcca78d0/Images/1.jpeg)
 
-![2](/images/2.jpeg)
+
+
+
+
+![2](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/2.jpeg)
 
 ![3](https://github.com/zeyadMohamed20/Embedded-System/blob/766bd3743133c125c03f12eeba293f8e9ac69298/Images/3.jpeg)
 
-![4](../images/4.jpeg)
+![4](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/4.jpeg)
 
-![5](../images/5.jpeg)
+![5](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/5.jpeg)
 
-![6](../images/6.jpeg)
+![6](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/6.jpeg)
 
-![7](../images/7.jpeg)
+![7](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/7.jpeg)
 
-![8](../images/8.jpeg)
+![8](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/8.jpeg)
 
-![9](../images/9.jpeg)
+![9](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/9.jpeg)
 
-![10](../images/10.jpeg)
+![10](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/10.jpeg)
 
-![11](../images/11.jpeg)
+![11](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/11.jpeg)
 
-![12](../images/12.jpeg)
+![12](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/12.jpeg)
 
-![13](../images/13.jpeg)
+![13](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/13.jpeg)
 
-![14](../images/14.jpeg)
+![14](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/14.jpeg)
 
 ------
 
