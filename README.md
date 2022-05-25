@@ -60,7 +60,7 @@ o If SW2 is pushed after the oven is paused and the door is closed, then cooking
 
 ### <u>Snapshots</u>
 
-![1](../images/1.jpeg)
+![images](../images/1.jpeg)
 
 ![2](../images/2.jpeg)
 
