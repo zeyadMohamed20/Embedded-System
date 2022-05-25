@@ -60,33 +60,33 @@ o If SW2 is pushed after the oven is paused and the door is closed, then cooking
 
 ### <u>Snapshots</u>
 
-![3](C:\Users\zeyad\Desktop\Embedded-System\Images\3.jpeg)
+![1](../images/1.jpeg)
 
-![4](C:\Users\zeyad\Desktop\Embedded-System\Images\4.jpeg)
+![2](../images/2.jpeg)
 
-![5](C:\Users\zeyad\Desktop\Embedded-System\Images\5.jpeg)
+![3](../images/3.jpeg)
 
-![6](C:\Users\zeyad\Desktop\Embedded-System\Images\6.jpeg)
+![4](../images/4.jpeg)
 
-![7](C:\Users\zeyad\Desktop\Embedded-System\Images\7.jpeg)
+![5](../images/5.jpeg)
 
-![8](C:\Users\zeyad\Desktop\Embedded-System\Images\8.jpeg)
+![6](../images/6.jpeg)
 
-![9](C:\Users\zeyad\Desktop\Embedded-System\Images\9.jpeg)
+![7](../images/7.jpeg)
 
-![10](C:\Users\zeyad\Desktop\Embedded-System\Images\10.jpeg)
+![8](../images/8.jpeg)
 
-![11](C:\Users\zeyad\Desktop\Embedded-System\Images\11.jpeg)
+![9](../images/9.jpeg)
 
-![12](C:\Users\zeyad\Desktop\Embedded-System\Images\12.jpeg)
+![10](../images/10.jpeg)
 
-![13](C:\Users\zeyad\Desktop\Embedded-System\Images\13.jpeg)
+![11](../images/11.jpeg)
 
-![14](C:\Users\zeyad\Desktop\Embedded-System\Images\14.jpeg)
+![12](../images/12.jpeg)
 
-![1](C:\Users\zeyad\Desktop\Embedded-System\Images\1.jpeg)
+![13](../images/13.jpeg)
 
-![2](C:\Users\zeyad\Desktop\Embedded-System\Images\2.jpeg)
+![14](../images/14.jpeg)
 
 ------
 
