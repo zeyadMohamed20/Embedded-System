@@ -68,6 +68,7 @@ char keypad_get_input(void)
 											   { '7' , '8' , '9' , 'C'}, 	// PD2		row_2	
 											   { '*' , '0' , '#' , 'D'}	  // PD3		row_3	
 	                      };
+	 lcd_cursor_on();
 // waiting pressing key
 	while(1)
 	{ 
@@ -81,6 +82,12 @@ char keypad_get_input(void)
 			lcd_setposition(2, 7);
 			lcd_display("00:00");
 			clear_time_array();
+		}
+		
+		// If sw2 pressed --> exit from keyPad
+		if((GPIO_PORTF_DATA_R & 0x01) == 0 && currentState != CHOOSE_MISSION && currentState != SET_KILO)	
+		{
+			break;
 		}
 		
 		// looping and set each row high individually
@@ -98,6 +105,10 @@ char keypad_get_input(void)
 					GPIO_PORTD_DATA_R &=~ GPIO_PORTD_PIN0_3;
 					// GPIO_PORTE_DATA_R &=~ GPIO_PORTE_PIN1_4;
 					// return the corresponding value of pressed key
+					buzzer_on();
+					delay(MILLI_SECOND, 60);
+					buzzer_off();
+					lcd_cursor_off();
 					return values[row][column];
 				}
 			}

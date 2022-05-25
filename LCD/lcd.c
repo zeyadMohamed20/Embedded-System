@@ -108,7 +108,6 @@ void lcd_shiftR(uint32_t shift)
 	uint32_t i = 0;
 	while(i < shift)
 	{
-		//delay(MILLI_SECOND, 700);	 
 		lcd_cmd(0x14);
 		i++;
 	}
@@ -131,4 +130,15 @@ void lcd_blink(char *str)
 	lcd_display(str);
 	delay(MILLI_SECOND, 150);
 	lcd_clear();
+}
+
+
+void lcd_cursor_on(void)
+{
+	lcd_cmd(0x0F);
+}
+
+void lcd_cursor_off(void)
+{
+	lcd_cmd(0x0C);
 }

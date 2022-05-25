@@ -25,7 +25,6 @@ void portA_initialization(void);//initiallizing port a
 //void GPIOA_Handler(void); //interrupt push button//
 void leds_on(void);
 void leds_off(void);
-void leds_toggle(void);
 void buzzer_on(void);
 void buzzer_off(void);	
 void leds_buzzer_blink(uint8_t numberOfBlink,unit onDelay,uint32_t delayTimeOn,unit offDelay,uint32_t delayTimeOff);

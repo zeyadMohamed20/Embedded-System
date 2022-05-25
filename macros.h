@@ -165,13 +165,14 @@ Copyright (C) 2022. All rights reserved.
 #define COUNT_FLAG_BIT (1 << 16)
 //*************************************************************************************************************************
 
-//*********************************** Integration Constant Macros *******************************************************************************
+//*********************************** Integration Constant Macros *********************************************************************************************************************************************************************************
 #define BEAF_SECONDS_PER_KILO					0.5 * 60			// Use this to claculate the time total time in seconds according to beaf weight entered 
 #define CHICKEN_SECONDS_PER_KILO 			0.2 * 60			// Use this to claculate the time total time in seconds according to chicken weight entered 
 #define BLINK_FINISH_COOKING					3							// LEDs, buzzer, LCD blink three times after cooking time ends
 #define DELAY_FINISH_COOKING					500						// The delay constant is 500 milli-second
 #define MINUTE_30 (timeArray[0] == '3' && timeArray[1] == '0' &&timeArray[3] == '0' &&timeArray[4] == '0')		// 30:00
 #define MINUTE_0  (timeArray[0] == '0' && timeArray[1] == '0' &&timeArray[3] == '0' &&timeArray[4] == '0')		// 00:00
-//************************************************************************************************************************************************
+#define VALID_TIME ((timeArray[0] < '3' && timeArray[0] >= '0') || (MINUTE_30)) && (timeArray[1] <= '9' && timeArray[1] >= '0') && (timeArray[3]< '6' && timeArray[3] >= '0') && (timeArray[4] <= '9' && timeArray[4] >= '0') && (!MINUTE_0)
+//*************************************************************************************************************************************************************************************************************************************************
 
 #endif

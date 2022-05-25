@@ -58,11 +58,57 @@ o If SW2 is pushed after the oven is paused and the door is closed, then cooking
 
 ------
 
-### <u>Setup</u>
+### <u>Snapshots</u>
 
-To run this project, you need to intsall keil version 4 -embedded system platform-
+![1](https://github.com/zeyadMohamed20/Embedded-System/blob/81faaffd82df053523447e2eb5eda6c6bcca78d0/Images/1.jpeg)
+
+
+
+
+
+![2](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/2.jpeg)
+
+![3](https://github.com/zeyadMohamed20/Embedded-System/blob/766bd3743133c125c03f12eeba293f8e9ac69298/Images/3.jpeg)
+
+![4](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/4.jpeg)
+
+![5](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/5.jpeg)
+
+![6](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/6.jpeg)
+
+![7](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/7.jpeg)
+
+![8](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/8.jpeg)
+
+![9](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/9.jpeg)
+
+![10](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/10.jpeg)
+
+![11](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/11.jpeg)
+
+![12](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/12.jpeg)
+
+![13](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/13.jpeg)
+
+![14](https://github.com/zeyadMohamed20/Embedded-System/blob/a993c3cddb31e85b62509401ba6870e9e5e0bcd9/Images/14.jpeg)
 
 ------
+
+### <u>Setup</u>
+
+To run this project, you need to intsall keil version 4 -embedded system platform-<u></u>
+
+------
+
+### <u>Live Demo</u> 
+
+To see live demo for project, follow this link:
+
+[Microwave Oven Project](https://drive.google.com/file/d/1KrxMvMnRXaJ13AiD_3c6kdorRJMfMoqv/view?usp=sharing)
+
+------
+
+
 
 ## <u>Contributors</u>
 
